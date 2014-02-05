@@ -1,11 +1,8 @@
-grammar MetaCode;
-
-init	:	(NUMBER NEWLINE?)+
-		;
+lexer grammar MetaCodeLexer;
 
 WHITESPACE	:	[ \t]+ -> skip
 			;
-NEWLINE		:	'\r'? '\n' -> skip
+NEWLINE		:	[\r]? [\n] -> skip
 			;
 
 NUMBER	:	INT
@@ -17,8 +14,8 @@ INT		:	DIGIT+
 		;
 
 fragment
-FLOAT	:	DIGIT+ '.' DIGIT*
-		|	'.' DIGIT+
+FLOAT	:	DIGIT+ [.] DIGIT*
+		|	[.] DIGIT+
 		;
  
 fragment 

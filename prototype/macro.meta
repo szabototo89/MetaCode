@@ -1,0 +1,25 @@
+selector class-methods = class > method
+selector if-conditions = if > condition
+selector class-by-name[className] = class[name=className]
+
+macro printMethods(methods: class > method[name="func*"]) : * do
+	foreach (method in methods) do
+		Console.WriteLine(method.text)
+	end 
+	methods
+end
+
+//default return 'type' : *
+macro negateConditionsOfIf(condition : if-conditions) do
+	
+end
+
+macro negateConditionsOfIf(condition : if > condition) : if do
+	
+end
+
+macro generateToStringMethod(c : class) : class do
+	(c > method).addMethod({ 
+		public function toString() : String = c.name
+	})
+end
