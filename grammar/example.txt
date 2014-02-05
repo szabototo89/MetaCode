@@ -1,4 +1,9 @@
-545
-18.
-.8
-3.14
+const not-null var a =  if ("Hello World") 
+							18
+						else if (false)
+							78
+						else if (true)
+							if (false) "lkj" end
+						else false end
+
+not-null b = 15 if (6)
