@@ -94,4 +94,26 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInit(@NotNull MetaCodeParser.InitContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#attributes}.
+	 * @param ctx the parse tree
+	 */
+	void enterAttributes(@NotNull MetaCodeParser.AttributesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#attributes}.
+	 * @param ctx the parse tree
+	 */
+	void exitAttributes(@NotNull MetaCodeParser.AttributesContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#blockExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlockExpression(@NotNull MetaCodeParser.BlockExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#blockExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlockExpression(@NotNull MetaCodeParser.BlockExpressionContext ctx);
 }

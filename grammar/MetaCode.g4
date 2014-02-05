@@ -11,16 +11,21 @@ statement			: 	expression
 					|	NEWLINE
 					;
 
-variableDeclaration	:	ID* VAR ID (':' ID)? ASSIGN expression
+variableDeclaration	:	VAR ID (':' ID)? ASSIGN expression
 					;
 
-expression			:	constant
-					|	ifExpression
-					|	assignExpression
-					|	'(' expression ')'
+expression			:	attributes? constant
+					|	attributes? SKIP
+					|	attributes? blockExpression
+					|	attributes? ifExpression
+					|	attributes? assignExpression
+					|	attributes? '(' expression ')'
 					;
 
-assignExpression	:	(ID)* ID ASSIGN expression (IF '(' expression ')')?
+blockExpression		:	DO statements END
+					;
+
+assignExpression	:	ID ASSIGN expression (attributes? IF '(' expression ')')?
 					;
 
 ifExpression		:	IF '(' expression ')' statements 
@@ -34,6 +39,9 @@ constant			:	NUMBER
 					|	BOOLEAN
 					;
 
+attributes			:	ID+
+					;
+
 /*
  * Lexical rules
 **/
@@ -42,11 +50,15 @@ IF 		: 	'if';
 
 ELSE 	:	'else';
 
+DO  	:	'do';
+
 END 	:	'end';
 
 BOOLEAN	:	'false'
 		|	'true'
 		;
+
+SKIP  	: 	'skip';
 
 VAR		:	'var';
 

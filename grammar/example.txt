@@ -1,3 +1,9 @@
+a = unless (false) do 
+		5 
+	end
+
+strict if ("hello world") 18 end
+
 const not-null var a =  if ("Hello World") 
 							18
 						else if (false)

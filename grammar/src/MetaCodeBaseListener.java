@@ -120,6 +120,32 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterAttributes(@NotNull MetaCodeParser.AttributesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitAttributes(@NotNull MetaCodeParser.AttributesContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterBlockExpression(@NotNull MetaCodeParser.BlockExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitBlockExpression(@NotNull MetaCodeParser.BlockExpressionContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterEveryRule(@NotNull ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -65,4 +65,18 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitInit(@NotNull MetaCodeParser.InitContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#attributes}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAttributes(@NotNull MetaCodeParser.AttributesContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#blockExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlockExpression(@NotNull MetaCodeParser.BlockExpressionContext ctx);
 }

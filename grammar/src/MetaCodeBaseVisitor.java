@@ -74,4 +74,20 @@ public class MetaCodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitInit(@NotNull MetaCodeParser.InitContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitAttributes(@NotNull MetaCodeParser.AttributesContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitBlockExpression(@NotNull MetaCodeParser.BlockExpressionContext ctx) { return visitChildren(ctx); }
 }
