@@ -1,10 +1,6 @@
-a = unless (false) do 
-		5 
-	end
+@strict if ("hello world") 18 end
 
-strict if ("hello world") 18 end
-
-const not-null var a =  if ("Hello World") 
+@const[false] @not-null var a =  if ("Hello World") 
 							18
 						else if (false)
 							78
@@ -12,4 +8,4 @@ const not-null var a =  if ("Hello World")
 							if (false) "lkj" end
 						else false end
 
-not-null b = 15 if (6)
+@not-null b = 15 if (6)

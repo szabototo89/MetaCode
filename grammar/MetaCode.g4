@@ -11,7 +11,7 @@ statement			: 	expression
 					|	NEWLINE
 					;
 
-variableDeclaration	:	VAR ID (':' ID)? ASSIGN expression
+variableDeclaration	:	attributes? VAR ID (':' ID)? ASSIGN expression
 					;
 
 expression			:	attributes? constant
@@ -39,7 +39,11 @@ constant			:	NUMBER
 					|	BOOLEAN
 					;
 
-attributes			:	ID+
+attributes			:	attribute+
+					;
+
+attribute			:	ATTRIBUTE_ID 
+					|	ATTRIBUTE_ID '[' constant (',' constant)* ']'
 					;
 
 /*
@@ -67,7 +71,7 @@ ASSIGN 	:	'=';
 ID		:	(LETTER|'_') (LETTER|'_'|'-'|[0-9])*
 		;
 
-ATTRIBUTE_ID	:	(LETTER|'_') (LETTER|'_'|'-'|[0-9])*;
+ATTRIBUTE_ID	: 	'@' (LETTER|'_') (LETTER|'_'|'-'|[0-9])*;
 
 fragment
 LETTER	:	[a-zA-Z]

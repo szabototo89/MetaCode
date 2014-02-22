@@ -60,6 +60,13 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitAssignExpression(@NotNull MetaCodeParser.AssignExpressionContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#attribute}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAttribute(@NotNull MetaCodeParser.AttributeContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#init}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

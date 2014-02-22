@@ -107,6 +107,19 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterAttribute(@NotNull MetaCodeParser.AttributeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitAttribute(@NotNull MetaCodeParser.AttributeContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterInit(@NotNull MetaCodeParser.InitContext ctx) { }
 	/**
 	 * {@inheritDoc}
