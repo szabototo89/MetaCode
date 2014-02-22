@@ -1,4 +1,4 @@
-@strict if ("hello world") 18 end
+/*@strict if ("hello world") 18 end
 
 @const[false] @not-null var a =  if ("Hello World") 
 							18
@@ -8,4 +8,11 @@
 							if (false) "lkj" end
 						else false end
 
-@not-null b = 15 if (6)
+@not-null b = 15 if (6)*/
+
+/*@lazy foreach (var id : String in @strict if ("Hello World") 18 else 35 end)
+	@lazy-load foreach (id2 in 34) 35*/
+
+var func = function(@optional number: @not-null Integer) : Integer do 
+	35 
+end

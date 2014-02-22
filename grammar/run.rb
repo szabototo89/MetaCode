@@ -7,5 +7,5 @@ example = if ARGV[0].nil?
 puts "Running MetaCode parser ..."
 Dir.mkdir("src") if not Dir.exists? "src"
 Dir.chdir("src")
-system('call antlr4 "../MetaCode.g4" -visitor')
+system('call antlr4 "../MetaCode.g4" -csharp')
 system('call grun MetaCode init -gui ..\\' + example)
