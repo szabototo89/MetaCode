@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractTree\INode.cs" />
     <Compile Include="Grammar\MetaCode.g4.lexer.cs">
       <DependentUpon>MetaCode.g4</DependentUpon>
     </Compile>
@@ -89,6 +90,7 @@
       <Name>MetaCode.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
