@@ -7,6 +7,7 @@ namespace MetaCode.Compiler.AbstractTree
         #region Public properties
 
         public Type Type { get; internal set; }
+
         public TValue Value { get; internal set; }
 
         #endregion

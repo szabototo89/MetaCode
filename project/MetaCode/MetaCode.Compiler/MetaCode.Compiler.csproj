@@ -45,11 +45,15 @@
   <ItemGroup>
     <Compile Include="AbstractTree\ArrayConstantLiteralNode.cs" />
     <Compile Include="AbstractTree\BooleanConstantLiteralNode.cs" />
+    <Compile Include="AbstractTree\ConstantExpressionNode.cs" />
     <Compile Include="AbstractTree\ConstantLiteralNode.cs" />
+    <Compile Include="AbstractTree\ExpressionNode.cs" />
+    <Compile Include="AbstractTree\IAttributeNode.cs" />
     <Compile Include="AbstractTree\IConstantLiteralNode.cs" />
     <Compile Include="AbstractTree\IExpressionNode.cs" />
     <Compile Include="AbstractTree\INode.cs" />
     <Compile Include="AbstractTree\Node.cs" />
+    <Compile Include="AbstractTree\NodeHelper.cs" />
     <Compile Include="AbstractTree\NumberConstantLiteralNode.cs" />
     <Compile Include="AbstractTree\StringConstantLiteralNode.cs" />
     <Compile Include="Grammar\MetaCode.g4.lexer.cs">
@@ -74,8 +78,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Visitors\AbstractTreeVisitor.cs" />
+    <Compile Include="Visitors\AbstractTreeVisitor.Constants.cs" />
     <Compile Include="Visitors\AttributeVisitor.cs" />
+    <Compile Include="Visitors\AbstractTreeVisitor.Expressions.cs" />
     <Compile Include="Visitors\NumberVisitor.cs" />
   </ItemGroup>
   <ItemGroup>

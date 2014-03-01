@@ -35,9 +35,7 @@ namespace MetaCode.Compiler.Tests
         {
             // GIVE in setup
             var source = MultiLine(
-                "var apple = 13;",
-                "var text = \"Hello World!\"",
-                "var array = [1, 2, true]"
+                "var array = abs(1dsg0)"
             );
             // WHEN
             var result = ParseWithAbstractTreeVisitor(Compiler, source);

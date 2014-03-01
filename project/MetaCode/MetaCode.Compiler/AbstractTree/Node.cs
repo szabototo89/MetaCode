@@ -9,7 +9,12 @@ namespace MetaCode.Compiler.AbstractTree
             Children = new List<INode>();
         }
 
-        public INode Parent { get; protected set; }
+        internal void SetParent(INode parent)
+        {
+            Parent = parent;
+        }
+
+        public INode Parent { get; internal set; }
 
         public List<INode> Children { get; protected set; }
     }

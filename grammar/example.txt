@@ -16,3 +16,5 @@
 var func = function(@optional number: @not-null Integer) : Integer do 
 	35 
 end
+
+Hello.World(Hello.World)

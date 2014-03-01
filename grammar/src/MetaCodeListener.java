@@ -1,4 +1,4 @@
-// Generated from ../MetaCode.g4 by ANTLR 4.1
+// Generated from ../MetaCode.g4 by ANTLR 4.2
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -17,6 +17,116 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExpression(@NotNull MetaCodeParser.ExpressionContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#formalParameter}.
+	 * @param ctx the parse tree
+	 */
+	void enterFormalParameter(@NotNull MetaCodeParser.FormalParameterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#formalParameter}.
+	 * @param ctx the parse tree
+	 */
+	void exitFormalParameter(@NotNull MetaCodeParser.FormalParameterContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#attribute}.
+	 * @param ctx the parse tree
+	 */
+	void enterAttribute(@NotNull MetaCodeParser.AttributeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#attribute}.
+	 * @param ctx the parse tree
+	 */
+	void exitAttribute(@NotNull MetaCodeParser.AttributeContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#intervalConstant}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntervalConstant(@NotNull MetaCodeParser.IntervalConstantContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#intervalConstant}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntervalConstant(@NotNull MetaCodeParser.IntervalConstantContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#variableDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableDeclaration(@NotNull MetaCodeParser.VariableDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#variableDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableDeclaration(@NotNull MetaCodeParser.VariableDeclarationContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#statements}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatements(@NotNull MetaCodeParser.StatementsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#statements}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatements(@NotNull MetaCodeParser.StatementsContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#whileExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhileExpression(@NotNull MetaCodeParser.WhileExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#whileExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhileExpression(@NotNull MetaCodeParser.WhileExpressionContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#actualParameterList}.
+	 * @param ctx the parse tree
+	 */
+	void enterActualParameterList(@NotNull MetaCodeParser.ActualParameterListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#actualParameterList}.
+	 * @param ctx the parse tree
+	 */
+	void exitActualParameterList(@NotNull MetaCodeParser.ActualParameterListContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#formalParameterList}.
+	 * @param ctx the parse tree
+	 */
+	void enterFormalParameterList(@NotNull MetaCodeParser.FormalParameterListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#formalParameterList}.
+	 * @param ctx the parse tree
+	 */
+	void exitFormalParameterList(@NotNull MetaCodeParser.FormalParameterListContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#elseIfExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseIfExpression(@NotNull MetaCodeParser.ElseIfExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#elseIfExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseIfExpression(@NotNull MetaCodeParser.ElseIfExpressionContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#functionExpression}.
@@ -41,6 +151,17 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitConstant(@NotNull MetaCodeParser.ConstantContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#booleanConstant}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanConstant(@NotNull MetaCodeParser.BooleanConstantContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#booleanConstant}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanConstant(@NotNull MetaCodeParser.BooleanConstantContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#assignmentExpression}.
 	 * @param ctx the parse tree
 	 */
@@ -63,17 +184,6 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitIfExpression(@NotNull MetaCodeParser.IfExpressionContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#attribute}.
-	 * @param ctx the parse tree
-	 */
-	void enterAttribute(@NotNull MetaCodeParser.AttributeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#attribute}.
-	 * @param ctx the parse tree
-	 */
-	void exitAttribute(@NotNull MetaCodeParser.AttributeContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#init}.
 	 * @param ctx the parse tree
 	 */
@@ -83,6 +193,17 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInit(@NotNull MetaCodeParser.InitContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#numberConstant}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberConstant(@NotNull MetaCodeParser.NumberConstantContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#numberConstant}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberConstant(@NotNull MetaCodeParser.NumberConstantContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#blockExpression}.
@@ -96,17 +217,6 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitBlockExpression(@NotNull MetaCodeParser.BlockExpressionContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#typeName}.
-	 * @param ctx the parse tree
-	 */
-	void enterTypeName(@NotNull MetaCodeParser.TypeNameContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#typeName}.
-	 * @param ctx the parse tree
-	 */
-	void exitTypeName(@NotNull MetaCodeParser.TypeNameContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#statement}.
 	 * @param ctx the parse tree
 	 */
@@ -118,15 +228,15 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitStatement(@NotNull MetaCodeParser.StatementContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#variableDeclaration}.
+	 * Enter a parse tree produced by {@link MetaCodeParser#typeName}.
 	 * @param ctx the parse tree
 	 */
-	void enterVariableDeclaration(@NotNull MetaCodeParser.VariableDeclarationContext ctx);
+	void enterTypeName(@NotNull MetaCodeParser.TypeNameContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#variableDeclaration}.
+	 * Exit a parse tree produced by {@link MetaCodeParser#typeName}.
 	 * @param ctx the parse tree
 	 */
-	void exitVariableDeclaration(@NotNull MetaCodeParser.VariableDeclarationContext ctx);
+	void exitTypeName(@NotNull MetaCodeParser.TypeNameContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#foreachExpression}.
@@ -140,37 +250,15 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitForeachExpression(@NotNull MetaCodeParser.ForeachExpressionContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#parameter}.
+	 * Enter a parse tree produced by {@link MetaCodeParser#functionCallExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterParameter(@NotNull MetaCodeParser.ParameterContext ctx);
+	void enterFunctionCallExpression(@NotNull MetaCodeParser.FunctionCallExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#parameter}.
+	 * Exit a parse tree produced by {@link MetaCodeParser#functionCallExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitParameter(@NotNull MetaCodeParser.ParameterContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#statements}.
-	 * @param ctx the parse tree
-	 */
-	void enterStatements(@NotNull MetaCodeParser.StatementsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#statements}.
-	 * @param ctx the parse tree
-	 */
-	void exitStatements(@NotNull MetaCodeParser.StatementsContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#parameterList}.
-	 * @param ctx the parse tree
-	 */
-	void enterParameterList(@NotNull MetaCodeParser.ParameterListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#parameterList}.
-	 * @param ctx the parse tree
-	 */
-	void exitParameterList(@NotNull MetaCodeParser.ParameterListContext ctx);
+	void exitFunctionCallExpression(@NotNull MetaCodeParser.FunctionCallExpressionContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#attributes}.
@@ -184,24 +272,24 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitAttributes(@NotNull MetaCodeParser.AttributesContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#whileExpression}.
+	 * Enter a parse tree produced by {@link MetaCodeParser#arrayConstant}.
 	 * @param ctx the parse tree
 	 */
-	void enterWhileExpression(@NotNull MetaCodeParser.WhileExpressionContext ctx);
+	void enterArrayConstant(@NotNull MetaCodeParser.ArrayConstantContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#whileExpression}.
+	 * Exit a parse tree produced by {@link MetaCodeParser#arrayConstant}.
 	 * @param ctx the parse tree
 	 */
-	void exitWhileExpression(@NotNull MetaCodeParser.WhileExpressionContext ctx);
+	void exitArrayConstant(@NotNull MetaCodeParser.ArrayConstantContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#array}.
+	 * Enter a parse tree produced by {@link MetaCodeParser#stringConstant}.
 	 * @param ctx the parse tree
 	 */
-	void enterArray(@NotNull MetaCodeParser.ArrayContext ctx);
+	void enterStringConstant(@NotNull MetaCodeParser.StringConstantContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#array}.
+	 * Exit a parse tree produced by {@link MetaCodeParser#stringConstant}.
 	 * @param ctx the parse tree
 	 */
-	void exitArray(@NotNull MetaCodeParser.ArrayContext ctx);
+	void exitStringConstant(@NotNull MetaCodeParser.StringConstantContext ctx);
 }

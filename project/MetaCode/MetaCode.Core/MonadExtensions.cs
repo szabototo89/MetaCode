@@ -8,6 +8,12 @@ namespace MetaCode.Core
 {
     public static class MonadExtensions
     {
+        public static TValue Coalesce<TValue>(this TValue value, TValue defaultValue)
+            where TValue : class
+        {
+            return value ?? defaultValue;
+        }
+
         public static TResult As<TResult>(this object value)
             where TResult : class
         {

@@ -3,76 +3,102 @@ grammar MetaCode;
 init				:	statements
 					;
 
-statements			:	(statement)+
+statements			:	Values=statement+
 					;
 
-statement			: 	expression
-					|	variableDeclaration
+statement			: 	Expression=expression
+					|	VariableDeclaration=variableDeclaration
 					|	NEWLINE
 					;
 
-variableDeclaration	:	attributes? VAR ID (':' typeName)? ASSIGN expression
+variableDeclaration	:	Attributes=attributes? VAR VariableName=ID (':' VariableType=typeName)? ASSIGN VariableDefaultValue=expression
 					;
 
-expression			:	attributes? constant
-					|	attributes? SKIP
-					|	attributes? functionExpression
-					|	attributes? blockExpression
-					|	attributes? ifExpression
-					|	attributes? foreachExpression
-					|	attributes? whileExpression
-					|	attributes? assignmentExpression
-					|	attributes? '(' expression ')'
+expression			:	Attributes=attributes? Constant=constant
+ 					|	Attributes=attributes? primaryExpression
+ 					|	Attributes=attributes? Skip=SKIP
+					|	Attributes=attributes? Function=functionExpression
+					|	Attributes=attributes? Block=blockExpression
+					|	Attributes=attributes? If=ifExpression
+					|	Attributes=attributes? Foreach=foreachExpression
+					|	Attributes=attributes? While=whileExpression
+					|	Attributes=attributes? Assignment=assignmentExpression
+					|	Attributes=attributes? '(' InnerExpression=expression ')'
 					;
 
-functionExpression	:	FUNCTION ID? '(' parameterList? ')' (':' typeName)? DO statements END
-					|	FUNCTION ID? '(' parameterList? ')' (':' typeName)? '=' expression
+primaryExpression	:	ID '.' primaryExpression
+					|	ID
+					|	ID '(' actualParameterList? ')'
+					|	ID '(' actualParameterList? ')' '.' primaryExpression
 					;
 
-foreachExpression	: 	FOREACH '(' ID IN expression ')' expression
-					| 	FOREACH '(' VAR ID ':' ID IN expression ')' expression
+functionCallExpression	:	ID '(' actualParameterList? ')'
+						;
+
+functionExpression	:	FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
+					|	FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? '=' BodyExpression=expression
 					;
 
-whileExpression		: 	WHILE '(' expression ')' expression
+foreachExpression	: 	FOREACH '(' ID IN expression ')' Body=expression
+					| 	FOREACH '(' VAR ID ':' ID IN expression ')' Body=expression
 					;
 
-blockExpression		:	DO statements END
+whileExpression		: 	WHILE '(' ConditionExpression=expression ')' Body=expression
 					;
 
-assignmentExpression:	ID ASSIGN expression (attributes? IF '(' expression ')')?
+blockExpression		:	DO Body=statements END
 					;
 
-ifExpression		:	IF '(' expression ')' statements 
-						(ELSE IF '(' expression ')' statements)*
-						(ELSE statements)? 
+assignmentExpression:	Variable=ID ASSIGN Value=expression (ConditionalAttributes=attributes? IF '(' ConditionalExpression=expression ')')?
+					;
+
+ifExpression		:	IF '(' Condition=expression ')' statements 
+						ElseIfExpressions=elseIfExpression*
+						(ELSE ElseStatements=statements)? 
 						END
 					;
 
-parameterList		:	parameter (',' parameter)*
+elseIfExpression	:   ELSE IF '(' expression ')' statements
 					;
 
-parameter 			:	attributes? ID ':' typeName
+formalParameterList	:	formalParameter (',' formalParameter)*
+					;
+
+formalParameter		:	attributes? ID ':' typeName
 					;					
+
+actualParameterList	:	expression (',' expression)*
+					;
 
 typeName			: 	attributes? ID
 					;
 
-constant			:	NUMBER
-					|	STRING
-					|	BOOLEAN
-					|	array
+constant			:	Number=numberConstant
+					|	String=stringConstant
+					|	Boolean=booleanConstant
+					|	Array=arrayConstant
+					|	Interval=intervalConstant
 					;
 
-array				:	'[' expression (',' expression)* ']'
+numberConstant		:	NUMBER;
+
+stringConstant		:	STRING;
+
+booleanConstant		:	BOOLEAN;
+
+arrayConstant		:	'[' expression (',' expression)* ']'
 					|	'[' ']'
+					; 
+
+intervalConstant	:	Start=NUMBER '..' End=NUMBER ('by' By=NUMBER)
 					;
 
 attributes			:	attribute+
 					;
 
-attribute			:	ATTRIBUTE_ID 
-					|	ATTRIBUTE_ID '[' constant (',' constant)* ']'
-					;
+attribute			:	Name=ATTRIBUTE_ID 
+					|	Name=ATTRIBUTE_ID '[' constant (',' constant)* ']'
+					; 
 
 /*
  * Lexical rules

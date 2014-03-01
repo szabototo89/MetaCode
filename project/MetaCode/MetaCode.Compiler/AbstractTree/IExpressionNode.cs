@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace MetaCode.Compiler.AbstractTree
 {
@@ -7,6 +8,11 @@ namespace MetaCode.Compiler.AbstractTree
     {
         Type Type { get; }
 
-        List<IAttributeNode> Attributes { get; }
+        IEnumerable<IAttributeNode> Attributes { get; }
+    }
+
+    public interface IConstantExpressionNode : IExpressionNode
+    {
+        IConstantLiteralNode Constant { get; }
     }
 }

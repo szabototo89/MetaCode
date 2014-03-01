@@ -8,10 +8,13 @@ namespace MetaCode.Compiler.AbstractTree
     {
         #region Constructors
 
-        public ArrayConstantLiteralNode(IExpressionNode[] value)
-            : base(value, typeof(IEnumerable))
+        public ArrayConstantLiteralNode(IExpressionNode[] values)
+            : base(values, typeof(IEnumerable))
         {
-
+            foreach (var node in values.OfType<Node>()) {
+                node.SetParent(this);
+            }
+            Children.AddRange(values);
         }
 
         #endregion

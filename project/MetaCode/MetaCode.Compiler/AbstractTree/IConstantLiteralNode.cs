@@ -3,10 +3,13 @@ using System.Runtime.InteropServices;
 
 namespace MetaCode.Compiler.AbstractTree
 {
-    public interface IConstantLiteralNode<out TValue> : INode
+    public interface IConstantLiteralNode : INode
     {
         Type Type { get; }
+    }
 
+    public interface IConstantLiteralNode<out TValue> : IConstantLiteralNode
+    {
         TValue Value { get; }
     }
 

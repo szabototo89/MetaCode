@@ -11,7 +11,7 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.Visitors
 {
-    public class AbstractTreeVisitor : MetaCodeBaseVisitor<INode>
+    public partial class AbstractTreeVisitor : MetaCodeBaseVisitor<INode>
     {
         #region Constants Visitor methods
 
@@ -47,9 +47,10 @@ namespace MetaCode.Compiler.Visitors
             var text = context.GetText();
             var expressions = context.expression()
                 .Select(expression => expression.Accept(this))
-                .OfType<IExpressionNode>();
+                .OfType<IExpressionNode>()
+                .ToArray();
 
-            return base.VisitArrayConstant(context);
+            return new ArrayConstantLiteralNode(expressions);
         }
 
         public override INode VisitConstant(MetaCodeParser.ConstantContext context)
@@ -60,15 +61,6 @@ namespace MetaCode.Compiler.Visitors
                           context.Array.As<ParserRuleContext>() ??
                           context.Interval.As<ParserRuleContext>()).Accept(this);
             return result;
-        }
-
-        #endregion
-
-        #region Expression Visitor methods
-
-        public override INode VisitExpression(MetaCodeParser.ExpressionContext context)
-        {
-            return base.VisitExpression(context);
         }
 
         #endregion

@@ -15,6 +15,7 @@ variableDeclaration	:	Attributes=attributes? VAR VariableName=ID (':' VariableTy
 					;
 
 expression			:	Attributes=attributes? Constant=constant
+					|	Attributes=attributes? functionCallExpression
 					|	Attributes=attributes? Skip=SKIP
 					|	Attributes=attributes? Function=functionExpression
 					|	Attributes=attributes? Block=blockExpression
@@ -25,8 +26,11 @@ expression			:	Attributes=attributes? Constant=constant
 					|	Attributes=attributes? '(' InnerExpression=expression ')'
 					;
 
-functionExpression	:	FUNCTION FunctionName=ID? '(' Parameters=parameterList? ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
-					|	FUNCTION FunctionName=ID? '(' Parameters=parameterList? ')' (':' ReturnType=typeName)? '=' BodyExpression=expression
+functionCallExpression	:	ID '(' actualParameterList? ')'
+						;
+
+functionExpression	:	FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
+					|	FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? '=' BodyExpression=expression
 					;
 
 foreachExpression	: 	FOREACH '(' ID IN expression ')' Body=expression
@@ -51,11 +55,14 @@ ifExpression		:	IF '(' Condition=expression ')' statements
 elseIfExpression	:   ELSE IF '(' expression ')' statements
 					;
 
-parameterList		:	parameter (',' parameter)*
+formalParameterList	:	formalParameter (',' formalParameter)*
 					;
 
-parameter 			:	attributes? ID ':' typeName
+formalParameter		:	attributes? ID ':' typeName
 					;					
+
+actualParameterList	:	expression (',' expression)*
+					;
 
 typeName			: 	attributes? ID
 					;
