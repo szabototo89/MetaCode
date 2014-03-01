@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace MetaCode.Compiler.Tests
 {
     [TestFixture]
-    class MyVisitorTestFixture
+    class MyVisitorCompilerTestFixture : CompilerTestFixtureBase
     {
         public MetaCodeCompiler Compiler { get; set; }
 
@@ -25,6 +25,15 @@ namespace MetaCode.Compiler.Tests
         {
             Compiler.Parse("var func = function(@optional number: @not-null Integer) : Integer do 35 end \n" +
                            "var a = 24");
+        }
+
+        [Test]
+        public void MyVisitorTest2()
+        {
+            Compiler.Parse(
+                MultiLine("var h = 10;",
+                          "var abba = function() : Integer do 35 end")
+            );
         }
     }
 }

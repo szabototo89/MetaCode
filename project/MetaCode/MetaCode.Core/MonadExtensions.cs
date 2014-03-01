@@ -24,7 +24,8 @@ namespace MetaCode.Core
         public static TResult With<TValue, TResult>(this TValue item, Func<TValue, TResult> selector)
             where TValue : class
         {
-            if (selector == null) throw new ArgumentNullException("selector");
+            if (selector == null)
+                throw new ArgumentNullException("selector");
 
             if (item != null)
                 return selector(item);

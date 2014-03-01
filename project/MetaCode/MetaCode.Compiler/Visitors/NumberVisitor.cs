@@ -14,12 +14,5 @@ namespace MetaCode.Compiler.Visitors
         {
             return base.VisitFunctionExpression(context);
         }
-
-        public override double VisitConstant(MetaCodeParser.ConstantContext context)
-        {
-            Console.WriteLine(context.NUMBER().With(number => number.GetText()));
-
-            return base.VisitConstant(context);
-        }
     }
 }

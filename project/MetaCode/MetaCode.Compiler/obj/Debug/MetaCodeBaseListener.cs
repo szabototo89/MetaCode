@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
+// Generated from E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -73,17 +73,17 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	public virtual void ExitConstant([NotNull] MetaCodeParser.ConstantContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.interval"/>.
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.booleanConstant"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterInterval([NotNull] MetaCodeParser.IntervalContext context) { }
+	public virtual void EnterBooleanConstant([NotNull] MetaCodeParser.BooleanConstantContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.interval"/>.
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.booleanConstant"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitInterval([NotNull] MetaCodeParser.IntervalContext context) { }
+	public virtual void ExitBooleanConstant([NotNull] MetaCodeParser.BooleanConstantContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.assignmentExpression"/>.
@@ -136,6 +136,32 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitInit([NotNull] MetaCodeParser.InitContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.intervalConstant"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIntervalConstant([NotNull] MetaCodeParser.IntervalConstantContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.intervalConstant"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIntervalConstant([NotNull] MetaCodeParser.IntervalConstantContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.numberConstant"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNumberConstant([NotNull] MetaCodeParser.NumberConstantContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.numberConstant"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNumberConstant([NotNull] MetaCodeParser.NumberConstantContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.blockExpression"/>.
@@ -255,6 +281,19 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	public virtual void ExitAttributes([NotNull] MetaCodeParser.AttributesContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.arrayConstant"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterArrayConstant([NotNull] MetaCodeParser.ArrayConstantContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.arrayConstant"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitArrayConstant([NotNull] MetaCodeParser.ArrayConstantContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.whileExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -268,6 +307,19 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	public virtual void ExitWhileExpression([NotNull] MetaCodeParser.WhileExpressionContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.stringConstant"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterStringConstant([NotNull] MetaCodeParser.StringConstantContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.stringConstant"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitStringConstant([NotNull] MetaCodeParser.StringConstantContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.elseIfExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -279,19 +331,6 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitElseIfExpression([NotNull] MetaCodeParser.ElseIfExpressionContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.array"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterArray([NotNull] MetaCodeParser.ArrayContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.array"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitArray([NotNull] MetaCodeParser.ArrayContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>

@@ -1,6 +1,6 @@
-E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeLexer.cs
-E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeParser.cs
-E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeListener.cs
-E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeBaseListener.cs
-E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeVisitor.cs
-E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeBaseVisitor.cs
+E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeLexer.cs
+E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeParser.cs
+E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeListener.cs
+E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeBaseListener.cs
+E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeVisitor.cs
+E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeBaseVisitor.cs

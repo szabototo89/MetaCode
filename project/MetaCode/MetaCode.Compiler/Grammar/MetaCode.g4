@@ -60,18 +60,24 @@ parameter 			:	attributes? ID ':' typeName
 typeName			: 	attributes? ID
 					;
 
-constant			:	NUMBER
-					|	STRING
-					|	BOOLEAN
-					|	array
-					|	interval
+constant			:	Number=numberConstant
+					|	String=stringConstant
+					|	Boolean=booleanConstant
+					|	Array=arrayConstant
+					|	Interval=intervalConstant
 					;
 
-array				:	'[' expression (',' expression)* ']'
+numberConstant		:	NUMBER;
+
+stringConstant		:	STRING;
+
+booleanConstant		:	BOOLEAN;
+
+arrayConstant		:	'[' expression (',' expression)* ']'
 					|	'[' ']'
 					; 
 
-interval			:	Start=NUMBER '..' End=NUMBER ('by' By=NUMBER)
+intervalConstant	:	Start=NUMBER '..' End=NUMBER ('by' By=NUMBER)
 					;
 
 attributes			:	attribute+

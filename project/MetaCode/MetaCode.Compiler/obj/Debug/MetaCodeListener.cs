@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
+// Generated from E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -63,15 +63,15 @@ public interface IMetaCodeListener : IParseTreeListener {
 	void ExitConstant([NotNull] MetaCodeParser.ConstantContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.interval"/>.
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.booleanConstant"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterInterval([NotNull] MetaCodeParser.IntervalContext context);
+	void EnterBooleanConstant([NotNull] MetaCodeParser.BooleanConstantContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.interval"/>.
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.booleanConstant"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitInterval([NotNull] MetaCodeParser.IntervalContext context);
+	void ExitBooleanConstant([NotNull] MetaCodeParser.BooleanConstantContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.assignmentExpression"/>.
@@ -116,6 +116,28 @@ public interface IMetaCodeListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitInit([NotNull] MetaCodeParser.InitContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.intervalConstant"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIntervalConstant([NotNull] MetaCodeParser.IntervalConstantContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.intervalConstant"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIntervalConstant([NotNull] MetaCodeParser.IntervalConstantContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.numberConstant"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterNumberConstant([NotNull] MetaCodeParser.NumberConstantContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.numberConstant"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitNumberConstant([NotNull] MetaCodeParser.NumberConstantContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.blockExpression"/>.
@@ -217,6 +239,17 @@ public interface IMetaCodeListener : IParseTreeListener {
 	void ExitAttributes([NotNull] MetaCodeParser.AttributesContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.arrayConstant"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterArrayConstant([NotNull] MetaCodeParser.ArrayConstantContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.arrayConstant"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitArrayConstant([NotNull] MetaCodeParser.ArrayConstantContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.whileExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -228,6 +261,17 @@ public interface IMetaCodeListener : IParseTreeListener {
 	void ExitWhileExpression([NotNull] MetaCodeParser.WhileExpressionContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.stringConstant"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterStringConstant([NotNull] MetaCodeParser.StringConstantContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.stringConstant"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitStringConstant([NotNull] MetaCodeParser.StringConstantContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.elseIfExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -237,16 +281,5 @@ public interface IMetaCodeListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitElseIfExpression([NotNull] MetaCodeParser.ElseIfExpressionContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.array"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterArray([NotNull] MetaCodeParser.ArrayContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.array"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitArray([NotNull] MetaCodeParser.ArrayContext context);
 }
 } // namespace MetaCode.Compiler.Grammar
