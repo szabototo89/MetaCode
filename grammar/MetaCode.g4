@@ -15,7 +15,9 @@ variableDeclaration	:	Attributes=attributes? VAR VariableName=ID (':' VariableTy
 					;
 
 expression			:	Attributes=attributes? Constant=constant
- 					|	Attributes=attributes? primaryExpression
+ 					|	Attributes=attributes? ID
+ 					|	Attributes=attributes? ID '.' expression
+ 					|	Attributes=attributes? ID '(' actualParameterList? ')' ('.' expression)?
  					|	Attributes=attributes? Skip=SKIP
 					|	Attributes=attributes? Function=functionExpression
 					|	Attributes=attributes? Block=blockExpression
@@ -26,11 +28,11 @@ expression			:	Attributes=attributes? Constant=constant
 					|	Attributes=attributes? '(' InnerExpression=expression ')'
 					;
 
-primaryExpression	:	ID '.' primaryExpression
+/*primaryExpression	:	ID '.' primaryExpression
 					|	ID
 					|	ID '(' actualParameterList? ')'
 					|	ID '(' actualParameterList? ')' '.' primaryExpression
-					;
+					;*/
 
 functionCallExpression	:	ID '(' actualParameterList? ')'
 						;
@@ -129,6 +131,10 @@ VAR		:	'var';
 IN 		: 	'in';
 
 ASSIGN 	:	'=';
+
+LEFT_PARENTHESIS  :	'(';
+
+RIGHT_PARENTHESIS :	')';
 
 ID		:	(LETTER|'_') (LETTER|'_'|[0-9])*
 		;

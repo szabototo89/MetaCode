@@ -32,13 +32,6 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitAttribute(@NotNull MetaCodeParser.AttributeContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link MetaCodeParser#primaryExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#intervalConstant}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

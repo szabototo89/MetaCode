@@ -41,14 +41,6 @@ public class MetaCodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitIntervalConstant(@NotNull MetaCodeParser.IntervalConstantContext ctx) { return visitChildren(ctx); }
 
 	/**

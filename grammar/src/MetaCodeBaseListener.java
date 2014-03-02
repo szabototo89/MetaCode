@@ -55,19 +55,6 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterIntervalConstant(@NotNull MetaCodeParser.IntervalConstantContext ctx) { }
 	/**
 	 * {@inheritDoc}
