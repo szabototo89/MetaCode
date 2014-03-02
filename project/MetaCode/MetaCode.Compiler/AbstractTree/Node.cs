@@ -1,21 +1,45 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace MetaCode.Compiler.AbstractTree
 {
     public abstract class Node : INode
     {
+        #region Constructors
+
         protected Node()
         {
-            Children = new List<INode>();
+            Children = new List<Node>();
         }
 
-        internal void SetParent(INode parent)
+        #endregion
+
+        #region Internal methods
+
+        internal void SetParent(Node parent)
         {
             Parent = parent;
         }
 
-        public INode Parent { get; internal set; }
+        #endregion
 
-        public List<INode> Children { get; protected set; }
+        #region INode properties
+
+        INode INode.Parent
+        {
+            get { return Parent; }
+        }
+
+        List<INode> INode.Children
+        {
+            get { return Children.OfType<INode>().ToList(); }
+        }
+
+        public Node Parent { get; internal set; }
+
+        public List<Node> Children { get; internal set; }
+
+        #endregion
+
     }
 }

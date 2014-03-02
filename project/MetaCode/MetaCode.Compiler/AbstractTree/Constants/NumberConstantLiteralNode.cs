@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MetaCode.Compiler.AbstractTree
+﻿namespace MetaCode.Compiler.AbstractTree.Constants
 {
     public class NumberConstantLiteralNode : ConstantLiteralNode<double>, INumberConstantLiteralNode
     {

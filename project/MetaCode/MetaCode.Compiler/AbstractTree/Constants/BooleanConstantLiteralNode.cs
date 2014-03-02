@@ -1,4 +1,4 @@
-﻿namespace MetaCode.Compiler.AbstractTree
+﻿namespace MetaCode.Compiler.AbstractTree.Constants
 {
     public class BooleanConstantLiteralNode : ConstantLiteralNode<bool>, IBooleanConstantLiteralNode
     {

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MetaCode.Compiler.AbstractTree;
+using MetaCode.Compiler.AbstractTree.Constants;
+using MetaCode.Compiler.AbstractTree.Expressions;
 using MetaCode.Compiler.Grammar;
 using MetaCode.Core;
 
@@ -18,10 +20,12 @@ namespace MetaCode.Compiler.Visitors
             var attributes = context.Attributes.With(value => value.Accept(this));
 
             if (context.Constant != null)
-                return new ConstantExpressionNode(context.Constant.Accept(this) as IConstantLiteralNode, null);
+                return new ConstantExpressionNode(context.Constant.Accept(this) as ConstantLiteralNode, null);
 
             return base.VisitExpression(context);
         }
+
+
 
         #endregion
     }

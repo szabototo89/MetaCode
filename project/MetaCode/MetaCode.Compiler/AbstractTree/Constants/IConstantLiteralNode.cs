@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Runtime.InteropServices;
+using MetaCode.Compiler.AbstractTree.Expressions;
 
-namespace MetaCode.Compiler.AbstractTree
+namespace MetaCode.Compiler.AbstractTree.Constants
 {
     public interface IConstantLiteralNode : INode
     {

@@ -43,19 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractTree\ArrayConstantLiteralNode.cs" />
-    <Compile Include="AbstractTree\BooleanConstantLiteralNode.cs" />
-    <Compile Include="AbstractTree\ConstantExpressionNode.cs" />
-    <Compile Include="AbstractTree\ConstantLiteralNode.cs" />
-    <Compile Include="AbstractTree\ExpressionNode.cs" />
+    <Compile Include="AbstractTree\Constants\ArrayConstantLiteralNode.cs" />
+    <Compile Include="AbstractTree\AttributeNode.cs" />
+    <Compile Include="AbstractTree\Constants\BooleanConstantLiteralNode.cs" />
+    <Compile Include="AbstractTree\Expressions\ConstantExpressionNode.cs" />
+    <Compile Include="AbstractTree\Constants\ConstantLiteralNode.cs" />
+    <Compile Include="AbstractTree\Expressions\ExpressionNode.cs" />
     <Compile Include="AbstractTree\IAttributeNode.cs" />
-    <Compile Include="AbstractTree\IConstantLiteralNode.cs" />
-    <Compile Include="AbstractTree\IExpressionNode.cs" />
+    <Compile Include="AbstractTree\Constants\IConstantLiteralNode.cs" />
+    <Compile Include="AbstractTree\Expressions\IExpressionNode.cs" />
     <Compile Include="AbstractTree\INode.cs" />
     <Compile Include="AbstractTree\Node.cs" />
     <Compile Include="AbstractTree\NodeHelper.cs" />
-    <Compile Include="AbstractTree\NumberConstantLiteralNode.cs" />
-    <Compile Include="AbstractTree\StringConstantLiteralNode.cs" />
+    <Compile Include="AbstractTree\Constants\NumberConstantLiteralNode.cs" />
+    <Compile Include="AbstractTree\Constants\StringConstantLiteralNode.cs" />
     <Compile Include="Grammar\MetaCode.g4.lexer.cs">
       <DependentUpon>MetaCode.g4</DependentUpon>
     </Compile>

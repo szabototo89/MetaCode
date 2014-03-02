@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime;
 using MetaCode.Compiler.AbstractTree;
+using MetaCode.Compiler.AbstractTree.Constants;
+using MetaCode.Compiler.AbstractTree.Expressions;
 using MetaCode.Compiler.Grammar;
 using MetaCode.Core;
 
@@ -47,7 +49,7 @@ namespace MetaCode.Compiler.Visitors
             var text = context.GetText();
             var expressions = context.expression()
                 .Select(expression => expression.Accept(this))
-                .OfType<IExpressionNode>()
+                .OfType<ExpressionNode>()
                 .ToArray();
 
             return new ArrayConstantLiteralNode(expressions);

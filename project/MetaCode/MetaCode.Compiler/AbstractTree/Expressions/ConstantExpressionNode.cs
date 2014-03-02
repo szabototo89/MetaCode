@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
+using MetaCode.Compiler.AbstractTree.Constants;
 using MetaCode.Core;
 
-namespace MetaCode.Compiler.AbstractTree
+namespace MetaCode.Compiler.AbstractTree.Expressions
 {
     public class ConstantExpressionNode : ExpressionNode, IConstantExpressionNode
     {
         #region Public properties
 
-        public IConstantLiteralNode Constant { get; private set; }
+        public ConstantLiteralNode Constant { get; set; }
+
+        IConstantLiteralNode IConstantExpressionNode.Constant { get { return Constant; } }
 
         public override Type Type { get { return Constant.Type; } }
 
@@ -17,13 +19,13 @@ namespace MetaCode.Compiler.AbstractTree
 
         #region Constructors
 
-        public ConstantExpressionNode(IConstantLiteralNode constant, IEnumerable<IAttributeNode> attributes)
+        public ConstantExpressionNode(ConstantLiteralNode constant, IEnumerable<AttributeNode> attributes)
             : base(attributes)
         {
             if (constant == null)
                 ThrowHelper.ThrowArgumentNullException(() => constant);
 
-            constant.ToNode().SetParent(this);
+            constant.SetParent(this);
             Constant = constant;
         }
 
