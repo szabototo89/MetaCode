@@ -15,7 +15,7 @@ variableDeclaration	:	Attributes=attributes? VAR VariableName=ID (':' VariableTy
 					;
 
 expression			:	Attributes=attributes? Constant=constant
-					|	Attributes=attributes? functionCallExpression
+					|	{isInMemberCall(ID)}? Attributes=attributes? functionCallExpression
 					|	Attributes=attributes? Skip=SKIP
 					|	Attributes=attributes? Function=functionExpression
 					|	Attributes=attributes? Block=blockExpression

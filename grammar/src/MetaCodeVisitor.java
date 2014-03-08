@@ -1,4 +1,4 @@
-// Generated from ../MetaCode.g4 by ANTLR 4.2
+// Generated from ../MetaCode.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -30,6 +30,13 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAttribute(@NotNull MetaCodeParser.AttributeContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#intervalConstant}.
@@ -156,13 +163,6 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitForeachExpression(@NotNull MetaCodeParser.ForeachExpressionContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link MetaCodeParser#functionCallExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunctionCallExpression(@NotNull MetaCodeParser.FunctionCallExpressionContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#attributes}.

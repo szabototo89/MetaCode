@@ -13,8 +13,8 @@
 /*@lazy foreach (var id : String in @strict if ("Hello World") 18 else 35 end)
 	@lazy-load foreach (id2 in 34) 35*/
 
-var func = function(@optional number: @not-null Integer) : Integer do 
+/*var func = function(@optional number: @not-null Integer) : Integer do 
 	35 
-end
+end*/
 
-Hello.World(Hello.World)
+func.ToString()

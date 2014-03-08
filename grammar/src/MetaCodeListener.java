@@ -1,4 +1,4 @@
-// Generated from ../MetaCode.g4 by ANTLR 4.2
+// Generated from ../MetaCode.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -39,6 +39,17 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAttribute(@NotNull MetaCodeParser.AttributeContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#intervalConstant}.
@@ -237,17 +248,6 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitForeachExpression(@NotNull MetaCodeParser.ForeachExpressionContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#functionCallExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunctionCallExpression(@NotNull MetaCodeParser.FunctionCallExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#functionCallExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunctionCallExpression(@NotNull MetaCodeParser.FunctionCallExpressionContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#attributes}.

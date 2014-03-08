@@ -14,10 +14,12 @@ statement			: 	Expression=expression
 variableDeclaration	:	Attributes=attributes? VAR VariableName=ID (':' VariableType=typeName)? ASSIGN VariableDefaultValue=expression
 					;
 
-expression			:	Attributes=attributes? Constant=constant
- 					|	Attributes=attributes? ID
- 					|	Attributes=attributes? ID '.' expression
- 					|	Attributes=attributes? ID '(' actualParameterList? ')' ('.' expression)?
+expression			:	primaryExpression '.' expression
+					|	ID
+					|	ID '(' actualParameterList? ')'   
+					;
+
+primaryExpression	:	Attributes=attributes? Constant=constant
  					|	Attributes=attributes? Skip=SKIP
 					|	Attributes=attributes? Function=functionExpression
 					|	Attributes=attributes? Block=blockExpression
@@ -25,17 +27,8 @@ expression			:	Attributes=attributes? Constant=constant
 					|	Attributes=attributes? Foreach=foreachExpression
 					|	Attributes=attributes? While=whileExpression
 					|	Attributes=attributes? Assignment=assignmentExpression
-					|	Attributes=attributes? '(' InnerExpression=expression ')'
+					|	Attributes=attributes? '(' InnerExpression=primaryExpression ')'
 					;
-
-/*primaryExpression	:	ID '.' primaryExpression
-					|	ID
-					|	ID '(' actualParameterList? ')'
-					|	ID '(' actualParameterList? ')' '.' primaryExpression
-					;*/
-
-functionCallExpression	:	ID '(' actualParameterList? ')'
-						;
 
 functionExpression	:	FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
 					|	FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? '=' BodyExpression=expression
