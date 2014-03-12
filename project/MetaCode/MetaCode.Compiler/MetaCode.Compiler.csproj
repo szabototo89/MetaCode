@@ -49,14 +49,13 @@
     <Compile Include="AbstractTree\Expressions\ConstantExpressionNode.cs" />
     <Compile Include="AbstractTree\Constants\ConstantLiteralNode.cs" />
     <Compile Include="AbstractTree\Expressions\ExpressionNode.cs" />
-    <Compile Include="AbstractTree\IAttributeNode.cs" />
-    <Compile Include="AbstractTree\Constants\IConstantLiteralNode.cs" />
-    <Compile Include="AbstractTree\Expressions\IExpressionNode.cs" />
-    <Compile Include="AbstractTree\INode.cs" />
+    <Compile Include="AbstractTree\Expressions\BlockExpressionNode.cs" />
     <Compile Include="AbstractTree\Node.cs" />
-    <Compile Include="AbstractTree\NodeHelper.cs" />
     <Compile Include="AbstractTree\Constants\NumberConstantLiteralNode.cs" />
     <Compile Include="AbstractTree\Constants\StringConstantLiteralNode.cs" />
+    <Compile Include="AbstractTree\Statements\BlockStatement.cs" />
+    <Compile Include="AbstractTree\Statements\LoopStatement.cs" />
+    <Compile Include="AbstractTree\Statements\StatementNode.cs" />
     <Compile Include="Grammar\MetaCode.g4.lexer.cs">
       <DependentUpon>MetaCode.g4</DependentUpon>
     </Compile>

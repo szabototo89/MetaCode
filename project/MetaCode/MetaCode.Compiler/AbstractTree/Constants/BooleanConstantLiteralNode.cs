@@ -1,6 +1,6 @@
 ﻿namespace MetaCode.Compiler.AbstractTree.Constants
 {
-    public class BooleanConstantLiteralNode : ConstantLiteralNode<bool>, IBooleanConstantLiteralNode
+    public class BooleanConstantLiteralNode : ConstantLiteralNode<bool>
     {
         #region Constructors
 

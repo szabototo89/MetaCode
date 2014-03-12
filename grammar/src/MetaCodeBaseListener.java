@@ -55,13 +55,13 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx) { }
+	@Override public void enterBlockStatement(@NotNull MetaCodeParser.BlockStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx) { }
+	@Override public void exitBlockStatement(@NotNull MetaCodeParser.BlockStatementContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -75,6 +75,32 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitIntervalConstant(@NotNull MetaCodeParser.IntervalConstantContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterElseIfStatement(@NotNull MetaCodeParser.ElseIfStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitElseIfStatement(@NotNull MetaCodeParser.ElseIfStatementContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -107,19 +133,6 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterWhileExpression(@NotNull MetaCodeParser.WhileExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitWhileExpression(@NotNull MetaCodeParser.WhileExpressionContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
 	@Override public void enterActualParameterList(@NotNull MetaCodeParser.ActualParameterListContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -140,19 +153,6 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitFormalParameterList(@NotNull MetaCodeParser.FormalParameterListContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterElseIfExpression(@NotNull MetaCodeParser.ElseIfExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitElseIfExpression(@NotNull MetaCodeParser.ElseIfExpressionContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -211,19 +211,6 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterIfExpression(@NotNull MetaCodeParser.IfExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitIfExpression(@NotNull MetaCodeParser.IfExpressionContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
 	@Override public void enterInit(@NotNull MetaCodeParser.InitContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -250,13 +237,26 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterBlockExpression(@NotNull MetaCodeParser.BlockExpressionContext ctx) { }
+	@Override public void enterIfStatement(@NotNull MetaCodeParser.IfStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitBlockExpression(@NotNull MetaCodeParser.BlockExpressionContext ctx) { }
+	@Override public void exitIfStatement(@NotNull MetaCodeParser.IfStatementContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterMemberExpression(@NotNull MetaCodeParser.MemberExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitMemberExpression(@NotNull MetaCodeParser.MemberExpressionContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -289,13 +289,26 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterForeachExpression(@NotNull MetaCodeParser.ForeachExpressionContext ctx) { }
+	@Override public void enterWhileStatement(@NotNull MetaCodeParser.WhileStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void exitForeachExpression(@NotNull MetaCodeParser.ForeachExpressionContext ctx) { }
+	@Override public void exitWhileStatement(@NotNull MetaCodeParser.WhileStatementContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterFunctionCallExpression(@NotNull MetaCodeParser.FunctionCallExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFunctionCallExpression(@NotNull MetaCodeParser.FunctionCallExpressionContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -309,6 +322,19 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitAttributes(@NotNull MetaCodeParser.AttributesContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterForeachStatement(@NotNull MetaCodeParser.ForeachStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitForeachStatement(@NotNull MetaCodeParser.ForeachStatementContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

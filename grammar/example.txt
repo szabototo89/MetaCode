@@ -17,4 +17,14 @@
 	35 
 end*/
 
-func.ToString()
+var f = a((function() do 10; end)());
+var f = "f".ToString;
+var f = a.a(("f".ToString()));
+
+if ("Hello World") 
+  if ("Hello")
+  	true;
+  end;
+else 
+	false;
+end;

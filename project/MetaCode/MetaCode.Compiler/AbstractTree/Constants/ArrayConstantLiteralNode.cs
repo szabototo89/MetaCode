@@ -4,7 +4,7 @@ using MetaCode.Compiler.AbstractTree.Expressions;
 
 namespace MetaCode.Compiler.AbstractTree.Constants
 {
-    public class ArrayConstantLiteralNode : ConstantLiteralNode<ExpressionNode[]>, IArrayConstantLiteralNode
+    public class ArrayConstantLiteralNode : ConstantLiteralNode<ExpressionNode[]>
     {
         #region Constructors
 
@@ -14,16 +14,7 @@ namespace MetaCode.Compiler.AbstractTree.Constants
             foreach (var node in values) {
                 node.SetParent(this);
             }
-            Children.AddRange(values);
-        }
-
-        #endregion
-
-        #region IArrayConstantLiteralNode properties
-
-        IExpressionNode[] IConstantLiteralNode<IExpressionNode[]>.Value
-        {
-            get { return Value.OfType<ExpressionNode>().ToArray(); }
+            _children.AddRange(values);
         }
 
         #endregion

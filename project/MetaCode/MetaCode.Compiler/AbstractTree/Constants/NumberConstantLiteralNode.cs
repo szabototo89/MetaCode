@@ -1,6 +1,6 @@
 ﻿namespace MetaCode.Compiler.AbstractTree.Constants
 {
-    public class NumberConstantLiteralNode : ConstantLiteralNode<double>, INumberConstantLiteralNode
+    public class NumberConstantLiteralNode : ConstantLiteralNode<double>
     {
         #region Constructors
 

@@ -5,24 +5,7 @@ using MetaCode.Compiler.AbstractTree.Constants;
 
 namespace MetaCode.Compiler.AbstractTree.Expressions
 {
-    public interface IExpressionNode : INode
-    {
-        Type Type { get; }
-
-        IEnumerable<IAttributeNode> Attributes { get; }
-    }
-
-    public interface IConstantExpressionNode : IExpressionNode
-    {
-        IConstantLiteralNode Constant { get; }
-    }
-
-    public interface IBlockExpressionNode : IExpressionNode
-    {
-        IEnumerable<IExpressionNode> Statements { get; }
-    }
-
-    public class BlockExpressionNode : ExpressionNode, IBlockExpressionNode
+    public class BlockExpressionNode : ExpressionNode
     {
         public BlockExpressionNode(IEnumerable<ExpressionNode> statements, IEnumerable<AttributeNode> attributes)
             : base(attributes)
@@ -39,11 +22,6 @@ namespace MetaCode.Compiler.AbstractTree.Expressions
 
                 throw new Exception("'Statements' is empty!");
             }
-        }
-
-        IEnumerable<IExpressionNode> IBlockExpressionNode.Statements
-        {
-            get { return Statements; }
         }
 
         public IEnumerable<ExpressionNode> Statements { get; internal set; }

@@ -41,7 +41,7 @@ public class MetaCodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBlockStatement(@NotNull MetaCodeParser.BlockStatementContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -50,6 +50,22 @@ public class MetaCodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitIntervalConstant(@NotNull MetaCodeParser.IntervalConstantContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitElseIfStatement(@NotNull MetaCodeParser.ElseIfStatementContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -73,14 +89,6 @@ public class MetaCodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitWhileExpression(@NotNull MetaCodeParser.WhileExpressionContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
 	@Override public T visitActualParameterList(@NotNull MetaCodeParser.ActualParameterListContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -90,14 +98,6 @@ public class MetaCodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitFormalParameterList(@NotNull MetaCodeParser.FormalParameterListContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitElseIfExpression(@NotNull MetaCodeParser.ElseIfExpressionContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -137,14 +137,6 @@ public class MetaCodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitIfExpression(@NotNull MetaCodeParser.IfExpressionContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
 	@Override public T visitInit(@NotNull MetaCodeParser.InitContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -161,7 +153,15 @@ public class MetaCodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitBlockExpression(@NotNull MetaCodeParser.BlockExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIfStatement(@NotNull MetaCodeParser.IfStatementContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitMemberExpression(@NotNull MetaCodeParser.MemberExpressionContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -185,7 +185,15 @@ public class MetaCodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitForeachExpression(@NotNull MetaCodeParser.ForeachExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitWhileStatement(@NotNull MetaCodeParser.WhileStatementContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitFunctionCallExpression(@NotNull MetaCodeParser.FunctionCallExpressionContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -194,6 +202,14 @@ public class MetaCodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitAttributes(@NotNull MetaCodeParser.AttributesContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitForeachStatement(@NotNull MetaCodeParser.ForeachStatementContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}

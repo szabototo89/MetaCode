@@ -2,13 +2,9 @@
 
 namespace MetaCode.Compiler.AbstractTree.Constants
 {
-    public abstract class ConstantLiteralNode : Node, IConstantLiteralNode
+    public abstract class ConstantLiteralNode : Node
     {
-        #region IConstantLiteralNode properties
-
         public Type Type { get; internal set; }
-
-        #endregion
 
         #region Constructors
         protected ConstantLiteralNode(Type type)
@@ -19,7 +15,7 @@ namespace MetaCode.Compiler.AbstractTree.Constants
         #endregion
     }
 
-    public abstract class ConstantLiteralNode<TValue> : ConstantLiteralNode, IConstantLiteralNode<TValue>
+    public abstract class ConstantLiteralNode<TValue> : ConstantLiteralNode
     {
         #region Public properties
 

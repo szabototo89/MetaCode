@@ -13,11 +13,11 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.Visitors
 {
-    public partial class AbstractTreeVisitor : MetaCodeBaseVisitor<INode>
+    public partial class AbstractTreeVisitor : MetaCodeBaseVisitor<Node>
     {
         #region Constants Visitor methods
 
-        public override INode VisitNumberConstant(MetaCodeParser.NumberConstantContext context)
+        public override Node VisitNumberConstant(MetaCodeParser.NumberConstantContext context)
         {
             var text = context.GetText();
             double result;
@@ -28,12 +28,12 @@ namespace MetaCode.Compiler.Visitors
             return new NumberConstantLiteralNode(result);
         }
 
-        public override INode VisitStringConstant(MetaCodeParser.StringConstantContext context)
+        public override Node VisitStringConstant(MetaCodeParser.StringConstantContext context)
         {
             return new StringConstantLiteralNode(context.GetText().Trim('"'));
         }
 
-        public override INode VisitBooleanConstant(MetaCodeParser.BooleanConstantContext context)
+        public override Node VisitBooleanConstant(MetaCodeParser.BooleanConstantContext context)
         {
             var text = context.GetText();
             Boolean result;
@@ -44,7 +44,7 @@ namespace MetaCode.Compiler.Visitors
             return new BooleanConstantLiteralNode(result);
         }
 
-        public override INode VisitArrayConstant(MetaCodeParser.ArrayConstantContext context)
+        public override Node VisitArrayConstant(MetaCodeParser.ArrayConstantContext context)
         {
             var text = context.GetText();
             var expressions = context.expression()
@@ -55,7 +55,7 @@ namespace MetaCode.Compiler.Visitors
             return new ArrayConstantLiteralNode(expressions);
         }
 
-        public override INode VisitConstant(MetaCodeParser.ConstantContext context)
+        public override Node VisitConstant(MetaCodeParser.ConstantContext context)
         {
             var result = (context.String.As<ParserRuleContext>() ??
                           context.Number.As<ParserRuleContext>() ??

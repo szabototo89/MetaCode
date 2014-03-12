@@ -1,15 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Antlr4.Runtime.Tree;
 
 namespace MetaCode.Compiler.AbstractTree
 {
-    public abstract class Node : INode
+    public abstract class Node
     {
+        #region Private fields
+
+        protected readonly List<Node> _children;
+
+        #endregion
+
         #region Constructors
 
         protected Node()
         {
-            Children = new List<Node>();
+            _children = new List<Node>();
         }
 
         #endregion
@@ -23,21 +30,11 @@ namespace MetaCode.Compiler.AbstractTree
 
         #endregion
 
-        #region INode properties
-
-        INode INode.Parent
-        {
-            get { return Parent; }
-        }
-
-        List<INode> INode.Children
-        {
-            get { return Children.OfType<INode>().ToList(); }
-        }
+        #region Public properties
 
         public Node Parent { get; internal set; }
 
-        public List<Node> Children { get; internal set; }
+        public virtual IEnumerable<Node> Children { get { return _children; } }
 
         #endregion
 

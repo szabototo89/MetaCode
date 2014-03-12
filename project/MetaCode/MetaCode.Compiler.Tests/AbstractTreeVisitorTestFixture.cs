@@ -15,9 +15,9 @@ namespace MetaCode.Compiler.Tests
     {
         #region Helper methods
 
-        private INode ParseWithAbstractTreeVisitor(MetaCodeCompiler compiler, string source)
+        private Node ParseWithAbstractTreeVisitor(MetaCodeCompiler compiler, string source)
         {
-            return compiler.ParseWithVisitor<INode, AbstractTreeVisitor>(source);
+            return compiler.ParseWithVisitor<Node, AbstractTreeVisitor>(source);
         }
 
         #endregion

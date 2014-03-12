@@ -41,15 +41,15 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitAttribute(@NotNull MetaCodeParser.AttributeContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#primaryExpression}.
+	 * Enter a parse tree produced by {@link MetaCodeParser#blockStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx);
+	void enterBlockStatement(@NotNull MetaCodeParser.BlockStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#primaryExpression}.
+	 * Exit a parse tree produced by {@link MetaCodeParser#blockStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx);
+	void exitBlockStatement(@NotNull MetaCodeParser.BlockStatementContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#intervalConstant}.
@@ -61,6 +61,28 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIntervalConstant(@NotNull MetaCodeParser.IntervalConstantContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#elseIfStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseIfStatement(@NotNull MetaCodeParser.ElseIfStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#elseIfStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseIfStatement(@NotNull MetaCodeParser.ElseIfStatementContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#variableDeclaration}.
@@ -85,17 +107,6 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitStatements(@NotNull MetaCodeParser.StatementsContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#whileExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterWhileExpression(@NotNull MetaCodeParser.WhileExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#whileExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitWhileExpression(@NotNull MetaCodeParser.WhileExpressionContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#actualParameterList}.
 	 * @param ctx the parse tree
 	 */
@@ -116,17 +127,6 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFormalParameterList(@NotNull MetaCodeParser.FormalParameterListContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#elseIfExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterElseIfExpression(@NotNull MetaCodeParser.ElseIfExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#elseIfExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitElseIfExpression(@NotNull MetaCodeParser.ElseIfExpressionContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#functionExpression}.
@@ -173,17 +173,6 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitAssignmentExpression(@NotNull MetaCodeParser.AssignmentExpressionContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#ifExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterIfExpression(@NotNull MetaCodeParser.IfExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#ifExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitIfExpression(@NotNull MetaCodeParser.IfExpressionContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#init}.
 	 * @param ctx the parse tree
 	 */
@@ -206,15 +195,26 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitNumberConstant(@NotNull MetaCodeParser.NumberConstantContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#blockExpression}.
+	 * Enter a parse tree produced by {@link MetaCodeParser#ifStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterBlockExpression(@NotNull MetaCodeParser.BlockExpressionContext ctx);
+	void enterIfStatement(@NotNull MetaCodeParser.IfStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#blockExpression}.
+	 * Exit a parse tree produced by {@link MetaCodeParser#ifStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitBlockExpression(@NotNull MetaCodeParser.BlockExpressionContext ctx);
+	void exitIfStatement(@NotNull MetaCodeParser.IfStatementContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#memberExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMemberExpression(@NotNull MetaCodeParser.MemberExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#memberExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMemberExpression(@NotNull MetaCodeParser.MemberExpressionContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#statement}.
@@ -239,15 +239,26 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitTypeName(@NotNull MetaCodeParser.TypeNameContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#foreachExpression}.
+	 * Enter a parse tree produced by {@link MetaCodeParser#whileStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterForeachExpression(@NotNull MetaCodeParser.ForeachExpressionContext ctx);
+	void enterWhileStatement(@NotNull MetaCodeParser.WhileStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#foreachExpression}.
+	 * Exit a parse tree produced by {@link MetaCodeParser#whileStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitForeachExpression(@NotNull MetaCodeParser.ForeachExpressionContext ctx);
+	void exitWhileStatement(@NotNull MetaCodeParser.WhileStatementContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#functionCallExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCallExpression(@NotNull MetaCodeParser.FunctionCallExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#functionCallExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCallExpression(@NotNull MetaCodeParser.FunctionCallExpressionContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#attributes}.
@@ -259,6 +270,17 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAttributes(@NotNull MetaCodeParser.AttributesContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#foreachStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterForeachStatement(@NotNull MetaCodeParser.ForeachStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#foreachStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitForeachStatement(@NotNull MetaCodeParser.ForeachStatementContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#arrayConstant}.

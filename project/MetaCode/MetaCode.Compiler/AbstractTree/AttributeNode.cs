@@ -1,11 +1,7 @@
 ﻿namespace MetaCode.Compiler.AbstractTree
 {
-    public class AttributeNode : Node, IAttributeNode
+    public class AttributeNode : Node
     {
-        #region IAttributeNode properties
-
         public string Name { get; internal set; }
-
-        #endregion
     }
 }

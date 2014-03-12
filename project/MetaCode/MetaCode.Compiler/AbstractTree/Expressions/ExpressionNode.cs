@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MetaCode.Compiler.AbstractTree.Expressions
 {
-    public abstract class ExpressionNode : Node, IExpressionNode
+    public abstract class ExpressionNode : Node
     {
         #region Private fields
 
@@ -12,16 +12,7 @@ namespace MetaCode.Compiler.AbstractTree.Expressions
 
         #endregion
 
-        #region Explicit implementations of IExpressionNode
-
-        IEnumerable<IAttributeNode> IExpressionNode.Attributes
-        {
-            get { return Attributes; }
-        }
-
-        #endregion
-
-        #region Public IExpressionNode properties
+        #region Public properties
 
         public abstract Type Type { get; }
 
@@ -38,7 +29,7 @@ namespace MetaCode.Compiler.AbstractTree.Expressions
         protected ExpressionNode(IEnumerable<AttributeNode> attributes)
         {
             Attributes = (attributes ?? new List<AttributeNode>()).ToList();
-            Children.AddRange(Attributes);
+            _children.AddRange(Attributes);
         }
 
         #endregion

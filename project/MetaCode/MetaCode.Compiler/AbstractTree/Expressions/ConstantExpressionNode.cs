@@ -5,13 +5,11 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractTree.Expressions
 {
-    public class ConstantExpressionNode : ExpressionNode, IConstantExpressionNode
+    public class ConstantExpressionNode : ExpressionNode
     {
         #region Public properties
 
         public ConstantLiteralNode Constant { get; set; }
-
-        IConstantLiteralNode IConstantExpressionNode.Constant { get { return Constant; } }
 
         public override Type Type { get { return Constant.Type; } }
 

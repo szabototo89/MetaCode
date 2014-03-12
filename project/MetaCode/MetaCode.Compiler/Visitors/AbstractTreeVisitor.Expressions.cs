@@ -15,12 +15,11 @@ namespace MetaCode.Compiler.Visitors
     {
         #region Expression Visitor methods
 
-        public override INode VisitExpression(MetaCodeParser.ExpressionContext context)
+        public override Node VisitExpression(MetaCodeParser.ExpressionContext context)
         {
             var attributes = context.Attributes.With(value => value.Accept(this));
 
-            if (context.Constant != null)
-                return new ConstantExpressionNode(context.Constant.Accept(this) as ConstantLiteralNode, null);
+
 
             return base.VisitExpression(context);
         }
