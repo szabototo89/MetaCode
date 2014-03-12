@@ -19,7 +19,7 @@ namespace MetaCode.Compiler.AbstractTree.Expressions
         public IEnumerable<AttributeNode> Attributes
         {
             get { return _attributes; }
-            internal set { _attributes = value.ToList(); }
+            protected set { _attributes = value.ToList(); }
         }
 
         #endregion

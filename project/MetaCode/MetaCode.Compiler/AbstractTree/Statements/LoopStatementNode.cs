@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace MetaCode.Compiler.AbstractTree.Statements
 {
-    public abstract class LoopStatement : StatementNode
+    public abstract class LoopStatementNode : StatementNode
     {
-        public BlockStatement Body { get; internal set; }
+        public BlockStatementNode Body { get; internal set; }
 
         public override IEnumerable<Node> Children
         {
             get { yield return Body; }
         }
-    }
 
-    public class ForeachLoopStatement : LoopStatement
-    {
-
+        protected LoopStatementNode(BlockStatementNode body)
+        {
+            Body = body;
+        }
     }
 }

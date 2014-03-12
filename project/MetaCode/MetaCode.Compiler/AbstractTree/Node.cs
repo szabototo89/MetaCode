@@ -32,7 +32,7 @@ namespace MetaCode.Compiler.AbstractTree
 
         #region Public properties
 
-        public Node Parent { get; internal set; }
+        public Node Parent { get; private set; }
 
         public virtual IEnumerable<Node> Children { get { return _children; } }
 

@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace MetaCode.Compiler.AbstractTree.Statements
 {
-    public class BlockStatement : StatementNode
+    public class SkipStatementNode : StatementNode
     {
-        public List<StatementNode> Statements
-        {
-            get { return Children.OfType<StatementNode>().ToList(); }
-        }
+        
     }
 }

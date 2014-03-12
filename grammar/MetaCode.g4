@@ -27,7 +27,7 @@ functionCallExpression  :   (ID | functionExpression) '(' expression? ')'
                         ;
 
 memberExpression    : (ID | constant) ('.' (ID | functionCallExpression))+
-                                    ;                                   
+                    ;                                   
 
 primaryExpression   :   Attributes=attributes? Constant=constant
                     |   Attributes=attributes? Id=ID
