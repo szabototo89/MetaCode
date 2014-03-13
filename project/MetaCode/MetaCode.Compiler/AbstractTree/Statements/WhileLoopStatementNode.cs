@@ -10,21 +10,27 @@ namespace MetaCode.Compiler.AbstractTree.Statements
 {
     public class WhileLoopStatementNode : LoopStatementNode
     {
-        public ExpressionNode Expression { get; set; }
+        public ExpressionNode Condition { get; set; }
 
-        public WhileLoopStatementNode(ExpressionNode expression, BlockStatementNode body)
+        public WhileLoopStatementNode(ExpressionNode condition, StatementNode body)
             : base(body)
         {
-            if (expression == null) 
-                throw new ArgumentNullException("expression", "The expression is null!");
-            
-            if (expression.Type == null)
-                throw new Exception("The type of expression is null!");
-            
-            if (expression.Type != typeof(bool))
-                throw new Exception("The type of expression is not System.Boolean!");
+            if (condition == null)
+                throw new ArgumentNullException("condition", "The Condition is null!");
 
-            Expression = expression;
+            if (condition.Type == null)
+                throw new Exception("The type of Condition is null!");
+
+            if (condition.Type != typeof(bool))
+                throw new Exception("The type of Condition is not System.Boolean!");
+
+            Condition = condition;
+            SetParentOfNodes(Condition);
+        }
+
+        public override IEnumerable<Node> Children
+        {
+            get { return base.Children.Concat(new[] { Condition }); }
         }
     }
 }

@@ -16,8 +16,9 @@
 /*var func = function(@optional number: @not-null Integer) : Integer do 
 	35 
 end*/
-
-var f = a((function() do 10; end)());
+/*
+var a = (function() do (12); end).ToString();
+var f = a((function() do (10 + 5) * 5 / 7; end).ToString());
 var f = "f".ToString;
 var f = a.a(("f".ToString()));
 
@@ -27,4 +28,9 @@ if ("Hello World")
   end;
 else 
 	false;
+end;
+*/
+
+if (true)
+	34;
 end;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Antlr4.Runtime.Tree;
 
@@ -22,6 +23,17 @@ namespace MetaCode.Compiler.AbstractTree
         #endregion
 
         #region Internal methods
+
+        internal Node SetParentOfNodes(params Node[] nodes)
+        {
+            if (nodes == null) 
+                throw new ArgumentNullException("nodes", "The nodes is null!");
+
+            foreach (var node in nodes)
+                node.SetParent(this);
+
+            return this;
+        }
 
         internal void SetParent(Node parent)
         {

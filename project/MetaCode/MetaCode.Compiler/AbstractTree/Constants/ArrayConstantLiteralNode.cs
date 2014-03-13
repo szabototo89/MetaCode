@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using MetaCode.Compiler.AbstractTree.Expressions;
 
@@ -11,12 +12,14 @@ namespace MetaCode.Compiler.AbstractTree.Constants
         public ArrayConstantLiteralNode(ExpressionNode[] values)
             : base(values, typeof(IEnumerable))
         {
-            foreach (var node in values) {
-                node.SetParent(this);
-            }
-            _children.AddRange(values);
+            SetParentOfNodes(values);
         }
 
         #endregion
+
+        public override IEnumerable<Node> Children
+        {
+            get { return base.Children.Concat(Value); }
+        }
     }
 }

@@ -53,12 +53,16 @@
     <Compile Include="AbstractTree\Constants\NumberConstantLiteralNode.cs" />
     <Compile Include="AbstractTree\Constants\StringConstantLiteralNode.cs" />
     <Compile Include="AbstractTree\Statements\BlockStatementNode.cs" />
+    <Compile Include="AbstractTree\Statements\ExpressionStatementNode.cs" />
     <Compile Include="AbstractTree\Statements\ForeachLoopStatementNode.cs" />
     <Compile Include="AbstractTree\Identitifier.cs" />
+    <Compile Include="AbstractTree\Statements\IfStatementNode.cs" />
     <Compile Include="AbstractTree\Statements\LoopStatementNode.cs" />
     <Compile Include="AbstractTree\Statements\SkipStatementNode.cs" />
     <Compile Include="AbstractTree\Statements\StatementNode.cs" />
+    <Compile Include="AbstractTree\Statements\VariableDeclarationStatementNode.cs" />
     <Compile Include="AbstractTree\Statements\WhileLoopStatementNode.cs" />
+    <Compile Include="AbstractTree\TypeNameNode.cs" />
     <Compile Include="AbstractTree\Variable.cs" />
     <Compile Include="Grammar\MetaCode.g4.lexer.cs">
       <DependentUpon>MetaCode.g4</DependentUpon>
@@ -101,6 +105,7 @@
       <CustomToolNamespace>MetaCode.Compiler.obj.Debug</CustomToolNamespace>
     </AntlrTokens>
     <None Include="packages.config" />
+    <Compile Include="Visitors\AbstractTreeVisitor.Statements.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MetaCode.Core\MetaCode.Core.csproj">

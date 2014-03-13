@@ -41,5 +41,18 @@ namespace MetaCode.Compiler.Tests
             var result = ParseWithAbstractTreeVisitor(Compiler, source);
             // THEN
         }
+
+        [Test]
+        public void AbstractTreeVisitorVisitStatementsTest()
+        {
+            // GIVE in setup
+            var source = MultiLine(
+                "do " +
+                "   25;" +
+                "end;"
+            );
+
+            var result = ParseWithAbstractTreeVisitor(Compiler, source);
+        }
     }
 }

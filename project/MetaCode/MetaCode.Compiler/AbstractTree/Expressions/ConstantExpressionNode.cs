@@ -23,8 +23,8 @@ namespace MetaCode.Compiler.AbstractTree.Expressions
             if (constant == null)
                 ThrowHelper.ThrowArgumentNullException(() => constant);
 
-            constant.SetParent(this);
             Constant = constant;
+            SetParentOfNodes(Constant);
         }
 
         #endregion

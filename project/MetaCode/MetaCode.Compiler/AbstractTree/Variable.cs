@@ -9,19 +9,19 @@ namespace MetaCode.Compiler.AbstractTree
 
         public Identitifier Identitifier { get; internal set; }
 
-        public Type Type { get; internal set; }
+        public TypeNameNode TypeName { get; internal set; }
 
-        public Variable(Identitifier identitifier, Type type, BlockStatementNode scope)
+        public Variable(Identitifier identitifier, TypeNameNode typeName, BlockStatementNode scope)
         {
             if (identitifier == null)
                 throw new ArgumentNullException("identitifier", "The identifier is null!");
-            if (type == null) 
-                throw new ArgumentNullException("type", "The type is null!");
+            if (typeName == null) 
+                throw new ArgumentNullException("typeName", "The typeName is null!");
             if (scope == null) 
                 throw new ArgumentNullException("scope", "The scope is null!");
             
             Identitifier = identitifier;
-            Type = type;
+            TypeName = typeName;
             Scope = scope;
         }
     }

@@ -8,16 +8,17 @@ namespace MetaCode.Compiler.AbstractTree.Statements
 {
     public abstract class LoopStatementNode : StatementNode
     {
-        public BlockStatementNode Body { get; internal set; }
+        public StatementNode Body { get; internal set; }
 
         public override IEnumerable<Node> Children
         {
-            get { yield return Body; }
+            get { return base.Children.Concat(new[] { Body }); }
         }
 
-        protected LoopStatementNode(BlockStatementNode body)
+        protected LoopStatementNode(StatementNode body)
         {
             Body = body;
+            SetParentOfNodes(Body);
         }
     }
 }

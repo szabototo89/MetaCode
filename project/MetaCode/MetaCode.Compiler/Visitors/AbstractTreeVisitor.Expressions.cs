@@ -13,18 +13,14 @@ namespace MetaCode.Compiler.Visitors
 {
     public partial class AbstractTreeVisitor
     {
-        #region Expression Visitor methods
+        #region Condition Visitor methods
 
         public override Node VisitExpression(MetaCodeParser.ExpressionContext context)
         {
             var attributes = context.Attributes.With(value => value.Accept(this));
 
-
-
             return base.VisitExpression(context);
         }
-
-
 
         #endregion
     }

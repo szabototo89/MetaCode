@@ -1,176 +1,186 @@
-grammar MetaCode;
+  grammar MetaCode;
 
-init				:	statements
-						;
+  init        :   statements
+              ;
 
-statements	:	(statement ';')+
-						;
+  statements  :   (statement ';')+
+              ;
 
-statement	: Expression=expression
-			|	Attributes=attributes? VariableDeclaration=variableDeclaration
-			| Attributes=attributes? If=ifStatement					
-			|	Attributes=attributes? Block=blockStatement
-			|	Attributes=attributes? Foreach=foreachStatement
-			|	Attributes=attributes? While=whileStatement
-			|	Attributes=attributes? Skip=SKIP
-			;
+  statement   : Expression=expression
+              | Attributes=attributes? VariableDeclaration=variableDeclaration
+              | Attributes=attributes? If=ifStatement                 
+              | Attributes=attributes? Block=blockStatement
+              | Attributes=attributes? Foreach=foreachStatement
+              | Attributes=attributes? While=whileStatement
+              | Attributes=attributes? Skip=SKIP
+              ;
 
-variableDeclaration	:	Attributes=attributes? VAR VariableName=ID (':' VariableType=typeName)? ASSIGN VariableDefaultValue=expression
-					;
+  variableDeclaration :   Attributes=attributes? VAR VariableName=ID (':' VariableType=typeName)? ASSIGN VariableDefaultValue=expression
+                          ;
 
-expression	: primaryExpression
-			| Attributes=attributes? functionCallExpression 
-			| memberExpression
-			;
+  expression  : primaryExpression
+              | Attributes=attributes? functionCallExpression 
+              | memberExpression
+              | Left=expression Operator='+' Right=expression
+              | Left=expression Operator='-' Right=expression                          
+              | Left=expression Operator='*' Right=expression                          
+              | Left=expression Operator='/' Right=expression                          
+              | Left=expression Operator='<' Right=expression                          
+              | Left=expression Operator='>' Right=expression                          
+              | Left=expression Operator='<=' Right=expression                          
+              | Left=expression Operator='>=' Right=expression                          
+              | Left=expression Operator='==' Right=expression                          
+              | Left=expression Operator='!=' Right=expression                          
+              ;
 
-functionCallExpression	:	ID '(' (expression (',' expression)* )? ')'	
-						;
+  functionCallExpression  :   primaryExpression '(' expression? ')'   
+                          ;
 
-memberExpression	: (ID | constant) ('.' (ID | functionCallExpression))+
-					;									
+  memberExpression    : primaryExpression ('.' (ID | functionCallExpression))+
+                      ;         
 
-primaryExpression	:	Attributes=attributes? Constant=constant
-					|	Attributes=attributes? Id=ID
-					|	Attributes=attributes? Function=functionExpression
-					|	Attributes=attributes? Assignment=assignmentExpression
-					|	Attributes=attributes? '(' InnerExpression=expression ')'
-					;
+  primaryExpression   :   Attributes=attributes? Constant=constant
+                      |   Attributes=attributes? Id=ID
+                      |   Attributes=attributes? Function=functionExpression
+                      |   Attributes=attributes? Assignment=assignmentExpression
+                      |   Attributes=attributes? '(' InnerExpression=expression ')'
+                      ;       
 
-functionExpression	:	FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
-					|	FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? '=' BodyExpression=expression
-					;
+  functionExpression  :   FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
+                      |   FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? '=' BodyExpression=expression
+                      ;
 
-foreachStatement	: 	FOREACH '(' ID IN expression ')' Body=expression
-					| 	FOREACH '(' VAR ID ':' ID IN expression ')' Body=expression
-					;
+  foreachStatement    :   FOREACH '(' Id=ID IN ArrayExpression=expression ')' Body=statement
+                      |   FOREACH '(' VAR VarId=ID ':' TypeName=typeName IN ArrayExpression=expression ')' Body=statement
+                      ;
 
-whileStatement		: 	WHILE '(' ConditionExpression=expression ')' Body=expression
-					;
-									
-blockStatement		:	DO Body=statements END
-					;
+  whileStatement      :   WHILE '(' ConditionExpression=expression ')' Body=statement
+                      ;
 
-assignmentExpression:	Variable=ID ASSIGN Value=expression (ConditionalAttributes=attributes? IF '(' ConditionalExpression=expression ')')?
-					;
+  blockStatement      :   DO Body=statements END
+                      ;
 
-ifStatement		:	IF '(' Condition=expression ')' statements 
-					ElseIfStatements=elseIfStatement*
-					(ELSE ElseStatements=statements)? 
-					END
-					;
+  assignmentExpression:   Variable=ID ASSIGN Value=expression (ConditionalAttributes=attributes? IF '(' ConditionalExpression=expression ')')?
+                      ;
 
-elseIfStatement	:   ELSE IF '(' expression ')' statements
-									;
+  ifStatement     :   IF '(' Condition=expression ')' Statements=statements 
+                      ElseIfExpressions=elseIfStatement*
+                      (ELSE ElseStatements=statements)? 
+                      END
+                      ;
 
-formalParameterList	:	formalParameter (',' formalParameter)*
-										;
+  elseIfStatement :   ELSE IF '(' expression ')' statements
+                  ;
 
-formalParameter		:	attributes? ID ':' typeName
-									;					
+  formalParameterList :   formalParameter (',' formalParameter)*
+                      ;
 
-actualParameterList	:	expression (',' expression)*
-										;
+  formalParameter     :   attributes? ID ':' typeName
+                      ;                   
 
-typeName			: 	attributes? ID
-							;
+  actualParameterList :   expression (',' expression)*
+                      ;
 
-constant			:	Number=numberConstant
-							|	String=stringConstant
-							|	Boolean=booleanConstant
-							|	Array=arrayConstant
-							|	Interval=intervalConstant
-							;
+  typeName            :   attributes? ID
+                      ;
 
-numberConstant		:	NUMBER;
+  constant            :   Number=numberConstant
+                      |   String=stringConstant
+                      |   Boolean=booleanConstant
+                      |   Array=arrayConstant
+                      |   Interval=intervalConstant
+                      ;
 
-stringConstant		:	STRING;
+  numberConstant      :   NUMBER;
 
-booleanConstant		:	BOOLEAN;
+  stringConstant      :   STRING;
 
-arrayConstant		:	'[' expression (',' expression)* ']'
-								|	'[' ']'
-								; 
+  booleanConstant     :   BOOLEAN;
 
-intervalConstant	:	Start=NUMBER '..' End=NUMBER ('by' By=NUMBER)
-									;
+  arrayConstant       :   '[' expression (',' expression)* ']'
+                      |   '[' ']'
+                      ; 
 
-attributes	:	attribute+
-						;
+  intervalConstant    :   Start=NUMBER '..' End=NUMBER ('by' By=NUMBER)
+                      ;
 
-attribute	:	Name=ATTRIBUTE_ID 
-					|	Name=ATTRIBUTE_ID '[' constant (',' constant)* ']'
-					; 
+  attributes  :   attribute+
+              ;
 
-/*
- * Lexical rules
-**/
+  attribute   :   Name=ATTRIBUTE_ID 
+              |   Name=ATTRIBUTE_ID '[' constant (',' constant)* ']'
+              ; 
 
-FUNCTION:	'function';
+  /*
+   * Lexical rules
+  **/
 
-FOREACH :	'foreach';
+  FUNCTION:   'function';
 
-WHILE	:	'while';
+  FOREACH :   'foreach';
 
-IF 		: 	'if';
+  WHILE   :   'while';
 
-ELSE 	:	'else';
+  IF      :   'if';
 
-DO  	:	'do';
+  ELSE    :   'else';
 
-END 	:	'end';
+  DO      :   'do';
 
-BOOLEAN	:	'false'
-		|	'true'
-		;
+  END     :   'end';
 
-SKIP  	: 	'skip';
+  BOOLEAN :   'false'
+          |   'true'
+          ;
 
-VAR		:	'var';
+  SKIP    :   'skip';
 
-IN 		: 	'in';
+  VAR     :   'var';
 
-ASSIGN 	:	'=';
+  IN      :   'in';
 
-LEFT_PARENTHESIS  :	'(';
+  ASSIGN  :   '=';
 
-RIGHT_PARENTHESIS :	')';
+  LEFT_PARENTHESIS  : '(';
 
-ID		:	(LETTER|'_') (LETTER|'_'|[0-9])*
-		;
+  RIGHT_PARENTHESIS : ')';
 
-COMMENT :	'//' .*?  NEWLINE -> skip
-		;
+  ID      :   (LETTER|'_') (LETTER|'_'|[0-9])*
+          ;
 
-MULTILINE_COMMENT	: '/*' .*? '*/' -> skip
-					;
+  COMMENT :   '//' .*?  NEWLINE -> skip
+          ;
 
-ATTRIBUTE_ID	: 	'@' (LETTER|'_') (LETTER|'_'|'-'|[0-9])*;
+  MULTILINE_COMMENT   : '/*' .*? '*/' -> skip
+                      ;
 
-fragment
-LETTER	:	[a-zA-Z]
-		;
+  ATTRIBUTE_ID    :   '@' (LETTER|'_') (LETTER|'_'|'-'|[0-9])*;
 
-STRING	:	'"' .*? '"'
-		;
+  fragment
+  LETTER  :   [a-zA-Z]
+          ;
 
-NUMBER	:	INT
-		|	FLOAT
-		;
+  STRING  :   '"' .*? '"'
+          ;
 
-fragment
-INT		:	DIGIT+
-		;
+  NUMBER  :   INT
+          |   FLOAT
+          ;
 
-fragment
-FLOAT	:	DIGIT+ '.' DIGIT*
-		|	'.' DIGIT+
-		;
- 
-fragment 
-DIGIT	:	[0-9]
-		;
+  fragment
+  INT     :   DIGIT+
+          ;
 
-WHITESPACE	:	[ \t]+ -> skip
-			;
-NEWLINE		:	'\r'? '\n' -> skip
-			;
+  fragment
+  FLOAT   :   DIGIT+ '.' DIGIT*
+          |   '.' DIGIT+
+          ;
+   
+  fragment 
+  DIGIT   :   [0-9]
+          ;
+
+  WHITESPACE  :   [ \t]+ -> skip
+              ;
+  NEWLINE     :   '\r'? '\n' -> skip
+              ;

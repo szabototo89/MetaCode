@@ -23,5 +23,10 @@ namespace MetaCode.Compiler.AbstractTree.Statements
                 return statement;
             });
         }
+
+        public override IEnumerable<Node> Children
+        {
+            get { return base.Children.Concat(Statements).Concat(Variables); }
+        }
     }
 }
