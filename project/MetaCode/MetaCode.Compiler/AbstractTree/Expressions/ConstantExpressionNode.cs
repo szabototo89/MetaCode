@@ -5,7 +5,7 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractTree.Expressions
 {
-    public class ConstantExpressionNode : ExpressionNode
+    public class ConstantExpressionNode : PrimaryExpressionNode
     {
         #region Public properties
 
@@ -24,7 +24,7 @@ namespace MetaCode.Compiler.AbstractTree.Expressions
                 ThrowHelper.ThrowArgumentNullException(() => constant);
 
             Constant = constant;
-            SetParentOfNodes(Constant);
+            AddChildren(Constant);
         }
 
         #endregion

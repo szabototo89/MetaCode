@@ -2,9 +2,9 @@
 
 namespace MetaCode.Compiler.AbstractTree
 {
-    public class Identitifier : Node
+    public class Identifier : Node
     {
-        public Identitifier(string name)
+        public Identifier(string name)
         {
             if (string.IsNullOrWhiteSpace(name)) 
                 throw new ArgumentException("The name is blank!", "name");

@@ -17,8 +17,6 @@ namespace MetaCode.Compiler.Visitors
 
         public override Node VisitExpression(MetaCodeParser.ExpressionContext context)
         {
-            var attributes = context.Attributes.With(value => value.Accept(this));
-
             return base.VisitExpression(context);
         }
 

@@ -25,7 +25,7 @@ namespace MetaCode.Compiler.AbstractTree.Statements
                 throw new Exception("The type of Condition is not System.Boolean!");
 
             Condition = condition;
-            SetParentOfNodes(Condition);
+            AddChildren(Condition);
         }
 
         public override IEnumerable<Node> Children

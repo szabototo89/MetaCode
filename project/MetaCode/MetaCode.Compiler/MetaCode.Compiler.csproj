@@ -46,16 +46,29 @@
     <Compile Include="AbstractTree\Constants\ArrayConstantLiteralNode.cs" />
     <Compile Include="AbstractTree\AttributeNode.cs" />
     <Compile Include="AbstractTree\Constants\BooleanConstantLiteralNode.cs" />
+    <Compile Include="AbstractTree\Expressions\AssignmentExpressionNode.cs" />
+    <Compile Include="AbstractTree\Expressions\BinaryExpressionNode.cs" />
     <Compile Include="AbstractTree\Expressions\ConstantExpressionNode.cs" />
     <Compile Include="AbstractTree\Constants\ConstantLiteralNode.cs" />
     <Compile Include="AbstractTree\Expressions\ExpressionNode.cs" />
+    <Compile Include="AbstractTree\Expressions\FunctionExpressionNode.cs" />
+    <Compile Include="AbstractTree\Expressions\IdentifierExpressionNode.cs" />
+    <Compile Include="AbstractTree\Expressions\PrimaryExpressionNode.cs" />
+    <Compile Include="AbstractTree\Expressions\UnaryExpressionNode.cs" />
+    <Compile Include="AbstractTree\Factories\ConstantFactory.cs" />
+    <Compile Include="AbstractTree\Factories\ExpressionFactory.cs" />
+    <Compile Include="AbstractTree\Factories\StatementFactory.cs" />
     <Compile Include="AbstractTree\Node.cs" />
     <Compile Include="AbstractTree\Constants\NumberConstantLiteralNode.cs" />
     <Compile Include="AbstractTree\Constants\StringConstantLiteralNode.cs" />
+    <Compile Include="AbstractTree\Operators\BinaryOperatorNode.cs" />
+    <Compile Include="AbstractTree\Operators\OperatorNode.cs" />
+    <Compile Include="AbstractTree\Operators\UnaryOperatorNode.cs" />
+    <Compile Include="AbstractTree\FunctionParameter.cs" />
     <Compile Include="AbstractTree\Statements\BlockStatementNode.cs" />
     <Compile Include="AbstractTree\Statements\ExpressionStatementNode.cs" />
     <Compile Include="AbstractTree\Statements\ForeachLoopStatementNode.cs" />
-    <Compile Include="AbstractTree\Identitifier.cs" />
+    <Compile Include="AbstractTree\Identifier.cs" />
     <Compile Include="AbstractTree\Statements\IfStatementNode.cs" />
     <Compile Include="AbstractTree\Statements\LoopStatementNode.cs" />
     <Compile Include="AbstractTree\Statements\SkipStatementNode.cs" />
@@ -64,12 +77,16 @@
     <Compile Include="AbstractTree\Statements\WhileLoopStatementNode.cs" />
     <Compile Include="AbstractTree\TypeNameNode.cs" />
     <Compile Include="AbstractTree\Variable.cs" />
+    <Compile Include="Declarations\FunctionDeclaration.cs" />
+    <Compile Include="Declarations\MacroDeclaration.cs" />
+    <Compile Include="Declarations\VariableDeclaration.cs" />
     <Compile Include="Grammar\MetaCode.g4.lexer.cs">
       <DependentUpon>MetaCode.g4</DependentUpon>
     </Compile>
     <Compile Include="Grammar\MetaCode.g4.parser.cs">
       <DependentUpon>MetaCode.g4</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\TypeHelper.cs" />
     <Compile Include="MetaCodeCompiler.cs" />
     <Compile Include="obj\Debug\MetaCodeBaseListener.cs">
       <SubType>Code</SubType>
@@ -86,6 +103,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CompilerService.cs" />
+    <Compile Include="Services\ExpressionService.cs" />
     <Compile Include="Visitors\AbstractTreeVisitor.Constants.cs" />
     <Compile Include="Visitors\AttributeVisitor.cs" />
     <Compile Include="Visitors\AbstractTreeVisitor.Expressions.cs" />

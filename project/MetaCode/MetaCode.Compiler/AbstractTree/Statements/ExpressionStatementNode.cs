@@ -16,6 +16,7 @@ namespace MetaCode.Compiler.AbstractTree.Statements
         {
             if (expression == null)
                 throw new ArgumentNullException("expression", "The expression is null!");
+
             Expression = expression;
         }
 

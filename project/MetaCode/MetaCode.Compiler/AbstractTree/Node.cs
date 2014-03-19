@@ -24,13 +24,15 @@ namespace MetaCode.Compiler.AbstractTree
 
         #region Internal methods
 
-        internal Node SetParentOfNodes(params Node[] nodes)
+        internal Node AddChildren(params Node[] children)
         {
-            if (nodes == null) 
-                throw new ArgumentNullException("nodes", "The nodes is null!");
+            if (children == null) 
+                throw new ArgumentNullException("children", "The children is null!");
 
-            foreach (var node in nodes)
-                node.SetParent(this);
+            _children.Union(children);
+
+            foreach (var child in children)
+                child.SetParent(this);
 
             return this;
         }

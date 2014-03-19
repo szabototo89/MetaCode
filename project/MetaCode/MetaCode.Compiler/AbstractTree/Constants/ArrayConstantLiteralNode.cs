@@ -12,7 +12,7 @@ namespace MetaCode.Compiler.AbstractTree.Constants
         public ArrayConstantLiteralNode(ExpressionNode[] values)
             : base(values, typeof(IEnumerable))
         {
-            SetParentOfNodes(values);
+            AddChildren(values);
         }
 
         #endregion

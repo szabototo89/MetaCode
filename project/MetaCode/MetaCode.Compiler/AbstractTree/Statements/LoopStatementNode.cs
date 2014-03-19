@@ -18,7 +18,7 @@ namespace MetaCode.Compiler.AbstractTree.Statements
         protected LoopStatementNode(StatementNode body)
         {
             Body = body;
-            SetParentOfNodes(Body);
+            AddChildren(Body);
         }
     }
 }

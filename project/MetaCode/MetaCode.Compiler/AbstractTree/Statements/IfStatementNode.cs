@@ -28,7 +28,7 @@ namespace MetaCode.Compiler.AbstractTree.Statements
             TrueStatementNode = trueStatement;
             FalseStatementNode = falseStatement;
 
-            SetParentOfNodes(condition, trueStatement, falseStatement);
+            AddChildren(condition, trueStatement, falseStatement);
         }
 
         public override IEnumerable<Node> Children

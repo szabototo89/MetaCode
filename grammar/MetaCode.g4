@@ -1,186 +1,195 @@
-  grammar MetaCode;
+grammar MetaCode;
 
-  init        :   statements
-              ;
+init        :   statements
+            ;
 
-  statements  :   (statement ';')+
-              ;
+statements  :   (statement ';')+
+            ;
 
-  statement   : Expression=expression
-              | Attributes=attributes? VariableDeclaration=variableDeclaration
-              | Attributes=attributes? If=ifStatement                 
-              | Attributes=attributes? Block=blockStatement
-              | Attributes=attributes? Foreach=foreachStatement
-              | Attributes=attributes? While=whileStatement
-              | Attributes=attributes? Skip=SKIP
-              ;
+statement   : Expression=expression
+            | Attributes=attributes? VariableDeclaration=variableDeclaration
+            | Attributes=attributes? If=ifStatement                 
+            | Attributes=attributes? Block=blockStatement
+            | Attributes=attributes? Foreach=foreachStatement
+            | Attributes=attributes? While=whileStatement
+            | Attributes=attributes? Skip=SKIP
+            ;
 
-  variableDeclaration :   Attributes=attributes? VAR VariableName=ID (':' VariableType=typeName)? ASSIGN VariableDefaultValue=expression
-                          ;
+variableDeclaration :   Attributes=attributes? VAR VariableName=ID (':' VariableType=typeName)? ASSIGN VariableDefaultValue=expression
+                        ;
 
-  expression  : primaryExpression
-              | Attributes=attributes? functionCallExpression 
-              | memberExpression
-              | Left=expression Operator='+' Right=expression
-              | Left=expression Operator='-' Right=expression                          
-              | Left=expression Operator='*' Right=expression                          
-              | Left=expression Operator='/' Right=expression                          
-              | Left=expression Operator='<' Right=expression                          
-              | Left=expression Operator='>' Right=expression                          
-              | Left=expression Operator='<=' Right=expression                          
-              | Left=expression Operator='>=' Right=expression                          
-              | Left=expression Operator='==' Right=expression                          
-              | Left=expression Operator='!=' Right=expression                          
-              ;
+expression  : primaryExpression
+            | functionCallExpression 
+            | memberExpression
+            | Operator=NOT Expression=expression
+            | Left=expression Operator='+' Right=expression
+            | Left=expression Operator='-' Right=expression                          
+            | Left=expression Operator='*' Right=expression                          
+            | Left=expression Operator='/' Right=expression                          
+            | Left=expression Operator='<' Right=expression                          
+            | Left=expression Operator='>' Right=expression                          
+            | Left=expression Operator='<=' Right=expression                          
+            | Left=expression Operator='>=' Right=expression                          
+            | Left=expression Operator='==' Right=expression                          
+            | Left=expression Operator='!=' Right=expression                          
+            | Left=expression Operator=AND Right=expression                          
+            | Left=expression Operator=OR Right=expression                          
+            ;
 
-  functionCallExpression  :   primaryExpression '(' expression? ')'   
-                          ;
+functionCallExpression  :   primaryExpression '(' expression? ')'   
+                        ;
 
-  memberExpression    : primaryExpression ('.' (ID | functionCallExpression))+
-                      ;         
+memberExpression    : primaryExpression ('.' (ID | functionCallExpression))+
+                    ;         
 
-  primaryExpression   :   Attributes=attributes? Constant=constant
-                      |   Attributes=attributes? Id=ID
-                      |   Attributes=attributes? Function=functionExpression
-                      |   Attributes=attributes? Assignment=assignmentExpression
-                      |   Attributes=attributes? '(' InnerExpression=expression ')'
-                      ;       
+primaryExpression   :   Attributes=attributes? Constant=constant
+                    |   Attributes=attributes? Id=ID
+                    |   Attributes=attributes? Function=functionExpression
+                    |   Attributes=attributes? Assignment=assignmentExpression
+                    |   Attributes=attributes? '(' InnerExpression=expression ')'
+                    ;       
 
-  functionExpression  :   FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
-                      |   FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? '=' BodyExpression=expression
-                      ;
+functionExpression  :   FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
+                    |   FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? '=' BodyExpression=expression
+                    ;
 
-  foreachStatement    :   FOREACH '(' Id=ID IN ArrayExpression=expression ')' Body=statement
-                      |   FOREACH '(' VAR VarId=ID ':' TypeName=typeName IN ArrayExpression=expression ')' Body=statement
-                      ;
+foreachStatement    :   FOREACH '(' Id=ID IN ArrayExpression=expression ')' Body=statement
+                    |   FOREACH '(' VAR VarId=ID ':' TypeName=typeName IN ArrayExpression=expression ')' Body=statement
+                    ;
 
-  whileStatement      :   WHILE '(' ConditionExpression=expression ')' Body=statement
-                      ;
+whileStatement      :   WHILE '(' ConditionExpression=expression ')' Body=statement
+                    ;
 
-  blockStatement      :   DO Body=statements END
-                      ;
+blockStatement      :   DO Body=statements END
+                    ;
 
-  assignmentExpression:   Variable=ID ASSIGN Value=expression (ConditionalAttributes=attributes? IF '(' ConditionalExpression=expression ')')?
-                      ;
+assignmentExpression:   Variable=ID ASSIGN Value=expression (ConditionalAttributes=attributes? IF '(' ConditionalExpression=expression ')')?
+                    ;
 
-  ifStatement     :   IF '(' Condition=expression ')' Statements=statements 
-                      ElseIfExpressions=elseIfStatement*
-                      (ELSE ElseStatements=statements)? 
-                      END
-                      ;
+ifStatement     :   IF '(' Condition=expression ')' Statements=statements 
+                    ElseIfExpressions=elseIfStatement*
+                    (ELSE ElseStatements=statements)? 
+                    END
+                    ;
 
-  elseIfStatement :   ELSE IF '(' expression ')' statements
-                  ;
+elseIfStatement :   ELSE IF '(' expression ')' statements
+                ;
 
-  formalParameterList :   formalParameter (',' formalParameter)*
-                      ;
+formalParameterList :   formalParameter (',' formalParameter)*
+                    ;
 
-  formalParameter     :   attributes? ID ':' typeName
-                      ;                   
+formalParameter     :   attributes? ID ':' typeName
+                    ;                   
 
-  actualParameterList :   expression (',' expression)*
-                      ;
+actualParameterList :   expression (',' expression)*
+                    ;
 
-  typeName            :   attributes? ID
-                      ;
+typeName            :   attributes? ID
+                    ;
 
-  constant            :   Number=numberConstant
-                      |   String=stringConstant
-                      |   Boolean=booleanConstant
-                      |   Array=arrayConstant
-                      |   Interval=intervalConstant
-                      ;
+constant            :   Number=numberConstant
+                    |   String=stringConstant
+                    |   Boolean=booleanConstant
+                    |   Array=arrayConstant
+                    |   Interval=intervalConstant
+                    ;
 
-  numberConstant      :   NUMBER;
+numberConstant      :   NUMBER;
 
-  stringConstant      :   STRING;
+stringConstant      :   STRING;
 
-  booleanConstant     :   BOOLEAN;
+booleanConstant     :   BOOLEAN;
 
-  arrayConstant       :   '[' expression (',' expression)* ']'
-                      |   '[' ']'
-                      ; 
+arrayConstant       :   '[' expression (',' expression)* ']'
+										|		'[' expression '..' expression ']'
+                    |   '[' ']'
+                    ; 
 
-  intervalConstant    :   Start=NUMBER '..' End=NUMBER ('by' By=NUMBER)
-                      ;
+intervalConstant    :   Start=NUMBER '..' End=NUMBER ('by' By=NUMBER)
+                    ;
 
-  attributes  :   attribute+
-              ;
+attributes  :   attribute+
+            ;
 
-  attribute   :   Name=ATTRIBUTE_ID 
-              |   Name=ATTRIBUTE_ID '[' constant (',' constant)* ']'
-              ; 
+attribute   :   Name=ATTRIBUTE_ID ('(' constant (',' constant)* ')')?
+            ; 
 
-  /*
-   * Lexical rules
-  **/
+/*
+ * Lexical rules
+**/
 
-  FUNCTION:   'function';
+FUNCTION:   'function';
 
-  FOREACH :   'foreach';
+FOREACH :   'foreach';
 
-  WHILE   :   'while';
+WHILE   :   'while';
 
-  IF      :   'if';
+IF      :   'if';
 
-  ELSE    :   'else';
+ELSE    :   'else';
 
-  DO      :   'do';
+DO      :   'do';
 
-  END     :   'end';
+END     :   'end';
 
-  BOOLEAN :   'false'
-          |   'true'
-          ;
+BOOLEAN :   'false'
+        |   'true'
+        ;
 
-  SKIP    :   'skip';
+SKIP    :   'skip';
 
-  VAR     :   'var';
+VAR     :   'var';
 
-  IN      :   'in';
+IN      :   'in';
 
-  ASSIGN  :   '=';
+ASSIGN  :   '=';
 
-  LEFT_PARENTHESIS  : '(';
+AND			:		'and';
 
-  RIGHT_PARENTHESIS : ')';
+OR 			: 	'or';
 
-  ID      :   (LETTER|'_') (LETTER|'_'|[0-9])*
-          ;
+NOT			: 	'not';
 
-  COMMENT :   '//' .*?  NEWLINE -> skip
-          ;
+LEFT_PARENTHESIS  : '(';
 
-  MULTILINE_COMMENT   : '/*' .*? '*/' -> skip
-                      ;
+RIGHT_PARENTHESIS : ')';
 
-  ATTRIBUTE_ID    :   '@' (LETTER|'_') (LETTER|'_'|'-'|[0-9])*;
+ID      :   (LETTER|'_') (LETTER|'_'|[0-9])*
+        ;
 
-  fragment
-  LETTER  :   [a-zA-Z]
-          ;
+COMMENT :   '//' .*?  NEWLINE -> skip
+        ;
 
-  STRING  :   '"' .*? '"'
-          ;
+MULTILINE_COMMENT   : '/*' .*? '*/' -> skip
+                    ;
 
-  NUMBER  :   INT
-          |   FLOAT
-          ;
+ATTRIBUTE_ID    :   '@' (LETTER|'_') (LETTER|'_'|'-'|[0-9])*;
 
-  fragment
-  INT     :   DIGIT+
-          ;
+fragment
+LETTER  :   [a-zA-Z]
+        ;
 
-  fragment
-  FLOAT   :   DIGIT+ '.' DIGIT*
-          |   '.' DIGIT+
-          ;
-   
-  fragment 
-  DIGIT   :   [0-9]
-          ;
+STRING  :   '"' .*? '"'
+        ;
 
-  WHITESPACE  :   [ \t]+ -> skip
-              ;
-  NEWLINE     :   '\r'? '\n' -> skip
-              ;
+NUMBER  :   INT
+        |   FLOAT
+        ;
+
+fragment
+INT     :   DIGIT+
+        ;
+
+fragment
+FLOAT   :   DIGIT+ '.' DIGIT*
+        |   '.' DIGIT+
+        ;
+ 
+fragment 
+DIGIT   :   [0-9]
+        ;
+
+WHITESPACE  :   [ \t]+ -> skip
+            ;
+NEWLINE     :   '\r'? '\n' -> skip
+            ;

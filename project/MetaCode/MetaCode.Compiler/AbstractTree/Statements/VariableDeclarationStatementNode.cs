@@ -9,7 +9,7 @@ namespace MetaCode.Compiler.AbstractTree.Statements
 {
     public class VariableDeclarationStatementNode : StatementNode
     {
-        public Identitifier Identitifier { get; protected set; }
+        public Identifier Identifier { get; protected set; }
 
         public TypeNameNode Type { get; protected set; }
 

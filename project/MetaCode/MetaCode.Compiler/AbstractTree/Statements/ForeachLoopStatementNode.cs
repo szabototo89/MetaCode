@@ -21,7 +21,7 @@ namespace MetaCode.Compiler.AbstractTree.Statements
             LoopVariable = loopVariable;
             Expression = expression;
 
-            SetParentOfNodes(loopVariable, expression, body);
+            AddChildren(loopVariable, expression, body);
         }
 
         public override IEnumerable<Node> Children

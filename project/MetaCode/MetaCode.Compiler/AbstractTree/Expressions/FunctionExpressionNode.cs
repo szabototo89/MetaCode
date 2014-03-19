@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MetaCode.Compiler.AbstractTree.Statements;
+using MetaCode.Core;
+
+namespace MetaCode.Compiler.AbstractTree.Expressions
+{
+    public class FunctionExpressionNode : PrimaryExpressionNode
+    {
+        public Identifier Name { get; protected set; }
+        public BlockStatementNode FunctionBlock { get; protected set; }
+        public TypeNameNode ReturnType { get; protected set; }
+
+        public FunctionExpressionNode(Identifier name, BlockStatementNode functionBlock, TypeNameNode returnType, IEnumerable<AttributeNode> attributes)
+            : base(attributes)
+        {
+            if (name == null)
+                ThrowHelper.ThrowArgumentNullException(() => name);
+            if (functionBlock == null)
+                ThrowHelper.ThrowArgumentNullException(() => functionBlock);
+            if (returnType == null)
+                ThrowHelper.ThrowArgumentNullException(() => returnType);
+            
+            Name = name;
+            FunctionBlock = functionBlock;
+            ReturnType = returnType;
+
+            AddChildren(Name, FunctionBlock, ReturnType);
+        }
+
+        public override Type Type
+        {
+            get { return typeof(Delegate); }
+        }
+    }
+}
