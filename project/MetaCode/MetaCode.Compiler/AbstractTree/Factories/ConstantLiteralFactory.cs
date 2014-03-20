@@ -91,7 +91,7 @@ namespace MetaCode.Compiler.AbstractTree.Factories
             return new ArrayConstantLiteralNode(items.ToArray());
         }
 
-        // TODO: Create AppentTo function (like jQuery)
+        // TODO: Create AppendTo function (like jQuery)
         /*public static TContent AppendTo<TContent, TNode>(this TContent content, TNode node)
             where TContent : Node
             where TNode : Node

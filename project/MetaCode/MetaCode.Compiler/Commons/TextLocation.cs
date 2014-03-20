@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,11 @@ namespace MetaCode.Compiler.Commons
         {
             Line = line;
             Offset = offset;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("({0}:{1})", Line, Offset);
         }
     }
 }

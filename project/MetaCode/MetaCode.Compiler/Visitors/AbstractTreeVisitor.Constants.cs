@@ -6,6 +6,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime;
+using Antlr4.Runtime.Tree;
 using MetaCode.Compiler.AbstractTree;
 using MetaCode.Compiler.AbstractTree.Constants;
 using MetaCode.Compiler.AbstractTree.Expressions;
@@ -56,6 +57,16 @@ namespace MetaCode.Compiler.Visitors
                                       context.Boolean,
                                       context.Array,
                                       context.Interval);
+        }
+
+        #endregion
+
+        #region Identifier Visitor method
+
+        public override Node VisitIdentifier(MetaCodeParser.IdentifierContext context)
+        {
+            var id = context.Id;
+            return base.VisitIdentifier(context);
         }
 
         #endregion

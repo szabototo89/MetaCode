@@ -330,6 +330,17 @@ public partial class MetaCodeBaseVisitor<Result> : AbstractParseTreeVisitor<Resu
 	public virtual Result VisitForeachStatement([NotNull] MetaCodeParser.ForeachStatementContext context) { return VisitChildren(context); }
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.identifier"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitIdentifier([NotNull] MetaCodeParser.IdentifierContext context) { return VisitChildren(context); }
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.stringConstant"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>

@@ -1,4 +1,5 @@
-﻿using MetaCode.Core;
+﻿using System.Diagnostics;
+using MetaCode.Core;
 
 namespace MetaCode.Compiler.Commons
 {
@@ -18,6 +19,11 @@ namespace MetaCode.Compiler.Commons
 
             Start = start;
             End = end;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}..{1}", Start, End);
         }
     }
 }

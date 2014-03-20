@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Antlr4.Runtime;
+using Antlr4.Runtime.Tree;
+using MetaCode.Compiler.AbstractTree;
 using MetaCode.Compiler.AbstractTree.Factories;
 using MetaCode.Compiler.Services;
 using MetaCode.Core;
@@ -13,6 +16,8 @@ namespace MetaCode.Compiler.Visitors
     {
         public CompilerService CompilerService { get; protected set; }
         public StatementFactory StatementFactory { get; protected set; }
+
+        public ExpressionFactory ExpressionFactory { get; protected set; }
 
         public ConstantLiteralFactory ConstantLiteralFactory { get; protected set; }
 
@@ -25,6 +30,12 @@ namespace MetaCode.Compiler.Visitors
 
             ConstantLiteralFactory = new ConstantLiteralFactory(CompilerService);
             StatementFactory = new StatementFactory(CompilerService);
+        }
+
+        public override Node VisitChildren(IRuleNode node)
+        {
+            UpdateLocation(node.RuleContext as ParserRuleContext);
+            return base.VisitChildren(node);
         }
     }
 }

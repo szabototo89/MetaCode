@@ -36,6 +36,8 @@ expression  : primaryExpression
             | Left=expression Operator=OR Right=expression                          
             ;
 
+binaryExpression	:
+
 functionCallExpression  :   primaryExpression '(' expression? ')'   
                         ;
 
@@ -151,6 +153,8 @@ AND			:		'and';
 OR 			: 	'or';
 
 NOT			: 	'not';
+
+NEW 		:		'new';
 
 NULL		:	'null';
 

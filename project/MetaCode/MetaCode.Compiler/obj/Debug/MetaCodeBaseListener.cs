@@ -385,6 +385,19 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	public virtual void ExitForeachStatement([NotNull] MetaCodeParser.ForeachStatementContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.identifier"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIdentifier([NotNull] MetaCodeParser.IdentifierContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.identifier"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIdentifier([NotNull] MetaCodeParser.IdentifierContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.stringConstant"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

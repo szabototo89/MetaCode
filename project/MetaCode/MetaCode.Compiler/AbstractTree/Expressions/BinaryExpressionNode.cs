@@ -9,9 +9,9 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractTree.Expressions
 {
-    public abstract class BinaryExpressionNode : ExpressionNode
+    public class BinaryExpressionNode : ExpressionNode
     {
-        protected BinaryExpressionNode(ExpressionNode left, ExpressionNode right, BinaryOperatorNode operatorNode)
+        public BinaryExpressionNode(ExpressionNode left, ExpressionNode right, BinaryOperatorNode operatorNode)
         {
             if (left == null)
                 ThrowHelper.ThrowArgumentNullException(() => left);

@@ -220,6 +220,13 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitForeachStatement([NotNull] MetaCodeParser.ForeachStatementContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.identifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIdentifier([NotNull] MetaCodeParser.IdentifierContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.stringConstant"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

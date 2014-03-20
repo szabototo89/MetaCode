@@ -127,6 +127,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CompilerService.cs" />
     <Compile Include="Services\ExpressionService.cs" />
+    <Compile Include="Services\InformationBase.cs" />
     <Compile Include="Visitors\AbstractTreeVisitor.Constants.cs" />
     <Compile Include="Visitors\AbstractTreeVisitor.cs" />
     <Compile Include="Visitors\AbstractTreeVisitor.Utilities.cs" />

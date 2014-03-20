@@ -15,12 +15,12 @@ statement   : Expression=expression
             | Attributes=attributes? Skip=skipStatement
             ;
 
-variableDeclaration :   Attributes=attributes? VAR VariableName=ID (':' VariableType=typeName)? ASSIGN VariableDefaultValue=expression
+variableDeclaration :   Attributes=attributes? VAR VariableName=identifier (':' VariableType=typeName)? ASSIGN VariableDefaultValue=expression
                         ;
 
-expression  : primaryExpression
-            | functionCallExpression 
-            | memberExpression
+expression  : PrimaryExpression=primaryExpression
+            | FunctionCallExpression=functionCallExpression 
+            | MemberExpression=memberExpression
             | Operator=NOT Expression=expression
             | Left=expression Operator='+' Right=expression
             | Left=expression Operator='-' Right=expression                          
@@ -39,22 +39,22 @@ expression  : primaryExpression
 functionCallExpression  :   primaryExpression '(' expression? ')'   
                         ;
 
-memberExpression    : primaryExpression ('.' (ID | functionCallExpression))+
+memberExpression    : primaryExpression ('.' (identifier | functionCallExpression))+
                     ;         
 
 primaryExpression   :   Attributes=attributes? Constant=constant
-                    |   Attributes=attributes? Id=ID
+                    |   Attributes=attributes? Id=identifier
                     |   Attributes=attributes? Function=functionExpression
                     |   Attributes=attributes? Assignment=assignmentExpression
                     |   Attributes=attributes? '(' InnerExpression=expression ')'
                     ;       
 
-functionExpression  :   FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
-                    |   FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? '=' BodyExpression=expression
+functionExpression  :   FUNCTION FunctionName=identifier? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
+                    |   FUNCTION FunctionName=identifier? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? '=' BodyExpression=expression
                     ;
 
-foreachStatement    :   FOREACH '(' Id=ID IN ArrayExpression=expression ')' Body=statement
-                    |   FOREACH '(' VAR VarId=ID ':' TypeName=typeName IN ArrayExpression=expression ')' Body=statement
+foreachStatement    :   FOREACH '(' Id=identifier IN ArrayExpression=expression ')' Body=statement
+                    |   FOREACH '(' VAR Id=identifier ':' TypeName=typeName IN ArrayExpression=expression ')' Body=statement
                     ;
 
 whileStatement      :   WHILE '(' ConditionExpression=expression ')' Body=statement
@@ -63,10 +63,9 @@ whileStatement      :   WHILE '(' ConditionExpression=expression ')' Body=statem
 blockStatement      :   DO Body=statements END
                     ;
 
-skipStatement				: 	SKIP
-										;
+skipStatement		: 	SKIP;
 
-assignmentExpression:   Variable=ID ASSIGN Value=expression (ConditionalAttributes=attributes? IF '(' ConditionalExpression=expression ')')?
+assignmentExpression:   Variable=identifier ASSIGN Value=expression (ConditionalAttributes=attributes? IF '(' ConditionalExpression=expression ')')?
                     ;
 
 ifStatement     :   IF '(' Condition=expression ')' Statements=statements 
@@ -81,13 +80,13 @@ elseIfStatement :   ELSE IF '(' expression ')' statements
 formalParameterList :   formalParameter (',' formalParameter)*
                     ;
 
-formalParameter     :   attributes? ID ':' typeName
+formalParameter     :   attributes? identifier ':' typeName
                     ;                   
 
 actualParameterList :   expression (',' expression)*
                     ;
 
-typeName            :   attributes? ID
+typeName            :   attributes? identifier
                     ;
 
 constant            :   Number=numberConstant
@@ -96,6 +95,9 @@ constant            :   Number=numberConstant
                     |   Array=arrayConstant
                     |   Interval=intervalConstant
                     ;
+
+identifier			:	Id=ID
+					;
 
 numberConstant      :   NUMBER;
 

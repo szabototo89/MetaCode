@@ -12,6 +12,31 @@ namespace MetaCode.Compiler.Helpers
 {
     public static class TypeHelper
     {
+        private static readonly Type[] NUMERIC_TYPES;
+
+        static TypeHelper()
+        {
+            NUMERIC_TYPES = new[] { typeof(byte), typeof(short), 
+                                    typeof(int), typeof(long), 
+                                    typeof(float), typeof(double) };
+        }
+
+        public static bool IsLogical(this Type type)
+        {
+            if (type == null)
+                ThrowHelper.ThrowArgumentNullException(() => type);
+
+            return type == typeof(Boolean);
+        }
+
+        public static bool IsNumeric(this Type type)
+        {
+            if (type == null)
+                ThrowHelper.ThrowArgumentNullException(() => type);
+
+            return type.In(NUMERIC_TYPES);
+        }
+
         public static bool IsEnumerable(this Type type)
         {
             if (type == null)

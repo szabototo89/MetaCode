@@ -11,7 +11,7 @@ namespace MetaCode.Core
         public static bool In<TValue, TArrayItem>(this TValue value, IEnumerable<TArrayItem> array)
             where TArrayItem : TValue
         {
-            if (array == null) 
+            if (array == null)
                 throw new ArgumentNullException("array");
 
             return array.Any(item => EqualityComparer<TValue>.Default.Equals(value, item));
@@ -44,6 +44,31 @@ namespace MetaCode.Core
 
             if (item != null)
                 return selector(item);
+
+            return default(TResult);
+        }
+
+        public static bool Is<TCastType>(this object item)
+        {
+            return item is TCastType;
+        }
+
+        public static void Is<TCastType>(this object item, Action<TCastType> action)
+        {
+            if (action == null)
+                ThrowHelper.ThrowArgumentNullException(() => action);
+
+            if (item is TCastType)
+                action((TCastType)item);
+        }
+
+        public static TResult Then<TResult>(this bool condition, Func<TResult> func)
+        {
+            if (func == null)
+                ThrowHelper.ThrowArgumentNullException(() => func);
+
+            if (condition)
+                return func();
 
             return default(TResult);
         }
