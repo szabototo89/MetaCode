@@ -164,6 +164,19 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	public virtual void ExitActualParameterList([NotNull] MetaCodeParser.ActualParameterListContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.skipStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSkipStatement([NotNull] MetaCodeParser.SkipStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.skipStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSkipStatement([NotNull] MetaCodeParser.SkipStatementContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.formalParameterList"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -346,19 +359,6 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	public virtual void ExitAttributes([NotNull] MetaCodeParser.AttributesContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.foreachStatement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterForeachStatement([NotNull] MetaCodeParser.ForeachStatementContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.foreachStatement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitForeachStatement([NotNull] MetaCodeParser.ForeachStatementContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.arrayConstant"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -370,6 +370,19 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitArrayConstant([NotNull] MetaCodeParser.ArrayConstantContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.foreachStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterForeachStatement([NotNull] MetaCodeParser.ForeachStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.foreachStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitForeachStatement([NotNull] MetaCodeParser.ForeachStatementContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.stringConstant"/>.

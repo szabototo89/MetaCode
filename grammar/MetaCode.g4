@@ -12,7 +12,7 @@ statement   : Expression=expression
             | Attributes=attributes? Block=blockStatement
             | Attributes=attributes? Foreach=foreachStatement
             | Attributes=attributes? While=whileStatement
-            | Attributes=attributes? Skip=SKIP
+            | Attributes=attributes? Skip=skipStatement
             ;
 
 variableDeclaration :   Attributes=attributes? VAR VariableName=ID (':' VariableType=typeName)? ASSIGN VariableDefaultValue=expression
@@ -63,6 +63,9 @@ whileStatement      :   WHILE '(' ConditionExpression=expression ')' Body=statem
 blockStatement      :   DO Body=statements END
                     ;
 
+skipStatement				: 	SKIP
+										;
+
 assignmentExpression:   Variable=ID ASSIGN Value=expression (ConditionalAttributes=attributes? IF '(' ConditionalExpression=expression ')')?
                     ;
 
@@ -101,11 +104,10 @@ stringConstant      :   STRING;
 booleanConstant     :   BOOLEAN;
 
 arrayConstant       :   '[' expression (',' expression)* ']'
-										|		'[' expression '..' expression ']'
                     |   '[' ']'
                     ; 
 
-intervalConstant    :   Start=NUMBER '..' End=NUMBER ('by' By=NUMBER)
+intervalConstant    :   Start=NUMBER 'to' End=NUMBER ('by' By=NUMBER)?
                     ;
 
 attributes  :   attribute+
@@ -149,6 +151,8 @@ AND			:		'and';
 OR 			: 	'or';
 
 NOT			: 	'not';
+
+NULL		:	'null';
 
 LEFT_PARENTHESIS  : '(';
 

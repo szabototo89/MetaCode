@@ -4,9 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetaCode.Compiler.Declarations
+namespace MetaCode.Compiler.AbstractTree.Constants
 {
-    public class FunctionDeclaration
-    {
-    }
 }

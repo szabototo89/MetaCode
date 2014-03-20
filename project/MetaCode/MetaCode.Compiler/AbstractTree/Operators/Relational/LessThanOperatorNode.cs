@@ -12,13 +12,5 @@ namespace MetaCode.Compiler.AbstractTree.Operators.Relational
         {
             get { return "<"; }
         }
-    } 
-    
-    public class GreaterThanOperatorNode : RelationalBinaryOperatorNode
-    {
-        public override string Operator
-        {
-            get { return ">"; }
-        }
     }
 }

@@ -24,7 +24,7 @@ namespace MetaCode.Compiler.AbstractTree.Expressions
 
         public override Type Type
         {
-            get { throw new NotImplementedException(); }
+            get { return Identifier.Type; }
         }
     }
 }

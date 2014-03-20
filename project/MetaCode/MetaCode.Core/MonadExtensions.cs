@@ -8,6 +8,15 @@ namespace MetaCode.Core
 {
     public static class MonadExtensions
     {
+        public static bool In<TValue, TArrayItem>(this TValue value, IEnumerable<TArrayItem> array)
+            where TArrayItem : TValue
+        {
+            if (array == null) 
+                throw new ArgumentNullException("array");
+
+            return array.Any(item => EqualityComparer<TValue>.Default.Equals(value, item));
+        }
+
         public static TValue Coalesce<TValue>(this TValue value, TValue defaultValue)
             where TValue : class
         {

@@ -26,7 +26,7 @@ namespace MetaCode.Compiler.AbstractTree.Constants
         #region Constructors
 
         protected ConstantLiteralNode(TValue value, Type type)
-            : base(type)
+            : base(typeof(TValue))
         {
             Value = value;
         }

@@ -11,6 +11,8 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.Visitors
 {
+
+    // TODO: Write visitor of expressions
     public partial class AbstractTreeVisitor
     {
         #region Condition Visitor methods

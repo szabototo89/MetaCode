@@ -140,6 +140,17 @@ public interface IMetaCodeListener : IParseTreeListener {
 	void ExitActualParameterList([NotNull] MetaCodeParser.ActualParameterListContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.skipStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSkipStatement([NotNull] MetaCodeParser.SkipStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.skipStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSkipStatement([NotNull] MetaCodeParser.SkipStatementContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.formalParameterList"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -294,17 +305,6 @@ public interface IMetaCodeListener : IParseTreeListener {
 	void ExitAttributes([NotNull] MetaCodeParser.AttributesContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.foreachStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterForeachStatement([NotNull] MetaCodeParser.ForeachStatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.foreachStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitForeachStatement([NotNull] MetaCodeParser.ForeachStatementContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.arrayConstant"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -314,6 +314,17 @@ public interface IMetaCodeListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitArrayConstant([NotNull] MetaCodeParser.ArrayConstantContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.foreachStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterForeachStatement([NotNull] MetaCodeParser.ForeachStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.foreachStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitForeachStatement([NotNull] MetaCodeParser.ForeachStatementContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.stringConstant"/>.

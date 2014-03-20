@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MetaCode.Compiler.AbstractTree.Operators
+namespace MetaCode.Compiler.AbstractTree.Operators.Numerics
 {
     public abstract class NumericBinaryOperatorNode : BinaryOperatorNode
     {

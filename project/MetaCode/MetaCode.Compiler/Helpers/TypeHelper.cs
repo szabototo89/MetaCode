@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Collections;
+using MetaCode.Core;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,6 +12,18 @@ namespace MetaCode.Compiler.Helpers
 {
     public static class TypeHelper
     {
+        public static bool IsEnumerable(this Type type)
+        {
+            if (type == null)
+                ThrowHelper.ThrowArgumentNullException(() => type);
+
+            if (type == typeof(IEnumerable))
+                return true;
+
+            return type.GetInterfaces()
+                       .Any(@interface => @interface == typeof(IEnumerable));
+        }
+
         public static Type FindBaseClass(this Type type, Type otherType)
         {
             if (type == null) throw new ArgumentNullException("type", "The type is null!");

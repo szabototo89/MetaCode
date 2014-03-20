@@ -10,6 +10,11 @@ namespace MetaCode.Core
 {
     public static class ThrowHelper
     {
+        public static void ThrowException(string message = "")
+        {
+            throw new Exception(message);
+        }
+
         public static void ThrowArgumentNullException(string parameterName = "")
         {
             throw new ArgumentNullException(parameterName, !string.IsNullOrEmpty(parameterName)

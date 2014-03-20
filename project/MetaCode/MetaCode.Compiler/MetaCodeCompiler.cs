@@ -15,12 +15,21 @@ namespace MetaCode.Compiler
         public TResult ParseWithVisitor<TResult, TVisitor>(string source)
             where TVisitor : MetaCodeBaseVisitor<TResult>, new()
         {
+            return ParseWithVisitor<TResult, TVisitor>(source, () => new TVisitor());
+        }
+
+        public TResult ParseWithVisitor<TResult, TVisitor>(string source, Func<TVisitor> visitorInitializer)
+            where TVisitor : MetaCodeBaseVisitor<TResult>
+        {
+            if (visitorInitializer == null)
+                ThrowHelper.ThrowArgumentNullException(() => visitorInitializer);
+
             var inputStream = new AntlrInputStream(source);
             var lexer = new MetaCodeLexer(inputStream);
             var commonTokenStream = new CommonTokenStream(lexer);
             var parser = new MetaCodeParser(commonTokenStream);
             var context = parser.init();
-            var visitor = new TVisitor();
+            var visitor = visitorInitializer();
             return visitor.VisitInit(context);
         }
 

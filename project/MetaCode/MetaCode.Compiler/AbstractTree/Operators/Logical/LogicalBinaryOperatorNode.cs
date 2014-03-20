@@ -9,12 +9,4 @@ namespace MetaCode.Compiler.AbstractTree.Operators.Logical
             get { return typeof (bool); }
         }
     }
-
-    public class NegationOperatorNode : LogicalUnaryOperatorNode
-    {
-        public override string Operator
-        {
-            get { return "not"; }
-        }
-    }
 }

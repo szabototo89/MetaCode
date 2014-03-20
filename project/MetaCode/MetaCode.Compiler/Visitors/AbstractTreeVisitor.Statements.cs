@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Antlr4.Runtime;
 using MetaCode.Compiler.AbstractTree;
 using MetaCode.Compiler.AbstractTree.Expressions;
+using MetaCode.Compiler.AbstractTree.Factories;
 using MetaCode.Compiler.AbstractTree.Statements;
 using MetaCode.Compiler.Grammar;
 using MetaCode.Core;
@@ -27,13 +28,17 @@ namespace MetaCode.Compiler.Visitors
 
         public override Node VisitStatement(MetaCodeParser.StatementContext context)
         {
-            var statement = (context.Block.As<ParserRuleContext>() ??
-                             context.If.As<ParserRuleContext>() ??
-                             context.While.As<ParserRuleContext>() ?? 
-                             context.Foreach.As<ParserRuleContext>() ??
-                             context.Expression.As<ParserRuleContext>()).Accept(this);
+            return GetNodeFromContext(context.Block,
+                                      context.If,
+                                      context.While,
+                                      context.Foreach,
+                                      context.Expression,
+                                      context.Skip);
+        }
 
-            return statement;
+        public override Node VisitSkipStatement(MetaCodeParser.SkipStatementContext context)
+        {
+            return StatementFactory.Skip();
         }
 
         public override Node VisitStatements(MetaCodeParser.StatementsContext context)
@@ -42,7 +47,7 @@ namespace MetaCode.Compiler.Visitors
                                     .Select(statement => statement.Accept(this) as StatementNode)
                                     .ToArray();
 
-            return new BlockStatementNode(statements);
+            return StatementFactory.Block(statements);
         }
 
         public override Node VisitBlockStatement(MetaCodeParser.BlockStatementContext context)

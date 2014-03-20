@@ -1,10 +1,12 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using MetaCode.Compiler.AbstractTree;
+using MetaCode.Compiler.Services;
 using MetaCode.Compiler.Visitors;
 using NUnit.Framework;
 
@@ -17,7 +19,7 @@ namespace MetaCode.Compiler.Tests
 
         private Node ParseWithAbstractTreeVisitor(MetaCodeCompiler compiler, string source)
         {
-            return compiler.ParseWithVisitor<Node, AbstractTreeVisitor>(source);
+            return compiler.ParseWithVisitor<Node, AbstractTreeVisitor>(source, () => new AbstractTreeVisitor(CompilerService.Instance));
         }
 
         #endregion
@@ -53,6 +55,15 @@ namespace MetaCode.Compiler.Tests
             );
 
             var result = ParseWithAbstractTreeVisitor(Compiler, source);
+        }
+
+        [Test]
+        public void AbstractTreeVisitorVisitWhileTest()
+        {
+            var source = "while (13) do skip; end;";
+
+            var result = ParseWithAbstractTreeVisitor(Compiler, source);
+            Console.WriteLine(CompilerService.Instance.Errors.Count);
         }
     }
 }
