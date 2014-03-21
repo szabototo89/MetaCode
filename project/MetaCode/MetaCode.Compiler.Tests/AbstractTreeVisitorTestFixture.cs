@@ -60,7 +60,11 @@ namespace MetaCode.Compiler.Tests
         [Test]
         public void AbstractTreeVisitorVisitWhileTest()
         {
-            var source = "while (13) do skip; end;";
+            var source = MultiLine(
+                "while (34) do",
+                "   skip;", 
+                "end;"
+            );
 
             var result = ParseWithAbstractTreeVisitor(Compiler, source);
             Console.WriteLine(CompilerService.Instance.Errors.Count);

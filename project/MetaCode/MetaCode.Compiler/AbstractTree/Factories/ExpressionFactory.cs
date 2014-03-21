@@ -91,6 +91,8 @@ namespace MetaCode.Compiler.AbstractTree.Factories
 
                 return new BinaryExpressionNode(left, right, operatorNode as RelationalBinaryOperatorNode);
             }
+
+            throw new Exception("Invalid operator has found!");
         }
 
 

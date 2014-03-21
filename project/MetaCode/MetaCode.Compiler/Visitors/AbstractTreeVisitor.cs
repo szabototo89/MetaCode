@@ -15,6 +15,7 @@ namespace MetaCode.Compiler.Visitors
     public partial class AbstractTreeVisitor
     {
         public CompilerService CompilerService { get; protected set; }
+
         public StatementFactory StatementFactory { get; protected set; }
 
         public ExpressionFactory ExpressionFactory { get; protected set; }
@@ -30,6 +31,7 @@ namespace MetaCode.Compiler.Visitors
 
             ConstantLiteralFactory = new ConstantLiteralFactory(CompilerService);
             StatementFactory = new StatementFactory(CompilerService);
+            ExpressionFactory = new ExpressionFactory(CompilerService);
         }
 
         public override Node VisitChildren(IRuleNode node)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MetaCode.Compiler.AbstractTree
 {
-    public class FunctionParameter
+    public class FunctionParameter : Node
     {
         public IEnumerable<AttributeNode> Attributes { get; internal set; }
 

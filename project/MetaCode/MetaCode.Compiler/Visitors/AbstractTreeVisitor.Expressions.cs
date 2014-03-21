@@ -49,12 +49,13 @@ namespace MetaCode.Compiler.Visitors
             if (context.Constant != null)
             {
                 var constant = context.Constant.Accept(this) as ConstantLiteralNode;
-                ExpressionFactory.Constant(constant);
+                return ExpressionFactory.Constant(constant);
             }
-            else if (context.Id != null)
+            
+            if (context.Id != null)
             {
                 var id = context.Id.Accept(this);
-                ExpressionFactory.Identifier(id);
+                //ExpressionFactory.Identifier(id);
             }
 
             return base.VisitPrimaryExpression(context);

@@ -32,7 +32,7 @@ namespace MetaCode.Compiler.AbstractTree.Factories
                 falseStatement = Block();
 
             if (condition.Type != typeof (bool))
-                CompilerService.Instance.Error("Condition must be logical expression!");
+                CompilerService.Error("Condition must be logical expression!");
 
             return new IfStatementNode(condition, trueStatement, falseStatement);
         }
@@ -52,7 +52,7 @@ namespace MetaCode.Compiler.AbstractTree.Factories
                 ThrowHelper.ThrowArgumentNullException(() => body);
 
             if (!expression.Type.IsEnumerable())
-                CompilerService.Instance.Error("The expression of foreach must be enumerable!");
+                CompilerService.Error("The expression of foreach must be enumerable!");
 
             return new ForeachLoopStatementNode(variable, expression, body);
         }
@@ -62,8 +62,11 @@ namespace MetaCode.Compiler.AbstractTree.Factories
             if (condition == null)
                 ThrowHelper.ThrowArgumentNullException(() => condition);
 
+            if (!condition.Type.IsLogical())
+                CompilerService.Error("Condition of while must be logical expression!");
+
             if (!condition.Type.IsEnumerable())
-                CompilerService.Instance.Error("The while condition must be a logical expression!");
+                CompilerService.Error("The while condition must be a logical expression!");
 
             return new WhileLoopStatementNode(condition, body);
         }

@@ -66,7 +66,7 @@ namespace MetaCode.Compiler.Visitors
 
             var body = context.Body.Accept(this) as StatementNode;
 
-            return new WhileLoopStatementNode(condition, body);
+            return StatementFactory.While(condition, body);
         }
 
         public override Node VisitForeachStatement(MetaCodeParser.ForeachStatementContext context)

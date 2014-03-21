@@ -97,6 +97,7 @@
     <Compile Include="AbstractTree\Statements\WhileLoopStatementNode.cs" />
     <Compile Include="AbstractTree\TypeNameNode.cs" />
     <Compile Include="AbstractTree\Variable.cs" />
+    <Compile Include="Commons\Scope.cs" />
     <Compile Include="Commons\TextLocation.cs" />
     <Compile Include="Commons\FunctionDeclaration.cs" />
     <Compile Include="Commons\MacroDeclaration.cs" />
