@@ -67,11 +67,18 @@ namespace MetaCode.Compiler.Helpers
 
             Type result = type;
 
-            do
-            {
+            do {
                 yield return result;
                 result = result.BaseType;
             } while (result != null && !result.IsInterface);
+        }
+
+        public static Type FindType(string typeName)
+        {
+            if (string.IsNullOrWhiteSpace(typeName))
+                ThrowHelper.ThrowException("The typeName is blank!");
+
+            return Type.GetType(typeName, false);
         }
     }
 }

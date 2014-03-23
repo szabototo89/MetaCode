@@ -12,7 +12,7 @@ namespace MetaCode.Compiler.AbstractTree.Expressions
     {
         public Identifier Identifier { get; internal set; }
 
-        public IdentifierExpressionNode(Identifier identifier, IEnumerable<AttributeNode> attributes) 
+        public IdentifierExpressionNode(Identifier identifier, IEnumerable<AttributeNode> attributes)
             : base(attributes)
         {
             if (identifier == null)
@@ -20,6 +20,11 @@ namespace MetaCode.Compiler.AbstractTree.Expressions
 
             Identifier = identifier;
             AddChildren(Identifier);
+        }
+
+        public string Name
+        {
+            get { return Identifier.Name; }
         }
 
         public override Type Type

@@ -2,17 +2,36 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using MetaCode.Compiler.AbstractTree.Constants;
+using MetaCode.Compiler.AbstractTree.Expressions;
+using MetaCode.Compiler.Commons;
+using MetaCode.Compiler.Helpers;
+using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractTree.Statements
 {
-    public class VariableDeclarationStatementNode : StatementNode
+    public class VariableDeclarationStatementNode : StatementNodeBase
     {
-        public Identifier Identifier { get; protected set; }
+        public string Name { get { return VariableDeclaration.Name; } }
 
-        public TypeNameNode Type { get; protected set; }
+        public Type Type { get { return VariableDeclaration.Type; } }
 
-        public BlockStatementNode Scope { get; protected set; }
+        public VariableDeclaration Declaration { get; set; }
+
+        public ExpressionNode InitialValue { get; protected set; }
+
+        public VariableDeclaration VariableDeclaration { get; protected set; }
+
+        public VariableDeclarationStatementNode(VariableDeclaration declaration, ExpressionNode initialValue)
+        {
+            if (declaration == null)
+                ThrowHelper.ThrowArgumentNullException(() => declaration);
+
+            Declaration = declaration;
+            InitialValue = initialValue;
+        }
     }
 }

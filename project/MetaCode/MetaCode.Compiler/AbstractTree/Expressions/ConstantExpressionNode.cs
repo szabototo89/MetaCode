@@ -18,6 +18,12 @@ namespace MetaCode.Compiler.AbstractTree.Expressions
 
         #region Constructors
 
+        public ConstantExpressionNode(ConstantLiteralNode constant)
+            : this(constant, new AttributeNode[0])
+        {
+
+        }
+
         public ConstantExpressionNode(ConstantLiteralNode constant, IEnumerable<AttributeNode> attributes)
             : base(attributes)
         {

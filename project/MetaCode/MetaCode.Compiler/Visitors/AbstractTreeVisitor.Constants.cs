@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,7 +36,7 @@ namespace MetaCode.Compiler.Visitors
         public override Node VisitBooleanConstant(MetaCodeParser.BooleanConstantContext context)
         {
             var text = context.GetText();
-           
+
             return ConstantLiteralFactory.Logical(text);
         }
 
@@ -65,8 +66,22 @@ namespace MetaCode.Compiler.Visitors
 
         public override Node VisitIdentifier(MetaCodeParser.IdentifierContext context)
         {
-            var id = context.Id;
-            return base.VisitIdentifier(context);
+            var id = context.Id.Text;
+
+            return ExpressionFactory.Identifier(id);
+        }
+
+        #endregion
+
+        #region Type name Visitor method
+
+        public override Node VisitTypeName(MetaCodeParser.TypeNameContext context)
+        {
+            var identifiers = context.ID()
+                                     .Select(id => id.GetText())
+                                     .ToArray();
+
+            return ExpressionFactory.Type(identifiers);
         }
 
         #endregion

@@ -1,4 +1,4 @@
-// Generated from ../MetaCode.g4 by ANTLR 4.1
+// Generated from ../MetaCode.g4 by ANTLR 4.2
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -79,6 +79,13 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitActualParameterList(@NotNull MetaCodeParser.ActualParameterListContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#skipStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSkipStatement(@NotNull MetaCodeParser.SkipStatementContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#formalParameterList}.
@@ -179,6 +186,13 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitAttributes(@NotNull MetaCodeParser.AttributesContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#arrayConstant}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayConstant(@NotNull MetaCodeParser.ArrayConstantContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#foreachStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -186,11 +200,11 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitForeachStatement(@NotNull MetaCodeParser.ForeachStatementContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link MetaCodeParser#arrayConstant}.
+	 * Visit a parse tree produced by {@link MetaCodeParser#identifier}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArrayConstant(@NotNull MetaCodeParser.ArrayConstantContext ctx);
+	T visitIdentifier(@NotNull MetaCodeParser.IdentifierContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#stringConstant}.

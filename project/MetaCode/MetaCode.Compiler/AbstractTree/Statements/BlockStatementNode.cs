@@ -3,25 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MetaCode.Compiler.Commons;
+using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractTree.Statements
 {
-    public class BlockStatementNode : StatementNode
+    public class BlockStatementNode : StatementNodeBase
     {
         public IEnumerable<Variable> Variables { get; protected set; }
 
-        public IEnumerable<StatementNode> Statements { get; protected set; }
+        public IEnumerable<StatementNodeBase> Statements { get; protected set; }
 
-        public BlockStatementNode(IEnumerable<StatementNode> statements)
+        public Scope Scope { get; protected set; }
+
+        public BlockStatementNode(IEnumerable<StatementNodeBase> statements, Scope scope)
         {
             if (statements == null)
-                throw new ArgumentNullException("statements", "The statements is null");
+                ThrowHelper.ThrowArgumentNullException(() => statements);
 
-            Statements = statements.Select(statement =>
-            {
+            if (scope == null)
+                ThrowHelper.ThrowArgumentNullException(() => scope);
+
+            Statements = statements.Select(statement => {
                 statement.SetParent(this);
                 return statement;
             });
+
+            Scope = scope;
         }
 
         public override IEnumerable<Node> Children

@@ -8,11 +8,11 @@ using MetaCode.Compiler.AbstractTree.Expressions;
 
 namespace MetaCode.Compiler.AbstractTree.Statements
 {
-    public class WhileLoopStatementNode : LoopStatementNode
+    public class WhileLoopStatementNode : LoopStatementNodeBase
     {
         public ExpressionNode Condition { get; set; }
 
-        public WhileLoopStatementNode(ExpressionNode condition, StatementNode body)
+        public WhileLoopStatementNode(ExpressionNode condition, StatementNodeBase body)
             : base(body)
         {
             if (condition == null)

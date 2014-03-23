@@ -16,6 +16,19 @@ namespace MetaCode.Compiler.Visitors
 {
     public partial class AbstractTreeVisitor
     {
+        public override Node VisitStatement(MetaCodeParser.StatementContext context)
+        {
+            return GetNodeFromContext(
+                context.Block,
+                context.If,
+                context.While,
+                context.Foreach,
+                context.Expression,
+                context.Skip,
+                context.VariableDeclaration
+            );
+        }
+
         public override Node VisitIfStatement(MetaCodeParser.IfStatementContext context)
         {
             var condition = context.Condition.Accept(this) as ExpressionNode;
@@ -26,16 +39,6 @@ namespace MetaCode.Compiler.Visitors
             return base.VisitIfStatement(context);
         }
 
-        public override Node VisitStatement(MetaCodeParser.StatementContext context)
-        {
-            return GetNodeFromContext(context.Block,
-                                      context.If,
-                                      context.While,
-                                      context.Foreach,
-                                      context.Expression,
-                                      context.Skip);
-        }
-
         public override Node VisitSkipStatement(MetaCodeParser.SkipStatementContext context)
         {
             return StatementFactory.Skip();
@@ -43,11 +46,11 @@ namespace MetaCode.Compiler.Visitors
 
         public override Node VisitStatements(MetaCodeParser.StatementsContext context)
         {
-            var statements = context.statement()
-                                    .Select(statement => statement.Accept(this) as StatementNode)
-                                    .ToArray();
-
-            return StatementFactory.Block(statements);
+            return StatementFactory.Block(
+                () => context.statement()
+                             .Select(statement => statement.Accept(this) as StatementNodeBase)
+                             .ToArray()
+            );
         }
 
         public override Node VisitBlockStatement(MetaCodeParser.BlockStatementContext context)
@@ -64,7 +67,7 @@ namespace MetaCode.Compiler.Visitors
         {
             var condition = context.ConditionExpression.Accept(this) as ExpressionNode;
 
-            var body = context.Body.Accept(this) as StatementNode;
+            var body = context.Body.Accept(this) as StatementNodeBase;
 
             return StatementFactory.While(condition, body);
         }
@@ -72,10 +75,18 @@ namespace MetaCode.Compiler.Visitors
         public override Node VisitForeachStatement(MetaCodeParser.ForeachStatementContext context)
         {
             var arrayExpression = context.ArrayExpression.Accept(this) as ExpressionNode;
-            var body = context.Body.Accept(this) as StatementNode;
-            
+            var body = context.Body.Accept(this) as StatementNodeBase;
 
             return base.VisitForeachStatement(context);
+        }
+
+        public override Node VisitVariableDeclaration(MetaCodeParser.VariableDeclarationContext context)
+        {
+            var name = context.VariableName.Text;
+            var typeName = context.VariableType.With(variable => variable.Accept(this)) as TypeNameNode;
+            var defaultValue = context.VariableDefaultValue.With(expression => expression.Accept(this)) as ExpressionNode;
+
+            return StatementFactory.DeclareVariable(name, typeName, defaultValue);
         }
     }
 }

@@ -12,17 +12,19 @@ namespace MetaCode.Compiler.Services
 {
     public class CompilerService
     {
+        private Scope _currentScope { get; set; }
+        private Scope _globalScope { get; set; }
+
         public List<string> Errors { get; protected set; }
 
         public List<string> Warnings { get; protected set; }
 
-        public Dictionary<string, List<VariableDeclarationStatementNode>> Variables { get; protected set; }
-
         public CompilerService()
         {
-            Variables = new Dictionary<string, List<VariableDeclarationStatementNode>>();
             Errors = new List<string>();
             Warnings = new List<string>();
+
+            _globalScope = _currentScope = Scope.CreateGlobalScope();
         }
 
         public CompilerService Warning(string message)
@@ -40,6 +42,59 @@ namespace MetaCode.Compiler.Services
         public static CompilerService Instance
         {
             get { return Singleton<CompilerService>.Instance; }
+        }
+
+        public Scope PushScope()
+        {
+            _currentScope = _currentScope.CreateScope();
+            return _currentScope;
+        }
+
+        public void PopScope()
+        {
+            if (_currentScope.Parent == null)
+                throw new Exception("Invalid operation!");
+
+            _currentScope = _currentScope.Parent;
+        }
+
+        private TDeclaration FindDeclaration<TDeclaration>(string name, Func<Scope, IEnumerable<TDeclaration>> declarations)
+            where TDeclaration : DeclarationBase
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                ThrowHelper.ThrowException("The name is blank!");
+
+            var scope = _currentScope;
+
+            do {
+                var variable = declarations(scope).FirstOrDefault(var => var.Name == name);
+                if (variable != null)
+                    return variable;
+
+                scope = scope.Parent;
+            } while (scope != _globalScope);
+
+            return null;
+        }
+
+        public VariableDeclaration FindVariable(string name)
+        {
+            return FindDeclaration(name, scope => scope.VariableDeclarations);
+        }
+
+        public FunctionDeclaration FindFunction(string name)
+        {
+            return FindDeclaration(name, scope => scope.FunctionDeclarations);
+        }
+
+        public Scope GetGlobalScope()
+        {
+            return _globalScope;
+        }
+
+        public Scope GetScope()
+        {
+            return _currentScope;
         }
 
         public TextSpan CurrentSpan { get; set; }

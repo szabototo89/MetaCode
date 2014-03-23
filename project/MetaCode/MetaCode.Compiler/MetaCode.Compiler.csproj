@@ -47,6 +47,7 @@
     <Compile Include="AbstractTree\AttributeNode.cs" />
     <Compile Include="AbstractTree\Constants\BooleanConstantLiteralNode.cs" />
     <Compile Include="AbstractTree\Constants\IntervalConstantLiteralNode.cs" />
+    <Compile Include="AbstractTree\Constants\NullConstantLiteralNode.cs" />
     <Compile Include="AbstractTree\Expressions\AssignmentExpressionNode.cs" />
     <Compile Include="AbstractTree\Expressions\BinaryExpressionNode.cs" />
     <Compile Include="AbstractTree\Expressions\ConstantExpressionNode.cs" />
@@ -90,13 +91,14 @@
     <Compile Include="AbstractTree\Statements\ForeachLoopStatementNode.cs" />
     <Compile Include="AbstractTree\Identifier.cs" />
     <Compile Include="AbstractTree\Statements\IfStatementNode.cs" />
-    <Compile Include="AbstractTree\Statements\LoopStatementNode.cs" />
+    <Compile Include="AbstractTree\Statements\LoopStatementNodeBase.cs" />
     <Compile Include="AbstractTree\Statements\SkipStatementNode.cs" />
-    <Compile Include="AbstractTree\Statements\StatementNode.cs" />
+    <Compile Include="AbstractTree\Statements\StatementNodeBase.cs" />
     <Compile Include="AbstractTree\Statements\VariableDeclarationStatementNode.cs" />
     <Compile Include="AbstractTree\Statements\WhileLoopStatementNode.cs" />
     <Compile Include="AbstractTree\TypeNameNode.cs" />
     <Compile Include="AbstractTree\Variable.cs" />
+    <Compile Include="Commons\DeclarationBase.cs" />
     <Compile Include="Commons\Scope.cs" />
     <Compile Include="Commons\TextLocation.cs" />
     <Compile Include="Commons\FunctionDeclaration.cs" />

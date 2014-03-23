@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetaCode.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,14 +11,12 @@ namespace MetaCode.Compiler.AbstractTree
     {
         public Type Type { get; protected set; }
 
-        public string TypeName { get; protected set; }
-
-        public TypeNameNode(string typeName)
+        public TypeNameNode(Type type)
         {
-            if (string.IsNullOrWhiteSpace(typeName)) 
-                throw new ArgumentException("The typeName is blank!", "typeName");
+            if (type == null)
+                ThrowHelper.ThrowArgumentNullException(() => type);
 
-            TypeName = typeName;
+            Type = type;
         }
     }
 }

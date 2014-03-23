@@ -3,7 +3,7 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.Commons
 {
-    public class FunctionDeclaration
+    public class FunctionDeclaration : DeclarationBase
     {
         public Type[] FormalParameters { get; protected set; }
 
@@ -12,12 +12,13 @@ namespace MetaCode.Compiler.Commons
         public string Name { get; protected set; }
 
 
-        public FunctionDeclaration(string name, Type returnType) 
-            : this(name, returnType, new Type[0])
+        public FunctionDeclaration(string name, Type returnType, Scope scope)
+            : this(name, returnType, new Type[0], scope)
         {
         }
 
-        public FunctionDeclaration(string name, Type returnType, Type[] formalParameters)
+        public FunctionDeclaration(string name, Type returnType, Type[] formalParameters, Scope scope)
+            : base(name, scope)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("The name is blank!", "name");

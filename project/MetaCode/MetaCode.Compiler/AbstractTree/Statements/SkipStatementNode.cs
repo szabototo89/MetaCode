@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MetaCode.Compiler.AbstractTree.Statements
 {
-    public class SkipStatementNode : StatementNode
+    public class SkipStatementNode : StatementNodeBase
     {
         
     }

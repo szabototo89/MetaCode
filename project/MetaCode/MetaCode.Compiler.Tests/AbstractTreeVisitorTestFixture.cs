@@ -62,12 +62,26 @@ namespace MetaCode.Compiler.Tests
         {
             var source = MultiLine(
                 "while (34) do",
-                "   skip;", 
+                "   skip;",
                 "end;"
             );
 
             var result = ParseWithAbstractTreeVisitor(Compiler, source);
             Console.WriteLine(CompilerService.Instance.Errors.Count);
         }
+
+        [Test]
+        public void AbstractTreeVisitorDeclareVariableTest()
+        {
+            var source = MultiLine(
+                "var a : System.Boolean = false;",
+                "do",
+                "  var b = a;",
+                "end;"
+            );
+
+            var result = ParseWithAbstractTreeVisitor(Compiler, source);
+        }
+
     }
 }

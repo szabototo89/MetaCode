@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MetaCode.Compiler.AbstractTree.Statements
 {
-    public abstract class StatementNode : Node
+    public abstract class StatementNodeBase : Node
     {
     }
 }

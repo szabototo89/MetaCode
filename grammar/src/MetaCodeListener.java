@@ -1,4 +1,4 @@
-// Generated from ../MetaCode.g4 by ANTLR 4.1
+// Generated from ../MetaCode.g4 by ANTLR 4.2
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -116,6 +116,17 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitActualParameterList(@NotNull MetaCodeParser.ActualParameterListContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#skipStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterSkipStatement(@NotNull MetaCodeParser.SkipStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#skipStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitSkipStatement(@NotNull MetaCodeParser.SkipStatementContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#formalParameterList}.
@@ -272,6 +283,17 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitAttributes(@NotNull MetaCodeParser.AttributesContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#arrayConstant}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayConstant(@NotNull MetaCodeParser.ArrayConstantContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#arrayConstant}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayConstant(@NotNull MetaCodeParser.ArrayConstantContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#foreachStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -283,15 +305,15 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitForeachStatement(@NotNull MetaCodeParser.ForeachStatementContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#arrayConstant}.
+	 * Enter a parse tree produced by {@link MetaCodeParser#identifier}.
 	 * @param ctx the parse tree
 	 */
-	void enterArrayConstant(@NotNull MetaCodeParser.ArrayConstantContext ctx);
+	void enterIdentifier(@NotNull MetaCodeParser.IdentifierContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#arrayConstant}.
+	 * Exit a parse tree produced by {@link MetaCodeParser#identifier}.
 	 * @param ctx the parse tree
 	 */
-	void exitArrayConstant(@NotNull MetaCodeParser.ArrayConstantContext ctx);
+	void exitIdentifier(@NotNull MetaCodeParser.IdentifierContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#stringConstant}.

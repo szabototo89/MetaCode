@@ -15,7 +15,7 @@ statement   : Expression=expression
             | Attributes=attributes? Skip=skipStatement
             ;
 
-variableDeclaration :   Attributes=attributes? VAR VariableName=identifier (':' VariableType=typeName)? ASSIGN VariableDefaultValue=expression
+variableDeclaration :   Attributes=attributes? VAR VariableName=ID (':' VariableType=typeName)? ASSIGN VariableDefaultValue=expression
                         ;
 
 expression  : PrimaryExpression=primaryExpression
@@ -53,8 +53,7 @@ functionExpression  :   FUNCTION FunctionName=identifier? '(' Parameters=formalP
                     |   FUNCTION FunctionName=identifier? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? '=' BodyExpression=expression
                     ;
 
-foreachStatement    :   FOREACH '(' Id=identifier IN ArrayExpression=expression ')' Body=statement
-                    |   FOREACH '(' VAR Id=identifier ':' TypeName=typeName IN ArrayExpression=expression ')' Body=statement
+foreachStatement    :   FOREACH '(' Var=VAR? Id=identifier (':' VariableType=typeName)? IN ArrayExpression=expression ')' Body=statement
                     ;
 
 whileStatement      :   WHILE '(' ConditionExpression=expression ')' Body=statement
@@ -63,7 +62,7 @@ whileStatement      :   WHILE '(' ConditionExpression=expression ')' Body=statem
 blockStatement      :   DO Body=statements END
                     ;
 
-skipStatement		: 	SKIP;
+skipStatement       :   SKIP;
 
 assignmentExpression:   Variable=identifier ASSIGN Value=expression (ConditionalAttributes=attributes? IF '(' ConditionalExpression=expression ')')?
                     ;
@@ -72,7 +71,7 @@ ifStatement     :   IF '(' Condition=expression ')' Statements=statements
                     ElseIfExpressions=elseIfStatement*
                     (ELSE ElseStatements=statements)? 
                     END
-                    ;
+                ;
 
 elseIfStatement :   ELSE IF '(' expression ')' statements
                 ;
@@ -86,7 +85,7 @@ formalParameter     :   attributes? identifier ':' typeName
 actualParameterList :   expression (',' expression)*
                     ;
 
-typeName            :   attributes? identifier
+typeName            :   attributes? ID ('.' ID)*
                     ;
 
 constant            :   Number=numberConstant
@@ -96,8 +95,8 @@ constant            :   Number=numberConstant
                     |   Interval=intervalConstant
                     ;
 
-identifier			:	Id=ID
-					;
+identifier          :   Id=ID
+                    ;
 
 numberConstant      :   NUMBER;
 
@@ -148,13 +147,13 @@ IN      :   'in';
 
 ASSIGN  :   '=';
 
-AND			:		'and';
+AND         :       'and';
 
-OR 			: 	'or';
+OR          :   'or';
 
-NOT			: 	'not';
+NOT         :   'not';
 
-NULL		:	'null';
+NULL        :   'null';
 
 LEFT_PARENTHESIS  : '(';
 

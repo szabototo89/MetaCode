@@ -62,8 +62,7 @@ namespace MetaCode.Compiler.AbstractTree.Factories
             if (!_operators.TryGetValue(@operator, out operatorNode))
                 throw new Exception("Unsupported operator!");
 
-            if (operatorNode is LogicalBinaryOperatorNode)
-            {
+            if (operatorNode is LogicalBinaryOperatorNode) {
                 if (!left.Type.IsLogical())
                     CompilerService.Error("Left expression must be a boolean expression!");
                 if (!right.Type.IsLogical())
@@ -71,9 +70,8 @@ namespace MetaCode.Compiler.AbstractTree.Factories
 
                 return new BinaryExpressionNode(left, right, operatorNode as LogicalBinaryOperatorNode);
             }
-            
-            if (operatorNode is NumericBinaryOperatorNode)
-            {
+
+            if (operatorNode is NumericBinaryOperatorNode) {
                 if (!left.Type.IsNumeric())
                     CompilerService.Error("Left expression must be a numeric expression!");
                 if (!right.Type.IsNumeric())
@@ -82,8 +80,7 @@ namespace MetaCode.Compiler.AbstractTree.Factories
                 return new BinaryExpressionNode(left, right, operatorNode as NumericBinaryOperatorNode);
             }
 
-            if (operatorNode is RelationalBinaryOperatorNode)
-            {
+            if (operatorNode is RelationalBinaryOperatorNode) {
                 if (!left.Type.IsNumeric())
                     CompilerService.Error("Left expression must be a numeric expression!");
                 if (!right.Type.IsNumeric())
@@ -103,7 +100,25 @@ namespace MetaCode.Compiler.AbstractTree.Factories
         /// </summary>
         public IdentifierExpressionNode Identifier(string identifier)
         {
-            throw new NotImplementedException();
+            var variable = CompilerService.FindVariable(identifier);
+            if (variable == null)
+                CompilerService.Error(string.Format("The variable '{0}' does not exists in the scope!", identifier));
+
+            return new IdentifierExpressionNode(new Identifier(variable.Name, variable.Type), null);
+        }
+
+        public TypeNameNode Type(string[] identifiers)
+        {
+            if (identifiers == null)
+                ThrowHelper.ThrowArgumentNullException(() => identifiers);
+
+            var typeName = string.Join(".", identifiers);
+            Type type = TypeHelper.FindType(typeName);
+
+            if (type == null)
+                CompilerService.Error("Type is not found!");
+
+            return new TypeNameNode(type);
         }
     }
 }

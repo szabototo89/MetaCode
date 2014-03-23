@@ -7,15 +7,15 @@ using MetaCode.Compiler.AbstractTree.Expressions;
 
 namespace MetaCode.Compiler.AbstractTree.Statements
 {
-    public class IfStatementNode : StatementNode
+    public class IfStatementNode : StatementNodeBase
     {
         public ExpressionNode ConditionExpression { get; protected set; }
 
-        public StatementNode TrueStatementNode { get; protected set; }
+        public StatementNodeBase TrueStatementNode { get; protected set; }
 
-        public StatementNode FalseStatementNode { get; protected set; }
+        public StatementNodeBase FalseStatementNode { get; protected set; }
 
-        public IfStatementNode(ExpressionNode condition, StatementNode trueStatement, StatementNode falseStatement)
+        public IfStatementNode(ExpressionNode condition, StatementNodeBase trueStatement, StatementNodeBase falseStatement)
         {
             if (condition == null) throw new ArgumentNullException("condition");
             if (trueStatement == null) throw new ArgumentNullException("trueStatement");

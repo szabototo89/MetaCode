@@ -8,7 +8,7 @@ using MetaCode.Compiler.AbstractTree.Expressions;
 
 namespace MetaCode.Compiler.AbstractTree.Statements
 {
-    public class ExpressionStatementNode : StatementNode
+    public class ExpressionStatementNode : StatementNodeBase
     {
         public ExpressionNode Expression { get; protected set; }
 
