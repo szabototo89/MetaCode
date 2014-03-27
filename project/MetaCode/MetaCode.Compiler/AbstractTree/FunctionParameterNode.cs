@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace MetaCode.Compiler.AbstractTree
 {
-    public class FunctionParameter : Node
+    public class FunctionParameterNode : Node
     {
         public IEnumerable<AttributeNode> Attributes { get; internal set; }
 
-        public Identifier Name { get; internal set; }   
+        public string Name { get; internal set; }   
 
         public TypeNameNode TypeName { get; internal set; }
 
-        public FunctionParameter(Identifier name, TypeNameNode typeName, IEnumerable<AttributeNode> attributes)
+        public FunctionParameterNode(string name, TypeNameNode typeName, IEnumerable<AttributeNode> attributes)
         {
             if (name == null) throw new ArgumentNullException("name", "The name is ");
             if (typeName == null) throw new ArgumentNullException("typeName");

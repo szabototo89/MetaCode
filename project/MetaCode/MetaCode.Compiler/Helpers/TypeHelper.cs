@@ -67,10 +67,21 @@ namespace MetaCode.Compiler.Helpers
 
             Type result = type;
 
-            do {
+            do
+            {
                 yield return result;
                 result = result.BaseType;
             } while (result != null && !result.IsInterface);
+        }
+
+        public static Type GetItemType(this Type enumerable)
+        {
+            var enumerableType = enumerable.GetInterfaces()
+                                            .Where(type => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                                            .Select(type => type.GenericTypeArguments[0])
+                                            .FirstOrDefault();
+
+            return enumerableType;
         }
 
         public static Type FindType(string typeName)

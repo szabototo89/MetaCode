@@ -85,7 +85,7 @@
     <Compile Include="AbstractTree\Operators\Relational\LessThanOrEqualOperatorNode.cs" />
     <Compile Include="AbstractTree\Operators\Relational\RelationalBinaryOperatorNode.cs" />
     <Compile Include="AbstractTree\Operators\UnaryOperatorNode.cs" />
-    <Compile Include="AbstractTree\FunctionParameter.cs" />
+    <Compile Include="AbstractTree\FunctionParameterNode.cs" />
     <Compile Include="AbstractTree\Statements\BlockStatementNode.cs" />
     <Compile Include="AbstractTree\Statements\ExpressionStatementNode.cs" />
     <Compile Include="AbstractTree\Statements\ForeachLoopStatementNode.cs" />
@@ -98,6 +98,7 @@
     <Compile Include="AbstractTree\Statements\WhileLoopStatementNode.cs" />
     <Compile Include="AbstractTree\TypeNameNode.cs" />
     <Compile Include="AbstractTree\Variable.cs" />
+    <Compile Include="AbstractTree\Visitors\TreeVisitorBase.cs" />
     <Compile Include="Commons\DeclarationBase.cs" />
     <Compile Include="Commons\Scope.cs" />
     <Compile Include="Commons\TextLocation.cs" />

@@ -9,7 +9,7 @@ namespace MetaCode.Compiler.AbstractTree
     {
         #region Private fields
 
-        protected readonly List<Node> _children;
+        protected List<Node> _children;
 
         #endregion
 
@@ -29,7 +29,7 @@ namespace MetaCode.Compiler.AbstractTree
             if (children == null) 
                 throw new ArgumentNullException("children", "The children is null!");
 
-            _children.Union(children);
+            _children = _children.Union(children).ToList();
 
             foreach (var child in children)
                 child.SetParent(this);

@@ -1,0 +1,40 @@
+<html>
+<head>
+   	<script type="text/javascript" src="dist/vis.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/visualization.js"></script>
+    <style type="text/css">
+      body {
+      	overflow: hidden;
+      }
+    </style>
+</head>
+<body>
+<textarea id="editor">
+	digraph {
+node0->node1->node2->node3->node4->node5->node6;node3->node7->node8->node9->node10;node8->node11->node12;node8->node13;node7->node14->node15;node7->node16;node2->node17;
+node0 [label="B"];
+node1 [label="V"];
+node2 [label="F"];
+node3 [label="B"];
+node4 [label="V"];
+node5 [label="C"];
+node6 [label="N"];
+node7 [label="I"];
+node8 [label="B"];
+node9 [label="I"];
+node10 [label="I"];
+node11 [label="C"];
+node12 [label="N"];
+node13 [label="E"];
+node14 [label="B"];
+node15 [label="S"];
+node16 [label="B"];
+node17 [label="T"];
+}
+
+</textarea>
+<button id="show">Show AST</button>
+<div id="canvas"></div>
+</body>
+</html>

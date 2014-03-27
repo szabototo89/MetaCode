@@ -62,14 +62,8 @@ namespace MetaCode.Compiler.Visitors
 
         #endregion
 
-        #region Identifier Visitor method
+        #region variable Visitor method
 
-        public override Node VisitIdentifier(MetaCodeParser.IdentifierContext context)
-        {
-            var id = context.Id.Text;
-
-            return ExpressionFactory.Identifier(id);
-        }
 
         #endregion
 

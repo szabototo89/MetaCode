@@ -23,6 +23,7 @@ namespace MetaCode.Compiler.AbstractTree.Factories
                 ThrowHelper.ThrowArgumentNullException(() => compilerService);
 
             CompilerService = compilerService;
+            CompilerService.ConstantLiteralFactory = this;
         }
 
         public NumberConstantLiteralNode Number(double value)

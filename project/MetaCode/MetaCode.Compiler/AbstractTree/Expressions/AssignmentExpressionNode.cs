@@ -3,26 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MetaCode.Compiler.Commons;
+using MetaCode.Compiler.Grammar;
 using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractTree.Expressions
 {
     public class AssignmentExpressionNode : PrimaryExpressionNode
     {
-        public Identifier Identifier { get; internal set; }
+        public VariableDeclaration Variable { get; internal set; }
+
         public ExpressionNode Value { get; internal set; }
 
-        public AssignmentExpressionNode(Identifier identifier, ExpressionNode value, IEnumerable<AttributeNode> attributes) : base(attributes)
+        public AssignmentExpressionNode(VariableDeclaration variable, ExpressionNode value, IEnumerable<AttributeNode> attributes) : base(attributes)
         {
-            if (identifier == null) 
-                ThrowHelper.ThrowArgumentNullException(() => identifier);
+            if (variable == null) 
+                ThrowHelper.ThrowArgumentNullException(() => variable);
             if (value == null) 
                 ThrowHelper.ThrowArgumentNullException(() => value);
             
-            Identifier = identifier;
+            Variable = variable;
             Value = value;
 
-            AddChildren(Identifier, Value);
+            AddChildren(Value);
         }
 
         public override Type Type

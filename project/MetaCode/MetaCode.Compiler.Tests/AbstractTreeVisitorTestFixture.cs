@@ -75,8 +75,33 @@ namespace MetaCode.Compiler.Tests
         {
             var source = MultiLine(
                 "var a : System.Boolean = false;",
-                "do",
-                "  var b = a;",
+                "if (a) ",
+                "   var b = 10;",
+                "else if (false) ",
+                "   skip;",
+                "else if (true) ",
+                "   skip;", 
+                "else if (false) ",
+                "   skip;",
+                "else",
+                "   var b = 10;",
+                "end;",
+                "foreach (var ch in \"Hello World\") do",
+                "  var b = ch;",
+                "end;"
+            );
+
+            var result = ParseWithAbstractTreeVisitor(Compiler, source);
+        }
+        
+        [Test]
+        public void AbstractTreeVisitorDeclareFunctionTest()
+        {
+            var source = MultiLine(
+                "var max = function(a: System.Int32, b: System.Int32): System.Int32 do",
+                "   if (true)",
+                "      var c = 10;",
+                "   end;",
                 "end;"
             );
 

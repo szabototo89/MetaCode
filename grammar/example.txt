@@ -31,6 +31,10 @@ else
 end;
 */
 
+(5 + 5).ToString();
+
+var a = ToString().Parse("Hello World!").Hiii;
+
 var a : System.Boolean = false;
 
 foreach (var i: Integer in 1 to 100 by 34) do
@@ -41,7 +45,7 @@ if (not (@convert false))
 	@cast("System.Int32") (0 to 3 by 2);
 end;
 
-@tail-recursive(false) function max(a: Integer, b: Integer) do
+@tail-recursive(false) function max(a: Integer, b: Integer): Integer do
 	if (a < b)
 		a;
 	else 

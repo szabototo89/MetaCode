@@ -10,8 +10,6 @@ namespace MetaCode.Compiler.AbstractTree.Statements
 {
     public class BlockStatementNode : StatementNodeBase
     {
-        public IEnumerable<Variable> Variables { get; protected set; }
-
         public IEnumerable<StatementNodeBase> Statements { get; protected set; }
 
         public Scope Scope { get; protected set; }
@@ -34,7 +32,7 @@ namespace MetaCode.Compiler.AbstractTree.Statements
 
         public override IEnumerable<Node> Children
         {
-            get { return base.Children.Concat(Statements).Concat(Variables); }
+            get { return base.Children.Concat(Statements); }
         }
     }
 }

@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using MetaCode.Compiler.AbstractTree.Expressions;
+using MetaCode.Compiler.Commons;
 
 namespace MetaCode.Compiler.AbstractTree.Statements
 {
     public class ForeachLoopStatementNode : LoopStatementNodeBase
     {
-        public Variable LoopVariable { get; protected set; }
+        public VariableDeclaration LoopVariable { get; protected set; }
 
         public ExpressionNode Expression { get; protected set; }
 
-        public ForeachLoopStatementNode(Variable loopVariable, ExpressionNode expression, StatementNodeBase body)
+        public ForeachLoopStatementNode(VariableDeclaration loopVariable, ExpressionNode expression, StatementNodeBase body)
             : base(body)
         {
             if (loopVariable == null) throw new ArgumentNullException("loopVariable", "The loopVariable is null!");
@@ -21,12 +22,12 @@ namespace MetaCode.Compiler.AbstractTree.Statements
             LoopVariable = loopVariable;
             Expression = expression;
 
-            AddChildren(loopVariable, expression, body);
+            AddChildren(expression, body);
         }
 
         public override IEnumerable<Node> Children
         {
-            get { return base.Children.Concat(new Node[] { LoopVariable, Expression }); }
+            get { return base.Children.Concat(new Node[] { Expression }); }
         }
     }
 }

@@ -12,6 +12,7 @@ using MetaCode.Compiler.AbstractTree;
 using MetaCode.Compiler.AbstractTree.Constants;
 using MetaCode.Compiler.AbstractTree.Expressions;
 using MetaCode.Compiler.AbstractTree.Factories;
+using MetaCode.Compiler.AbstractTree.Statements;
 using MetaCode.Compiler.Grammar;
 using MetaCode.Core;
 
@@ -37,11 +38,45 @@ namespace MetaCode.Compiler.Visitors
         public override Node VisitExpression(MetaCodeParser.ExpressionContext context)
         {
             var result = GetNodeFromContext(context.PrimaryExpression,
-                                            context.FunctionCallExpression,
-                                            context.MemberExpression) ??
+                context.FunctionCallExpression,
+                context.MemberExpression) ??
                          VisitBinaryOperands(context.Left, context.Right, context.Operator);
 
             return result;
+        }
+
+        public override Node VisitFunctionExpression(MetaCodeParser.FunctionExpressionContext context)
+        {
+            var identifier = context.FunctionName.With(functionName => functionName.Text);
+            var returnType = context.ReturnType.Accept(this) as TypeNameNode;
+
+            var parameters = context.Parameters;
+
+            var formalParameters = new Func<FunctionParameterNode[]>(() =>
+            {
+                if (parameters == null)
+                    return new FunctionParameterNode[0];
+
+                var result = parameters.formalParameter().Select(param =>
+                {
+                    return ExpressionFactory.FunctionFormalParameter(param.Name.Text,
+                        param.Type.With(type => type.Accept(this) as TypeNameNode),
+                        null);
+                });
+
+                return result.ToArray();
+            })();
+
+            if (context.BodyExpression != null)
+                return ExpressionFactory.Function(identifier,
+                                                  returnType.Type,
+                                                  formalParameters,
+                                                  new Lazy<ExpressionNode>(() => context.BodyExpression.Accept(this) as ExpressionNode));
+
+            return ExpressionFactory.Function(identifier,
+                                              returnType.Type,
+                                              formalParameters,
+                                              new Lazy<BlockStatementNode>(() => context.BodyStatements.Accept(this) as BlockStatementNode));
         }
 
         public override Node VisitPrimaryExpression(MetaCodeParser.PrimaryExpressionContext context)
@@ -51,14 +86,32 @@ namespace MetaCode.Compiler.Visitors
                 var constant = context.Constant.Accept(this) as ConstantLiteralNode;
                 return ExpressionFactory.Constant(constant);
             }
-            
+
             if (context.Id != null)
+                return ExpressionFactory.Identifier(context.Id.Text);
+
+            if (context.Assignment != null)
             {
-                var id = context.Id.Accept(this);
-                //ExpressionFactory.Identifier(id);
+                var assignment = context.Assignment;
             }
 
+            if (context.InnerExpression != null)
+                return context.InnerExpression.Accept(this);
+
             return base.VisitPrimaryExpression(context);
+        }
+
+        public override Node VisitMemberExpression(MetaCodeParser.MemberExpressionContext context)
+        {
+            var primary = context.primaryExpression().With(expression => expression.Accept(this)) ??
+                          context.functionCallExpression().With(expression => expression.Accept(this));
+
+            var tags = new[] { primary }.Concat(context.memberTagExpression()
+                                        .Select(tag => tag.functionCallExpression()
+                                                          .With(expression => expression.Accept(this))))
+                                        .ToArray();
+
+            return ExpressionFactory.Member(tags.Cast<ExpressionNode>());
         }
     }
 

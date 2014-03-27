@@ -87,5 +87,13 @@ namespace MetaCode.Compiler.Commons
 
             return declaration;
         }
+
+        public FunctionDeclaration DeclareFunction(string name, Type returnType, Type[] parameters)
+        {
+            var declaration = new FunctionDeclaration(name, returnType, parameters, this);
+            _functionDeclarations.Add(declaration);
+
+            return declaration;
+        }
     }
 }

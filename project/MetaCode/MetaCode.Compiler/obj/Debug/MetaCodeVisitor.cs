@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
+// Generated from E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -43,6 +43,13 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitFormalParameter([NotNull] MetaCodeParser.FormalParameterContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.returnStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitReturnStatement([NotNull] MetaCodeParser.ReturnStatementContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.attribute"/>.
@@ -136,6 +143,13 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitBooleanConstant([NotNull] MetaCodeParser.BooleanConstantContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.memberTagExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMemberTagExpression([NotNull] MetaCodeParser.MemberTagExpressionContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.assignmentExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -218,13 +232,6 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitForeachStatement([NotNull] MetaCodeParser.ForeachStatementContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="MetaCodeParser.identifier"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitIdentifier([NotNull] MetaCodeParser.IdentifierContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.stringConstant"/>.

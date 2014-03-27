@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
+// Generated from E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -58,6 +58,19 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitFormalParameter([NotNull] MetaCodeParser.FormalParameterContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.returnStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterReturnStatement([NotNull] MetaCodeParser.ReturnStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.returnStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitReturnStatement([NotNull] MetaCodeParser.ReturnStatementContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.attribute"/>.
@@ -229,6 +242,19 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	public virtual void ExitBooleanConstant([NotNull] MetaCodeParser.BooleanConstantContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.memberTagExpression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMemberTagExpression([NotNull] MetaCodeParser.MemberTagExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.memberTagExpression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMemberTagExpression([NotNull] MetaCodeParser.MemberTagExpressionContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.assignmentExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -383,19 +409,6 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitForeachStatement([NotNull] MetaCodeParser.ForeachStatementContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.identifier"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterIdentifier([NotNull] MetaCodeParser.IdentifierContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.identifier"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitIdentifier([NotNull] MetaCodeParser.IdentifierContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.stringConstant"/>.

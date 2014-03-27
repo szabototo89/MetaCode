@@ -1,4 +1,4 @@
-// Generated from ../MetaCode.g4 by ANTLR 4.2
+// Generated from ../MetaCode.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -28,6 +28,17 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFormalParameter(@NotNull MetaCodeParser.FormalParameterContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#returnStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnStatement(@NotNull MetaCodeParser.ReturnStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#returnStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnStatement(@NotNull MetaCodeParser.ReturnStatementContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#attribute}.
@@ -173,6 +184,17 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitBooleanConstant(@NotNull MetaCodeParser.BooleanConstantContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#memberTagExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMemberTagExpression(@NotNull MetaCodeParser.MemberTagExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#memberTagExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMemberTagExpression(@NotNull MetaCodeParser.MemberTagExpressionContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#assignmentExpression}.
 	 * @param ctx the parse tree
 	 */
@@ -305,17 +327,6 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitForeachStatement(@NotNull MetaCodeParser.ForeachStatementContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#identifier}.
-	 * @param ctx the parse tree
-	 */
-	void enterIdentifier(@NotNull MetaCodeParser.IdentifierContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#identifier}.
-	 * @param ctx the parse tree
-	 */
-	void exitIdentifier(@NotNull MetaCodeParser.IdentifierContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#stringConstant}.
 	 * @param ctx the parse tree
 	 */
@@ -325,4 +336,15 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStringConstant(@NotNull MetaCodeParser.StringConstantContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentifier(@NotNull MetaCodeParser.IdentifierContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentifier(@NotNull MetaCodeParser.IdentifierContext ctx);
 }

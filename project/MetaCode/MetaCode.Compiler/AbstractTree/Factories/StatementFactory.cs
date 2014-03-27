@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using MetaCode.Compiler.AbstractTree.Constants;
 using MetaCode.Compiler.AbstractTree.Expressions;
 using MetaCode.Compiler.AbstractTree.Statements;
+using MetaCode.Compiler.Commons;
 using MetaCode.Compiler.Grammar;
 using MetaCode.Compiler.Helpers;
 using MetaCode.Compiler.Services;
@@ -11,6 +12,7 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractTree.Factories
 {
+    // TODO: Implement return statement!
     public class StatementFactory
     {
         public CompilerService CompilerService { get; protected set; }
@@ -21,9 +23,15 @@ namespace MetaCode.Compiler.AbstractTree.Factories
                 ThrowHelper.ThrowArgumentNullException(() => compilerService);
 
             CompilerService = compilerService;
+            CompilerService.StatementFactory = this;
         }
 
-        public IfStatementNode IfThenElse(ExpressionNode condition, StatementNodeBase trueStatement, StatementNodeBase falseStatement = null)
+        public IfStatementNode IfThenElse(ExpressionNode condition, BlockStatementNode trueStatement)
+        {
+            return IfThenElse(condition, trueStatement, new IfStatementNode[0], null);
+        }
+
+        public IfStatementNode IfThenElse(ExpressionNode condition, BlockStatementNode trueStatement, IfStatementNode[] elseIfStatements, BlockStatementNode falseStatement = null)
         {
             if (condition == null)
                 ThrowHelper.ThrowArgumentNullException(() => condition);
@@ -35,6 +43,20 @@ namespace MetaCode.Compiler.AbstractTree.Factories
             if (condition.Type != typeof(bool))
                 CompilerService.Error("Condition must be logical expression!");
 
+            if (elseIfStatements.Any())
+            {
+                var elseIf = elseIfStatements.First();
+                falseStatement =
+                    Block(
+                        new Lazy<StatementNodeBase[]>(
+                            () => new StatementNodeBase[]
+                            {
+                                IfThenElse(elseIf.ConditionExpression, elseIf.TrueStatementNode, elseIfStatements.Skip(1).ToArray())
+                            }
+                        )
+                    );
+            }
+
             return new IfStatementNode(condition, trueStatement, falseStatement);
         }
 
@@ -43,10 +65,10 @@ namespace MetaCode.Compiler.AbstractTree.Factories
             return new SkipStatementNode();
         }
 
-        public ForeachLoopStatementNode Foreach(Variable variable, ExpressionNode expression, StatementNodeBase body, bool createLoopVariable)
+        public ForeachLoopStatementNode Foreach(string variable, TypeNameNode variableType, ExpressionNode expression, Lazy<StatementNodeBase> body, bool createLoopVariable)
         {
-            if (variable == null)
-                ThrowHelper.ThrowArgumentNullException(() => variable);
+            if (string.IsNullOrWhiteSpace(variable))
+                ThrowHelper.ThrowException("The variable is blank!");
             if (expression == null)
                 ThrowHelper.ThrowArgumentNullException(() => expression);
             if (body == null)
@@ -55,7 +77,20 @@ namespace MetaCode.Compiler.AbstractTree.Factories
             if (!expression.Type.IsEnumerable())
                 CompilerService.Error("The expression of foreach must be enumerable!");
 
-            return new ForeachLoopStatementNode(variable, expression, body);
+            VariableDeclaration variableNode = null;
+
+            if (createLoopVariable)
+            {
+                var scope = CompilerService.PushScope();
+                variableNode = scope.DeclareVariable(variable, variableType.With(type => type.Type) ?? expression.Type.GetItemType());
+                var statements = body.Value;
+                CompilerService.PopScope();
+
+                return new ForeachLoopStatementNode(variableNode, expression, statements);
+            }
+
+            variableNode = CompilerService.FindVariable(variable);
+            return new ForeachLoopStatementNode(variableNode, expression, body.Value);
         }
 
         public WhileLoopStatementNode While(ExpressionNode condition, StatementNodeBase body)
@@ -87,7 +122,8 @@ namespace MetaCode.Compiler.AbstractTree.Factories
 
             Type type = null;
 
-            if (typeName == null) {
+            if (typeName == null)
+            {
                 if (initialValue == null)
                     CompilerService.Error("Invalid variable declaration! You must define the type of variable!");
                 else
@@ -99,7 +135,8 @@ namespace MetaCode.Compiler.AbstractTree.Factories
             var scope = CompilerService.GetScope();
             var declaration = scope.DeclareVariable(name, type);
 
-            if (initialValue == null) {
+            if (initialValue == null)
+            {
                 ConstantLiteralNode constant = null;
                 if (type.IsLogical())
                     constant = new BooleanConstantLiteralNode(false);
@@ -116,17 +153,17 @@ namespace MetaCode.Compiler.AbstractTree.Factories
 
         public BlockStatementNode EmptyBlock()
         {
-            return Block(() => new StatementNodeBase[0]);
+            return Block(new Lazy<StatementNodeBase[]>(() => new StatementNodeBase[0]));
         }
 
-        public BlockStatementNode Block(Func<StatementNodeBase[]> statementsFunction)
+        public BlockStatementNode Block(Lazy<StatementNodeBase[]> statementsFunction)
         {
             if (statementsFunction == null)
                 ThrowHelper.ThrowArgumentNullException(() => statementsFunction);
 
             var scope = CompilerService.PushScope();
 
-            var statements = statementsFunction();
+            var statements = statementsFunction.Value;
 
             if (statements.Any(statement => statement == null))
                 ThrowHelper.ThrowException("There is a statement which is null!");

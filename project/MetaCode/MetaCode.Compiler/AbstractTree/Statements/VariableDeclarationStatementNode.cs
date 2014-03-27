@@ -32,6 +32,8 @@ namespace MetaCode.Compiler.AbstractTree.Statements
 
             Declaration = declaration;
             InitialValue = initialValue;
+
+            AddChildren(InitialValue);
         }
     }
 }

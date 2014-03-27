@@ -1,4 +1,4 @@
-// Generated from ../MetaCode.g4 by ANTLR 4.2
+// Generated from ../MetaCode.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -23,6 +23,13 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFormalParameter(@NotNull MetaCodeParser.FormalParameterContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#returnStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnStatement(@NotNull MetaCodeParser.ReturnStatementContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#attribute}.
@@ -116,6 +123,13 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitBooleanConstant(@NotNull MetaCodeParser.BooleanConstantContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#memberTagExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMemberTagExpression(@NotNull MetaCodeParser.MemberTagExpressionContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#assignmentExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -200,16 +214,16 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitForeachStatement(@NotNull MetaCodeParser.ForeachStatementContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link MetaCodeParser#identifier}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIdentifier(@NotNull MetaCodeParser.IdentifierContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#stringConstant}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitStringConstant(@NotNull MetaCodeParser.StringConstantContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#identifier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdentifier(@NotNull MetaCodeParser.IdentifierContext ctx);
 }

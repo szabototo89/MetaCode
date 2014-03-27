@@ -9,12 +9,10 @@ namespace MetaCode.Compiler.Commons
 
         public Type ReturnType { get; protected set; }
 
-        public string Name { get; protected set; }
-
-
         public FunctionDeclaration(string name, Type returnType, Scope scope)
             : this(name, returnType, new Type[0], scope)
         {
+
         }
 
         public FunctionDeclaration(string name, Type returnType, Type[] formalParameters, Scope scope)

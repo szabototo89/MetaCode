@@ -7,6 +7,7 @@ statements  :   (statement ';')+
             ;
 
 statement   : Expression=expression
+			| Return=returnStatement
             | Attributes=attributes? VariableDeclaration=variableDeclaration
             | Attributes=attributes? If=ifStatement                 
             | Attributes=attributes? Block=blockStatement
@@ -39,21 +40,23 @@ expression  : PrimaryExpression=primaryExpression
 functionCallExpression  :   primaryExpression '(' expression? ')'   
                         ;
 
-memberExpression    : primaryExpression ('.' (identifier | functionCallExpression))+
+memberExpression    : (primaryExpression | functionCallExpression) ('.' memberTagExpression)+
                     ;         
 
+memberTagExpression	:	identifier | functionCallExpression;
+
 primaryExpression   :   Attributes=attributes? Constant=constant
-                    |   Attributes=attributes? Id=identifier
+                    |   Attributes=attributes? Id=ID
                     |   Attributes=attributes? Function=functionExpression
                     |   Attributes=attributes? Assignment=assignmentExpression
                     |   Attributes=attributes? '(' InnerExpression=expression ')'
                     ;       
 
-functionExpression  :   FUNCTION FunctionName=identifier? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
-                    |   FUNCTION FunctionName=identifier? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName)? '=' BodyExpression=expression
+functionExpression  :   FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName) DO BodyStatements=statements END
+                    |   FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName) '=' BodyExpression=expression
                     ;
 
-foreachStatement    :   FOREACH '(' Var=VAR? Id=identifier (':' VariableType=typeName)? IN ArrayExpression=expression ')' Body=statement
+foreachStatement    :   FOREACH '(' Var=VAR? Id=ID (':' VariableType=typeName)? IN ArrayExpression=expression ')' Body=statement
                     ;
 
 whileStatement      :   WHILE '(' ConditionExpression=expression ')' Body=statement
@@ -64,22 +67,24 @@ blockStatement      :   DO Body=statements END
 
 skipStatement       :   SKIP;
 
-assignmentExpression:   Variable=identifier ASSIGN Value=expression (ConditionalAttributes=attributes? IF '(' ConditionalExpression=expression ')')?
+returnStatement		:	RETURN expression;
+
+assignmentExpression:   Variable=ID ASSIGN Value=expression (ConditionalAttributes=attributes? IF '(' ConditionalExpression=expression ')')?
                     ;
 
 ifStatement     :   IF '(' Condition=expression ')' Statements=statements 
-                    ElseIfExpressions=elseIfStatement*
+                    ElseIfStatements=elseIfStatement*
                     (ELSE ElseStatements=statements)? 
                     END
                 ;
 
-elseIfStatement :   ELSE IF '(' expression ')' statements
+elseIfStatement :   ELSE IF '(' Condition=expression ')' Statements=statements
                 ;
 
 formalParameterList :   formalParameter (',' formalParameter)*
                     ;
 
-formalParameter     :   attributes? identifier ':' typeName
+formalParameter     :   Attributes=attributes? Name=ID ':' Type=typeName
                     ;                   
 
 actualParameterList :   expression (',' expression)*
@@ -154,6 +159,8 @@ OR          :   'or';
 NOT         :   'not';
 
 NULL        :   'null';
+
+RETURN		:	'return';
 
 LEFT_PARENTHESIS  : '(';
 
