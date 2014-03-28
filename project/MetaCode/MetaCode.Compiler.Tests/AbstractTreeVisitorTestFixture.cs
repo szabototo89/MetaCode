@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using MetaCode.Compiler.AbstractTree;
+using MetaCode.Compiler.AbstractSyntaxTree;
 using MetaCode.Compiler.Services;
 using MetaCode.Compiler.Visitors;
 using NUnit.Framework;

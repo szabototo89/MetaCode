@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
-using MetaCode.Compiler.AbstractTree;
-using MetaCode.Compiler.AbstractTree.Factories;
+using MetaCode.Compiler.AbstractSyntaxTree;
+using MetaCode.Compiler.AbstractSyntaxTree.Factories;
 using MetaCode.Compiler.Services;
 using MetaCode.Core;
 

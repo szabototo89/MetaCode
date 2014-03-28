@@ -8,11 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
-using MetaCode.Compiler.AbstractTree;
-using MetaCode.Compiler.AbstractTree.Constants;
-using MetaCode.Compiler.AbstractTree.Expressions;
-using MetaCode.Compiler.AbstractTree.Factories;
-using MetaCode.Compiler.AbstractTree.Statements;
+using MetaCode.Compiler.AbstractSyntaxTree;
+using MetaCode.Compiler.AbstractSyntaxTree.Constants;
+using MetaCode.Compiler.AbstractSyntaxTree.Expressions;
+using MetaCode.Compiler.AbstractSyntaxTree.Statements;
 using MetaCode.Compiler.Grammar;
 using MetaCode.Core;
 

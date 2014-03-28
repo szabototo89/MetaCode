@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime;
-using MetaCode.Compiler.AbstractTree;
+using MetaCode.Compiler.AbstractSyntaxTree;
 using MetaCode.Compiler.Commons;
 using MetaCode.Core;
 
