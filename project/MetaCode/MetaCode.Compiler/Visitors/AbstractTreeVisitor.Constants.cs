@@ -16,7 +16,7 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.Visitors
 {
-    public partial class AbstractTreeVisitor : MetaCodeBaseVisitor<Node>
+    public partial class AbstractTreeVisitor
     {
         #region Constants Visitor methods
 

@@ -8,6 +8,8 @@ statements  :   (statement ';')+
 
 statement   : Expression=expression
 			| Return=returnStatement
+            | Attributes=attributes? FunctionDeclaration=functionStatement
+            | Attributes=attributes? MacroDeclaration=macroStatement
             | Attributes=attributes? VariableDeclaration=variableDeclaration
             | Attributes=attributes? If=ifStatement                 
             | Attributes=attributes? Block=blockStatement
@@ -21,7 +23,8 @@ variableDeclaration :   Attributes=attributes? VAR VariableName=ID (':' Variable
 
 expression  : PrimaryExpression=primaryExpression
             | FunctionCallExpression=functionCallExpression 
-            | MemberExpression=memberExpression
+            | MacroCallExpression=macroCallExpression 
+            | MemberExpression=memberExpression 
             | Operator=NOT Expression=expression
             | Left=expression Operator='+' Right=expression
             | Left=expression Operator='-' Right=expression                          
@@ -37,23 +40,30 @@ expression  : PrimaryExpression=primaryExpression
             | Left=expression Operator=OR Right=expression                          
             ;
 
-functionCallExpression  :   (ID | functionExpression) '(' expression? ')'   
-                        ;
+functionCallExpression  :   primaryExpression '(' expression? ')';
 
-memberExpression    : (primaryExpression | functionCallExpression) ('.' memberTagExpression)+
-                    ;         
+macroCallExpression  :   MACRO ID '(' statement ')'
+                     ;
 
-memberTagExpression	:	ID | functionCallExpression;
+memberExpression    : ID ('.' ID)+
+                    ;
+
+/*
+memberExpression    : (primaryExpression | functionCallExpression) ('.' memberTagExpression)+;         
+*/
+
+memberTagExpression	:	identifier | functionCallExpression;
 
 primaryExpression   :   Attributes=attributes? Constant=constant
                     |   Attributes=attributes? Id=ID
-                    |   Attributes=attributes? Function=functionExpression
                     |   Attributes=attributes? Assignment=assignmentExpression
                     |   Attributes=attributes? '(' InnerExpression=expression ')'
                     ;       
 
-functionExpression  :   FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName) DO BodyStatements=statements END
-                    |   FUNCTION FunctionName=ID? '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName) '=' BodyExpression=expression
+functionStatement   :   FUNCTION FunctionName=ID '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName) DO BodyStatements=statements END
+                    ;
+
+macroStatement      :   (Type=IMPLICIT | Type=EXPLICIT) MACRO MacroName=ID '(' Identifier=ID ':' Selector=TREE_SELECTOR ')' DO BodyStatements=statements END
                     ;
 
 foreachStatement    :   FOREACH '(' Var=VAR? Id=ID (':' VariableType=typeName)? IN ArrayExpression=expression ')' Body=statement
@@ -98,6 +108,10 @@ constant            :   Number=numberConstant
                     |   Boolean=booleanConstant
                     |   Array=arrayConstant
                     |   Interval=intervalConstant
+                    |   TreeSelector=TREE_SELECTOR
+                    ;
+
+identifier          :   Id=ID
                     ;
 
 numberConstant      :   NUMBER;
@@ -123,6 +137,7 @@ attribute   :   Name=ATTRIBUTE_ID ('(' constant (',' constant)* ')')?
  * Lexical rules
 **/
 
+
 FUNCTION:   'function';
 
 FOREACH :   'foreach';
@@ -141,13 +156,26 @@ BOOLEAN :   'false'
         |   'true'
         ;
 
-SKIP    :   'skip';
+IMPLICIT    :   'implicit'
+            ;
 
-VAR     :   'var';
+EXPLICIT    :   'explicit'
+            ;
 
-IN      :   'in';
+MACRO       :   'macro'
+            ;
 
-ASSIGN  :   '=';
+SKIP    :   'skip'
+        ;
+
+VAR     :   'var'
+        ;
+
+IN      :   'in'    
+        ;
+
+ASSIGN  :   '='
+        ;
 
 AND         :       'and';
 
@@ -157,7 +185,7 @@ NOT         :   'not';
 
 NULL        :   'null';
 
-RETURN		:	'return';
+RETURN      :   'return';
 
 LEFT_PARENTHESIS  : '(';
 
@@ -171,6 +199,9 @@ COMMENT :   '//' .*?  NEWLINE -> skip
 
 MULTILINE_COMMENT   : '/*' .*? '*/' -> skip
                     ;
+
+TREE_SELECTOR   :   '{' .+? '}'
+                ;
 
 ATTRIBUTE_ID    :   '@' (LETTER|'_') (LETTER|'_'|'-'|[0-9])*;
 
@@ -200,5 +231,6 @@ DIGIT   :   [0-9]
 
 WHITESPACE  :   [ \t]+ -> skip
             ;
+
 NEWLINE     :   '\r'? '\n' -> skip
             ;

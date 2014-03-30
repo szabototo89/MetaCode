@@ -8,7 +8,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree
     {
         public IEnumerable<AttributeNode> Attributes { get; internal set; }
 
-        public string Name { get; internal set; }   
+        public string Name { get; internal set; }
 
         public TypeNameNode TypeName { get; internal set; }
 

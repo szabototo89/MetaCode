@@ -110,6 +110,17 @@ public partial class MetaCodeBaseVisitor<Result> : AbstractParseTreeVisitor<Resu
 	public virtual Result VisitPrimaryExpression([NotNull] MetaCodeParser.PrimaryExpressionContext context) { return VisitChildren(context); }
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.macroCallExpression"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitMacroCallExpression([NotNull] MetaCodeParser.MacroCallExpressionContext context) { return VisitChildren(context); }
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.elseIfStatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
@@ -119,6 +130,17 @@ public partial class MetaCodeBaseVisitor<Result> : AbstractParseTreeVisitor<Resu
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitElseIfStatement([NotNull] MetaCodeParser.ElseIfStatementContext context) { return VisitChildren(context); }
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.functionStatement"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitFunctionStatement([NotNull] MetaCodeParser.FunctionStatementContext context) { return VisitChildren(context); }
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.variableDeclaration"/>.
@@ -174,17 +196,6 @@ public partial class MetaCodeBaseVisitor<Result> : AbstractParseTreeVisitor<Resu
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitFormalParameterList([NotNull] MetaCodeParser.FormalParameterListContext context) { return VisitChildren(context); }
-
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="MetaCodeParser.functionExpression"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitFunctionExpression([NotNull] MetaCodeParser.FunctionExpressionContext context) { return VisitChildren(context); }
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.constant"/>.
@@ -308,6 +319,17 @@ public partial class MetaCodeBaseVisitor<Result> : AbstractParseTreeVisitor<Resu
 	public virtual Result VisitWhileStatement([NotNull] MetaCodeParser.WhileStatementContext context) { return VisitChildren(context); }
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.macroStatement"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitMacroStatement([NotNull] MetaCodeParser.MacroStatementContext context) { return VisitChildren(context); }
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.functionCallExpression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
@@ -361,5 +383,16 @@ public partial class MetaCodeBaseVisitor<Result> : AbstractParseTreeVisitor<Resu
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitStringConstant([NotNull] MetaCodeParser.StringConstantContext context) { return VisitChildren(context); }
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.identifier"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitIdentifier([NotNull] MetaCodeParser.IdentifierContext context) { return VisitChildren(context); }
 }
 } // namespace MetaCode.Compiler.Grammar

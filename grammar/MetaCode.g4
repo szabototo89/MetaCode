@@ -24,7 +24,7 @@ variableDeclaration :   Attributes=attributes? VAR VariableName=ID (':' Variable
 expression  : PrimaryExpression=primaryExpression
             | FunctionCallExpression=functionCallExpression 
             | MacroCallExpression=macroCallExpression 
-            /* | MemberExpression=memberExpression */
+            | MemberExpression=memberExpression 
             | Operator=NOT Expression=expression
             | Left=expression Operator='+' Right=expression
             | Left=expression Operator='-' Right=expression                          
@@ -44,6 +44,9 @@ functionCallExpression  :   primaryExpression '(' expression? ')';
 
 macroCallExpression  :   MACRO ID '(' statement ')'
                      ;
+
+memberExpression    : ID ('.' ID)+
+                    ;
 
 /*
 memberExpression    : (primaryExpression | functionCallExpression) ('.' memberTagExpression)+;         

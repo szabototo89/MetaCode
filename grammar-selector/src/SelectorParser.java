@@ -78,9 +78,7 @@ public class SelectorParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(14); match(5);
-			setState(15); selectors();
-			setState(16); match(1);
+			setState(14); selectors();
 			}
 		}
 		catch (RecognitionException re) {
@@ -127,18 +125,18 @@ public class SelectorParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(18); selector(0);
-			setState(23);
+			setState(16); selector(0);
+			setState(21);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==3) {
 				{
 				{
-				setState(19); match(3);
-				setState(20); selector(0);
+				setState(17); match(3);
+				setState(18); selector(0);
 				}
 				}
-				setState(25);
+				setState(23);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -203,10 +201,10 @@ public class SelectorParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(27); statement();
+			setState(25); statement();
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(35);
+			setState(33);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
 			while ( _alt!=2 && _alt!=-1 ) {
@@ -217,14 +215,14 @@ public class SelectorParser extends Parser {
 					{
 					_localctx = new SelectorContext(_parentctx, _parentState);
 					pushNewRecursionContext(_localctx, _startState, RULE_selector);
-					setState(29);
+					setState(27);
 					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-					setState(30); operator();
-					setState(31); selector(2);
+					setState(28); operator();
+					setState(29); selector(0);
 					}
 					} 
 				}
-				setState(37);
+				setState(35);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
 			}
@@ -271,11 +269,11 @@ public class SelectorParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(38); match(5);
+			setState(36); match(5);
+			setState(37); match(ID);
+			setState(38); match(6);
 			setState(39); match(ID);
-			setState(40); match(6);
-			setState(41); match(ID);
-			setState(42); match(1);
+			setState(40); match(1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -316,7 +314,7 @@ public class SelectorParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(44);
+			setState(42);
 			_la = _input.LA(1);
 			if ( !(_la==2 || _la==4) ) {
 			_errHandler.recoverInline(this);
@@ -371,19 +369,19 @@ public class SelectorParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(46); baseStatement();
-			setState(50);
+			setState(44); baseStatement();
+			setState(48);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			while ( _alt!=2 && _alt!=-1 ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(47); attribute();
+					setState(45); attribute();
 					}
 					} 
 				}
-				setState(52);
+				setState(50);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
@@ -435,66 +433,66 @@ public class SelectorParser extends Parser {
 		BaseStatementContext _localctx = new BaseStatementContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_baseStatement);
 		try {
-			setState(63);
+			setState(61);
 			switch (_input.LA(1)) {
 			case WHILE:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(53); ((BaseStatementContext)_localctx).Statement = match(WHILE);
+				setState(51); ((BaseStatementContext)_localctx).Statement = match(WHILE);
 				}
 				break;
 			case FOREACH:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(54); ((BaseStatementContext)_localctx).Statement = match(FOREACH);
+				setState(52); ((BaseStatementContext)_localctx).Statement = match(FOREACH);
 				}
 				break;
 			case FUNCTION:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(55); ((BaseStatementContext)_localctx).Statement = match(FUNCTION);
+				setState(53); ((BaseStatementContext)_localctx).Statement = match(FUNCTION);
 				}
 				break;
 			case IF:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(56); ((BaseStatementContext)_localctx).Statement = match(IF);
+				setState(54); ((BaseStatementContext)_localctx).Statement = match(IF);
 				}
 				break;
 			case TRUE_STATEMENT:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(57); ((BaseStatementContext)_localctx).Statement = match(TRUE_STATEMENT);
+				setState(55); ((BaseStatementContext)_localctx).Statement = match(TRUE_STATEMENT);
 				}
 				break;
 			case ELSE_STATEMENT:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(58); ((BaseStatementContext)_localctx).Statement = match(ELSE_STATEMENT);
+				setState(56); ((BaseStatementContext)_localctx).Statement = match(ELSE_STATEMENT);
 				}
 				break;
 			case BODY:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(59); ((BaseStatementContext)_localctx).Statement = match(BODY);
+				setState(57); ((BaseStatementContext)_localctx).Statement = match(BODY);
 				}
 				break;
 			case EXPRESSION:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(60); ((BaseStatementContext)_localctx).Statement = match(EXPRESSION);
+				setState(58); ((BaseStatementContext)_localctx).Statement = match(EXPRESSION);
 				}
 				break;
 			case VARIABLE:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(61); ((BaseStatementContext)_localctx).Statement = match(VARIABLE);
+				setState(59); ((BaseStatementContext)_localctx).Statement = match(VARIABLE);
 				}
 				break;
 			case ALL:
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(62); ((BaseStatementContext)_localctx).Statement = match(ALL);
+				setState(60); ((BaseStatementContext)_localctx).Statement = match(ALL);
 				}
 				break;
 			default:
@@ -526,24 +524,24 @@ public class SelectorParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\26D\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\3\2\3\2\3\2\3\2\3\3\3\3\3\3"+
-		"\7\3\30\n\3\f\3\16\3\33\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\7\4$\n\4\f\4"+
-		"\16\4\'\13\4\3\5\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\7\3\7\7\7\63\n\7\f\7\16"+
-		"\7\66\13\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bB\n\b\3\b\2\3\6"+
-		"\t\2\4\6\b\n\f\16\2\3\4\2\4\4\6\6H\2\20\3\2\2\2\4\24\3\2\2\2\6\34\3\2"+
-		"\2\2\b(\3\2\2\2\n.\3\2\2\2\f\60\3\2\2\2\16A\3\2\2\2\20\21\7\7\2\2\21\22"+
-		"\5\4\3\2\22\23\7\3\2\2\23\3\3\2\2\2\24\31\5\6\4\2\25\26\7\5\2\2\26\30"+
-		"\5\6\4\2\27\25\3\2\2\2\30\33\3\2\2\2\31\27\3\2\2\2\31\32\3\2\2\2\32\5"+
-		"\3\2\2\2\33\31\3\2\2\2\34\35\b\4\1\2\35\36\5\f\7\2\36%\3\2\2\2\37 \f\3"+
-		"\2\2 !\5\n\6\2!\"\5\6\4\4\"$\3\2\2\2#\37\3\2\2\2$\'\3\2\2\2%#\3\2\2\2"+
-		"%&\3\2\2\2&\7\3\2\2\2\'%\3\2\2\2()\7\7\2\2)*\7\24\2\2*+\7\b\2\2+,\7\24"+
-		"\2\2,-\7\3\2\2-\t\3\2\2\2./\t\2\2\2/\13\3\2\2\2\60\64\5\16\b\2\61\63\5"+
-		"\b\5\2\62\61\3\2\2\2\63\66\3\2\2\2\64\62\3\2\2\2\64\65\3\2\2\2\65\r\3"+
-		"\2\2\2\66\64\3\2\2\2\67B\7\t\2\28B\7\n\2\29B\7\13\2\2:B\7\f\2\2;B\7\r"+
-		"\2\2<B\7\16\2\2=B\7\17\2\2>B\7\20\2\2?B\7\21\2\2@B\7\23\2\2A\67\3\2\2"+
-		"\2A8\3\2\2\2A9\3\2\2\2A:\3\2\2\2A;\3\2\2\2A<\3\2\2\2A=\3\2\2\2A>\3\2\2"+
-		"\2A?\3\2\2\2A@\3\2\2\2B\17\3\2\2\2\6\31%\64A";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\26B\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\3\2\3\2\3\3\3\3\3\3\7\3\26"+
+		"\n\3\f\3\16\3\31\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\7\4\"\n\4\f\4\16\4%"+
+		"\13\4\3\5\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\7\3\7\7\7\61\n\7\f\7\16\7\64\13"+
+		"\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\b@\n\b\3\b\2\3\6\t\2\4\6"+
+		"\b\n\f\16\2\3\4\2\4\4\6\6F\2\20\3\2\2\2\4\22\3\2\2\2\6\32\3\2\2\2\b&\3"+
+		"\2\2\2\n,\3\2\2\2\f.\3\2\2\2\16?\3\2\2\2\20\21\5\4\3\2\21\3\3\2\2\2\22"+
+		"\27\5\6\4\2\23\24\7\5\2\2\24\26\5\6\4\2\25\23\3\2\2\2\26\31\3\2\2\2\27"+
+		"\25\3\2\2\2\27\30\3\2\2\2\30\5\3\2\2\2\31\27\3\2\2\2\32\33\b\4\1\2\33"+
+		"\34\5\f\7\2\34#\3\2\2\2\35\36\f\3\2\2\36\37\5\n\6\2\37 \5\6\4\2 \"\3\2"+
+		"\2\2!\35\3\2\2\2\"%\3\2\2\2#!\3\2\2\2#$\3\2\2\2$\7\3\2\2\2%#\3\2\2\2&"+
+		"\'\7\7\2\2\'(\7\24\2\2()\7\b\2\2)*\7\24\2\2*+\7\3\2\2+\t\3\2\2\2,-\t\2"+
+		"\2\2-\13\3\2\2\2.\62\5\16\b\2/\61\5\b\5\2\60/\3\2\2\2\61\64\3\2\2\2\62"+
+		"\60\3\2\2\2\62\63\3\2\2\2\63\r\3\2\2\2\64\62\3\2\2\2\65@\7\t\2\2\66@\7"+
+		"\n\2\2\67@\7\13\2\28@\7\f\2\29@\7\r\2\2:@\7\16\2\2;@\7\17\2\2<@\7\20\2"+
+		"\2=@\7\21\2\2>@\7\23\2\2?\65\3\2\2\2?\66\3\2\2\2?\67\3\2\2\2?8\3\2\2\2"+
+		"?9\3\2\2\2?:\3\2\2\2?;\3\2\2\2?<\3\2\2\2?=\3\2\2\2?>\3\2\2\2@\17\3\2\2"+
+		"\2\6\27#\62?";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -129,7 +129,16 @@
     <Compile Include="obj\Debug\MetaCodeVisitor.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="obj\Debug\TreeSelectorBaseListener.cs" />
+    <Compile Include="obj\Debug\TreeSelectorBaseVisitor.cs" />
+    <Compile Include="obj\Debug\TreeSelectorLexer.cs" />
+    <Compile Include="obj\Debug\TreeSelectorListener.cs" />
+    <Compile Include="obj\Debug\TreeSelectorParser.cs" />
+    <Compile Include="obj\Debug\TreeSelectorVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Selectors\NodeSelector.cs" />
+    <Compile Include="Selectors\NodeSelectorAttribute.cs" />
+    <Compile Include="Selectors\SelectorOperation.cs" />
     <Compile Include="Services\CompilerService.cs" />
     <Compile Include="Services\ExpressionService.cs" />
     <Compile Include="Services\InformationBase.cs" />
@@ -139,6 +148,7 @@
     <Compile Include="Visitors\AttributeVisitor.cs" />
     <Compile Include="Visitors\AbstractTreeVisitor.Expressions.cs" />
     <Compile Include="Visitors\NumberVisitor.cs" />
+    <Compile Include="Visitors\TreeSelectorVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Antlr4 Include="Grammar\MetaCode.g4">
@@ -153,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
       <CustomToolNamespace>MetaCode.Compiler.obj.Debug</CustomToolNamespace>
     </AntlrTokens>
+    <Antlr4 Include="Grammar\TreeSelector.g4">
+      <Generator>MSBuild:Compile</Generator>
+      <CustomToolNamespace>MetaCode.Compiler.Grammar</CustomToolNamespace>
+    </Antlr4>
     <None Include="packages.config" />
     <Compile Include="Visitors\AbstractTreeVisitor.Statements.cs" />
   </ItemGroup>

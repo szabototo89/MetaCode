@@ -1,14 +1,14 @@
-grammar Selector;
+grammar TreeSelector;
 
 
-init			: 	selectors
+init			: 	'[' selectors ']'
 				;
 
 selectors		:	selector (',' selector)*
 				;
 
 selector		:	statement
-				|   selector operator selector <assoc=right>
+				|	selector operator selector
 				;
 
 attribute		:	'[' ID '=' ID ']'

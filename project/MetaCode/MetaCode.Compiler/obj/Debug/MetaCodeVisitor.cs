@@ -80,11 +80,25 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitPrimaryExpression([NotNull] MetaCodeParser.PrimaryExpressionContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.macroCallExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMacroCallExpression([NotNull] MetaCodeParser.MacroCallExpressionContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.elseIfStatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitElseIfStatement([NotNull] MetaCodeParser.ElseIfStatementContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.functionStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFunctionStatement([NotNull] MetaCodeParser.FunctionStatementContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.variableDeclaration"/>.
@@ -120,13 +134,6 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitFormalParameterList([NotNull] MetaCodeParser.FormalParameterListContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="MetaCodeParser.functionExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitFunctionExpression([NotNull] MetaCodeParser.FunctionExpressionContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.constant"/>.
@@ -206,6 +213,13 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitWhileStatement([NotNull] MetaCodeParser.WhileStatementContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.macroStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMacroStatement([NotNull] MetaCodeParser.MacroStatementContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.functionCallExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -239,5 +253,12 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitStringConstant([NotNull] MetaCodeParser.StringConstantContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.identifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIdentifier([NotNull] MetaCodeParser.IdentifierContext context);
 }
 } // namespace MetaCode.Compiler.Grammar

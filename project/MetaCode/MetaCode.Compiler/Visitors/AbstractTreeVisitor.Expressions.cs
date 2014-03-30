@@ -44,20 +44,18 @@ namespace MetaCode.Compiler.Visitors
             return result;
         }
 
-        public override Node VisitFunctionExpression(MetaCodeParser.FunctionExpressionContext context)
+        /*public override Node VisitFunctionExpression(MetaCodeParser.FunctionExpressionContext context)
         {
             var identifier = context.FunctionName.With(functionName => functionName.Text);
             var returnType = context.ReturnType.Accept(this) as TypeNameNode;
 
             var parameters = context.Parameters;
 
-            var formalParameters = new Func<FunctionParameterNode[]>(() =>
-            {
+            var formalParameters = new Func<FunctionParameterNode[]>(() => {
                 if (parameters == null)
                     return new FunctionParameterNode[0];
 
-                var result = parameters.formalParameter().Select(param =>
-                {
+                var result = parameters.formalParameter().Select(param => {
                     return ExpressionFactory.FunctionFormalParameter(param.Name.Text,
                         param.Type.With(type => type.Accept(this) as TypeNameNode),
                         null);
@@ -76,12 +74,11 @@ namespace MetaCode.Compiler.Visitors
                                               returnType.Type,
                                               formalParameters,
                                               new Lazy<BlockStatementNode>(() => context.BodyStatements.Accept(this) as BlockStatementNode));
-        }
+        }*/
 
         public override Node VisitPrimaryExpression(MetaCodeParser.PrimaryExpressionContext context)
         {
-            if (context.Constant != null)
-            {
+            if (context.Constant != null) {
                 var constant = context.Constant.Accept(this) as ConstantLiteralNode;
                 return ExpressionFactory.Constant(constant);
             }
@@ -89,8 +86,7 @@ namespace MetaCode.Compiler.Visitors
             if (context.Id != null)
                 return ExpressionFactory.Identifier(context.Id.Text);
 
-            if (context.Assignment != null)
-            {
+            if (context.Assignment != null) {
                 var assignment = context.Assignment;
             }
 
@@ -100,7 +96,7 @@ namespace MetaCode.Compiler.Visitors
             return base.VisitPrimaryExpression(context);
         }
 
-        public override Node VisitMemberExpression(MetaCodeParser.MemberExpressionContext context)
+        /*public override Node VisitMemberExpression(MetaCodeParser.MemberExpressionContext context)
         {
             var primary = context.primaryExpression().With(expression => expression.Accept(this)) ??
                           context.functionCallExpression().With(expression => expression.Accept(this));
@@ -111,7 +107,7 @@ namespace MetaCode.Compiler.Visitors
                                         .ToArray();
 
             return ExpressionFactory.Member(tags.Cast<ExpressionNode>());
-        }
+        }*/
     }
 
 }

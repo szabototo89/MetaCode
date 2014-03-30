@@ -125,6 +125,19 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	public virtual void ExitPrimaryExpression([NotNull] MetaCodeParser.PrimaryExpressionContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.macroCallExpression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMacroCallExpression([NotNull] MetaCodeParser.MacroCallExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.macroCallExpression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMacroCallExpression([NotNull] MetaCodeParser.MacroCallExpressionContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.elseIfStatement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -136,6 +149,19 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitElseIfStatement([NotNull] MetaCodeParser.ElseIfStatementContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.functionStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFunctionStatement([NotNull] MetaCodeParser.FunctionStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.functionStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFunctionStatement([NotNull] MetaCodeParser.FunctionStatementContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.variableDeclaration"/>.
@@ -201,19 +227,6 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitFormalParameterList([NotNull] MetaCodeParser.FormalParameterListContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.functionExpression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterFunctionExpression([NotNull] MetaCodeParser.FunctionExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.functionExpression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitFunctionExpression([NotNull] MetaCodeParser.FunctionExpressionContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.constant"/>.
@@ -359,6 +372,19 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	public virtual void ExitWhileStatement([NotNull] MetaCodeParser.WhileStatementContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.macroStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMacroStatement([NotNull] MetaCodeParser.MacroStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.macroStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMacroStatement([NotNull] MetaCodeParser.MacroStatementContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.functionCallExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -422,6 +448,19 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitStringConstant([NotNull] MetaCodeParser.StringConstantContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.identifier"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIdentifier([NotNull] MetaCodeParser.IdentifierContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.identifier"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIdentifier([NotNull] MetaCodeParser.IdentifierContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>

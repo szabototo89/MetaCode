@@ -7,12 +7,13 @@ using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using MetaCode.Compiler.AbstractSyntaxTree;
 using MetaCode.Compiler.AbstractSyntaxTree.Factories;
+using MetaCode.Compiler.Grammar;
 using MetaCode.Compiler.Services;
 using MetaCode.Core;
 
 namespace MetaCode.Compiler.Visitors
 {
-    public partial class AbstractTreeVisitor
+    public partial class AbstractTreeVisitor : MetaCodeBaseVisitor<Node>
     {
         public CompilerService CompilerService { get; protected set; }
 

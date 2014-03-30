@@ -107,6 +107,17 @@ public interface IMetaCodeListener : IParseTreeListener {
 	void ExitPrimaryExpression([NotNull] MetaCodeParser.PrimaryExpressionContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.macroCallExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMacroCallExpression([NotNull] MetaCodeParser.MacroCallExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.macroCallExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMacroCallExpression([NotNull] MetaCodeParser.MacroCallExpressionContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.elseIfStatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -116,6 +127,17 @@ public interface IMetaCodeListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitElseIfStatement([NotNull] MetaCodeParser.ElseIfStatementContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.functionStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFunctionStatement([NotNull] MetaCodeParser.FunctionStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.functionStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFunctionStatement([NotNull] MetaCodeParser.FunctionStatementContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.variableDeclaration"/>.
@@ -171,17 +193,6 @@ public interface IMetaCodeListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitFormalParameterList([NotNull] MetaCodeParser.FormalParameterListContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.functionExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterFunctionExpression([NotNull] MetaCodeParser.FunctionExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.functionExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitFunctionExpression([NotNull] MetaCodeParser.FunctionExpressionContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.constant"/>.
@@ -305,6 +316,17 @@ public interface IMetaCodeListener : IParseTreeListener {
 	void ExitWhileStatement([NotNull] MetaCodeParser.WhileStatementContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.macroStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMacroStatement([NotNull] MetaCodeParser.MacroStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.macroStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMacroStatement([NotNull] MetaCodeParser.MacroStatementContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.functionCallExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -358,5 +380,16 @@ public interface IMetaCodeListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitStringConstant([NotNull] MetaCodeParser.StringConstantContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.identifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIdentifier([NotNull] MetaCodeParser.IdentifierContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.identifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIdentifier([NotNull] MetaCodeParser.IdentifierContext context);
 }
 } // namespace MetaCode.Compiler.Grammar
