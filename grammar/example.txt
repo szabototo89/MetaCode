@@ -31,7 +31,7 @@ else
 end;
 */
 
-(5 + 5).ToString();
+/*(5 + 5).ToString();
 
 var a = ToString().Parse("Hello World!").Hiii;
 
@@ -44,11 +44,24 @@ end;
 if (not (@convert false))
 	@cast("System.Int32") (0 to 3 by 2);
 end;
+*/
 
 @tail-recursive(false) function max(a: Integer, b: Integer): Integer do
-	if (a < b)
+	if ({ if } < b)
 		a;
 	else 
 		b;
 	end;
 end;
+
+implicit macro hello_world( tree : { if[attribute="strict"] > body } ) do
+	skip;
+end;
+
+macro hello_world (
+	do
+		foreach (var __index__ in [1,2,3]) do
+			skip;
+		end;
+	end
+);

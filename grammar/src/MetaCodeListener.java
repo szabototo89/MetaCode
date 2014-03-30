@@ -1,4 +1,4 @@
-// Generated from ../MetaCode.g4 by ANTLR 4.1
+// Generated from ../MetaCode.g4 by ANTLR 4.2
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -85,6 +85,17 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitPrimaryExpression(@NotNull MetaCodeParser.PrimaryExpressionContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#macroCallExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMacroCallExpression(@NotNull MetaCodeParser.MacroCallExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#macroCallExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMacroCallExpression(@NotNull MetaCodeParser.MacroCallExpressionContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#elseIfStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -94,6 +105,17 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitElseIfStatement(@NotNull MetaCodeParser.ElseIfStatementContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#functionStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionStatement(@NotNull MetaCodeParser.FunctionStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#functionStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionStatement(@NotNull MetaCodeParser.FunctionStatementContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#variableDeclaration}.
@@ -149,17 +171,6 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFormalParameterList(@NotNull MetaCodeParser.FormalParameterListContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#functionExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunctionExpression(@NotNull MetaCodeParser.FunctionExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#functionExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunctionExpression(@NotNull MetaCodeParser.FunctionExpressionContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#constant}.
@@ -239,17 +250,6 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitIfStatement(@NotNull MetaCodeParser.IfStatementContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#memberExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterMemberExpression(@NotNull MetaCodeParser.MemberExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#memberExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitMemberExpression(@NotNull MetaCodeParser.MemberExpressionContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#statement}.
 	 * @param ctx the parse tree
 	 */
@@ -281,6 +281,17 @@ public interface MetaCodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitWhileStatement(@NotNull MetaCodeParser.WhileStatementContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link MetaCodeParser#macroStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterMacroStatement(@NotNull MetaCodeParser.MacroStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MetaCodeParser#macroStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitMacroStatement(@NotNull MetaCodeParser.MacroStatementContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#functionCallExpression}.
