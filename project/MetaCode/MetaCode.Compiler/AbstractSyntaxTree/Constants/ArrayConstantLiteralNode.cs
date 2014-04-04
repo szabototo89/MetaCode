@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MetaCode.Compiler.AbstractSyntaxTree.Expressions;
 
@@ -10,7 +9,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Constants
         #region Constructors
 
         public ArrayConstantLiteralNode(ExpressionNode[] values)
-            : base(values, typeof(IEnumerable))
+            : base(values)
         {
             AddChildren(values);
         }

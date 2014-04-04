@@ -11,7 +11,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
 
         public ConstantLiteralNode Constant { get; set; }
 
-        public override Type Type { get { return Constant.Type; } }
+        public Type Type { get { return Constant.Type; } }
 
         #endregion
 

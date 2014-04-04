@@ -15,12 +15,6 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
             if (condition == null)
                 throw new ArgumentNullException("condition", "The Condition is null!");
 
-            if (condition.Type == null)
-                throw new Exception("The type of Condition is null!");
-
-            if (condition.Type != typeof(bool))
-                throw new Exception("The type of Condition is not System.Boolean!");
-
             Condition = condition;
             AddChildren(Condition);
         }

@@ -17,9 +17,6 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
             if (trueStatement == null) throw new ArgumentNullException("trueStatement");
             if (falseStatement == null) throw new ArgumentNullException("falseStatement");
 
-            if (condition.Type != typeof(bool))
-                throw new ArgumentException("The type of condition is not boolean!");
-
             ConditionExpression = condition;
             TrueStatementNode = trueStatement;
             FalseStatementNode = falseStatement;

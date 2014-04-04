@@ -5,7 +5,7 @@
         #region Constructors
 
         public BooleanConstantLiteralNode(bool value)
-            : base(value, typeof(bool))
+            : base(value)
         {
         }
 

@@ -25,10 +25,5 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
 
             AddChildren(ActualParameters.OfType<Node>().ToArray());
         }
-
-        public override Type Type
-        {
-            get { return FunctionDeclaration.ReturnType; }
-        }
     }
 }

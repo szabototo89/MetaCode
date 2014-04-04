@@ -5,7 +5,7 @@
         #region Constructors
 
         public NumberConstantLiteralNode(double value)
-            : base(value, typeof(double))
+            : base(value)
         {
         }
 

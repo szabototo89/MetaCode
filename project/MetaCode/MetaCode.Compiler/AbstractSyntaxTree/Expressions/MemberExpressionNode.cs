@@ -20,10 +20,5 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
 
             Members = members;
         }
-
-        public override Type Type
-        {
-            get { return Members.Last().Type; }
-        }
     }
 }

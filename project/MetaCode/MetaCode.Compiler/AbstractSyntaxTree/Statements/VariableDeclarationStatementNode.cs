@@ -7,25 +7,30 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 {
     public class VariableDeclarationStatementNode : StatementNodeBase
     {
-        public string Name { get { return VariableDeclaration.Name; } }
+        public IdentifierExpressionNode Identifier { get; protected set; }
 
-        public Type Type { get { return VariableDeclaration.Type; } }
-
-        public VariableDeclaration Declaration { get; set; }
+        public TypeNameNode Type { get; set; }
 
         public ExpressionNode InitialValue { get; protected set; }
 
-        public VariableDeclaration VariableDeclaration { get; protected set; }
+        public string VariableName { get { return Identifier.Name; } }
 
-        public VariableDeclarationStatementNode(VariableDeclaration declaration, ExpressionNode initialValue)
+        public VariableDeclarationStatementNode(string name, TypeNameNode type, ExpressionNode initialValue)
         {
-            if (declaration == null)
-                ThrowHelper.ThrowArgumentNullException(() => declaration);
+            if (name == null)
+                ThrowHelper.ThrowArgumentNullException(() => name);
 
-            Declaration = declaration;
+            if (type == null)
+                ThrowHelper.ThrowArgumentNullException(() => type);
+
+            if (initialValue == null)
+                ThrowHelper.ThrowArgumentNullException(() => initialValue);
+
             InitialValue = initialValue;
+            Identifier = new IdentifierExpressionNode(name, null);
+            Type = type;
 
-            AddChildren(InitialValue);
+            AddChildren(Identifier, Type, InitialValue);
         }
     }
 }

@@ -80,33 +80,15 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
             if (!_operators.TryGetValue(@operator, out operatorNode))
                 throw new Exception("Unsupported operator!");
 
-            if (operatorNode is LogicalBinaryOperatorNode)
-            {
-                if (!left.Type.IsLogical())
-                    CompilerService.Error("Left expression must be a boolean expression!");
-                if (!right.Type.IsLogical())
-                    CompilerService.Error("Right expression must be a boolean expression!");
-
+            if (operatorNode is LogicalBinaryOperatorNode) {
                 return new BinaryExpressionNode(left, right, operatorNode as LogicalBinaryOperatorNode);
             }
 
-            if (operatorNode is NumericBinaryOperatorNode)
-            {
-                if (!left.Type.IsNumeric())
-                    CompilerService.Error("Left expression must be a numeric expression!");
-                if (!right.Type.IsNumeric())
-                    CompilerService.Error("Right expression must be a numeric expression!");
-
+            if (operatorNode is NumericBinaryOperatorNode) {
                 return new BinaryExpressionNode(left, right, operatorNode as NumericBinaryOperatorNode);
             }
 
-            if (operatorNode is RelationalBinaryOperatorNode)
-            {
-                if (!left.Type.IsNumeric())
-                    CompilerService.Error("Left expression must be a numeric expression!");
-                if (!right.Type.IsNumeric())
-                    CompilerService.Error("Right expression must be a numeric expression!");
-
+            if (operatorNode is RelationalBinaryOperatorNode) {
                 return new BinaryExpressionNode(left, right, operatorNode as RelationalBinaryOperatorNode);
             }
 
@@ -121,73 +103,15 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
         /// </summary>
         public IdentifierExpressionNode Identifier(string identifier)
         {
-            var variable = CompilerService.FindVariable(identifier);
-            if (variable == null)
-                CompilerService.Error(string.Format("The variable '{0}' does not exists in the scope!", identifier));
-
-            return new IdentifierExpressionNode(new Identifier(variable.Name, variable.Type), null);
+            return new IdentifierExpressionNode(identifier, null);
         }
 
-        public TypeNameNode Type(string[] identifiers)
+        public TypeNameNode Type(string typeName)
         {
-            if (identifiers == null)
-                ThrowHelper.ThrowArgumentNullException(() => identifiers);
+            if (string.IsNullOrWhiteSpace(typeName))
+                ThrowHelper.ThrowException("The 'typeName' is blank!");
 
-            var typeName = string.Join(".", identifiers);
-            Type type = TypeHelper.FindType(typeName);
-
-            if (type == null)
-                CompilerService.Error("Type is not found!");
-
-            return new TypeNameNode(type);
-        }
-
-        public FunctionExpressionNode Function(string name, Type returnType, FunctionParameterNode[] parameters, Lazy<ExpressionNode> body)
-        {
-            var statementFactory = CompilerService.StatementFactory;
-
-            return Function(name, returnType, parameters,
-                new Lazy<BlockStatementNode>(() =>
-                    statementFactory.Block(new Lazy<StatementNodeBase[]>(() => new StatementNodeBase[] { statementFactory.Expression(body.Value) }))));
-        }
-
-        public FunctionExpressionNode Function(string name, Type returnType, FunctionParameterNode[] parameters, Lazy<BlockStatementNode> body)
-        {
-            if (returnType == null)
-                ThrowHelper.ThrowArgumentNullException(() => returnType);
-            if (body == null)
-                ThrowHelper.ThrowArgumentNullException(() => body);
-            if (parameters == null)
-                ThrowHelper.ThrowArgumentNullException(() => parameters);
-
-            var scope = CompilerService.GetScope();
-
-            if (!string.IsNullOrWhiteSpace(name))
-            {
-                if (CompilerService.FindFunction(name) != null)
-                    CompilerService.Error(string.Format("The '{0}' is already defined!", name));
-
-                scope.DeclareFunction(name, returnType, parameters.Select(param => param.TypeName.Type).ToArray());
-            }            
-            var functionScope = CompilerService.PushScope();
-
-            foreach (var parameter in parameters)
-                functionScope.DeclareVariable(parameter.Name, parameter.TypeName.Type);
-
-            var bodyStatement = body.Value;
-            CompilerService.PopScope();
-
-            return new FunctionExpressionNode(name, bodyStatement, new TypeNameNode(returnType), null);
-        }
-
-        public FunctionParameterNode FunctionFormalParameter(string name, TypeNameNode type, IEnumerable<AttributeNode> attributes)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-                ThrowHelper.ThrowException("The name is blank!");
-            if (type == null)
-                ThrowHelper.ThrowArgumentNullException(() => type);
-
-            return new FunctionParameterNode(name, type, attributes);
+            return new TypeNameNode(typeName);
         }
 
         public MemberExpressionNode Member(IEnumerable<ExpressionNode> members)

@@ -43,15 +43,18 @@ namespace MetaCode.Compiler.Visitors
         {
             var text = context.GetText();
             var expressions = context.expression()
-                .Select(expression => expression.Accept(this))
-                .OfType<ExpressionNode>()
-                .ToArray();
+                                     .Select(expression => expression.Accept(this))
+                                     .OfType<ExpressionNode>()
+                                     .ToArray();
 
             return ConstantLiteralFactory.Array(expressions);
         }
 
         public override Node VisitConstant(MetaCodeParser.ConstantContext context)
         {
+            if (context.Null != null)
+                return new NullConstantLiteralNode();
+
             return GetNodeFromContext(context.String,
                                       context.Number,
                                       context.Boolean,
@@ -74,7 +77,7 @@ namespace MetaCode.Compiler.Visitors
                                      .Select(id => id.GetText())
                                      .ToArray();
 
-            return ExpressionFactory.Type(identifiers);
+            return ExpressionFactory.Type(string.Join(".", identifiers));
         }
 
         #endregion

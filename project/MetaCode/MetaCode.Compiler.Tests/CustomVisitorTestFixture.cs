@@ -42,7 +42,7 @@ namespace MetaCode.Compiler.Tests
         public void CustomVisitorTest()
         {
             var source = MultiLine(
-               "var a = function(c: System.Int32): System.Void do" +
+               "function func(c: System.Int32): System.Void do" +
                " var b = 45; " +
                " if (b == 10)" +
                "    skip;" +
@@ -55,8 +55,7 @@ namespace MetaCode.Compiler.Tests
             var visitor = new TreeVisitorBase<object>();
             visitor
                 .Clear()
-                .If<BinaryExpressionNode>((_visitor, node) =>
-                {
+                .If<BinaryExpressionNode>((_visitor, node) => {
                     _visitor.VisitChild(node.Left);
                     text.Append(" " + node.Operator.Operator + " ");
                     _visitor.VisitChild(node.Right);
@@ -71,8 +70,7 @@ namespace MetaCode.Compiler.Tests
             text.Clear().AppendLine("digraph {");
             var nodes = new List<Tuple<string, string>>();
             visitor.Clear()
-                .DefaultVisitor((_visitor, node) =>
-                {
+                .DefaultVisitor((_visitor, node) => {
                     var name = "node" + nodes.Count;
                     var type = node.GetType().Name.First().ToString();
                     nodes.Add(Tuple.Create(name, type));
@@ -80,8 +78,7 @@ namespace MetaCode.Compiler.Tests
                     if (!node.Children.Any())
                         text.Append(name + ";");
 
-                    foreach (var child in node.Children)
-                    {
+                    foreach (var child in node.Children) {
                         text.Append(name + "->");
                         _visitor.VisitChild(child);
                     }
@@ -99,7 +96,7 @@ namespace MetaCode.Compiler.Tests
         public void CustomVisitorGraphConverterTest()
         {
             var source = MultiLine(
-               "var a = function(c: System.Int32): System.Void do" +
+               "function a(c: System.Int32): System.Int32 do" +
                " var b = 45; " +
                " if (b == 10)" +
                "    skip;" +
@@ -111,17 +108,15 @@ namespace MetaCode.Compiler.Tests
             var text = new StringBuilder();
             var visitor = new TreeVisitorBase<string>();
             var nodes = new List<Tuple<string, string>>();
-            var edges = new List<Tuple<string,string>>();
+            var edges = new List<Tuple<string, string>>();
             visitor
                 .Clear()
-                .DefaultVisitor((_visitor, node) =>
-                {
+                .DefaultVisitor((_visitor, node) => {
                     var name = "node" + nodes.Count;
                     var type = node.GetType().Name;
                     nodes.Add(Tuple.Create(name, type));
 
-                    foreach (var child in node.Children)
-                    {
+                    foreach (var child in node.Children) {
                         var childName = _visitor.VisitChild(child);
                         edges.Add(Tuple.Create(name, childName));
                     }

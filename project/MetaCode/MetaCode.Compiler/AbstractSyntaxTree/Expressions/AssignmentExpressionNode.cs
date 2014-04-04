@@ -11,22 +11,18 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
 
         public ExpressionNode Value { get; internal set; }
 
-        public AssignmentExpressionNode(VariableDeclaration variable, ExpressionNode value, IEnumerable<AttributeNode> attributes) : base(attributes)
+        public AssignmentExpressionNode(VariableDeclaration variable, ExpressionNode value, IEnumerable<AttributeNode> attributes)
+            : base(attributes)
         {
-            if (variable == null) 
+            if (variable == null)
                 ThrowHelper.ThrowArgumentNullException(() => variable);
-            if (value == null) 
+            if (value == null)
                 ThrowHelper.ThrowArgumentNullException(() => value);
-            
+
             Variable = variable;
             Value = value;
 
             AddChildren(Value);
-        }
-
-        public override Type Type
-        {
-            get { return Value.Type; }
         }
     }
 }

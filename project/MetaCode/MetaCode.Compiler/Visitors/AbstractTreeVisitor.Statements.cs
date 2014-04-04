@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Net.Mime;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime;
+using Antlr4.Runtime.Atn;
 using MetaCode.Compiler.AbstractSyntaxTree;
 using MetaCode.Compiler.AbstractSyntaxTree.Expressions;
 using MetaCode.Compiler.AbstractSyntaxTree.Statements;
@@ -23,10 +25,10 @@ namespace MetaCode.Compiler.Visitors
                 context.If,
                 context.While,
                 context.Foreach,
-                context.Expression,
                 context.Skip,
-                context.VariableDeclaration
-            );
+                context.VariableDeclaration,
+                context.FunctionDeclaration
+            ) ?? new ExpressionStatementNode(context.Expression.Accept(this) as ExpressionNode);
         }
 
         public override Node VisitIfStatement(MetaCodeParser.IfStatementContext context)
@@ -55,10 +57,9 @@ namespace MetaCode.Compiler.Visitors
 
         public override Node VisitStatements(MetaCodeParser.StatementsContext context)
         {
-            return StatementFactory.Block(
-                new Lazy<StatementNodeBase[]>(() => context.statement()
-                             .Select(statement => statement.Accept(this) as StatementNodeBase)
-                             .ToArray())
+            return StatementFactory.Block(context.statement()
+                                                 .Select(statement => statement.Accept(this) as StatementNodeBase)
+                                                 .ToArray()
             );
         }
 
@@ -90,7 +91,7 @@ namespace MetaCode.Compiler.Visitors
             return StatementFactory.Foreach(identifier,
                                             variableType,
                                             arrayExpression,
-                                            new Lazy<StatementNodeBase>(() => context.Body.Accept(this) as StatementNodeBase),
+                                            context.Body.Accept(this) as StatementNodeBase,
                                             context.Var != null);
         }
 
@@ -101,6 +102,34 @@ namespace MetaCode.Compiler.Visitors
             var defaultValue = context.VariableDefaultValue.With(expression => expression.Accept(this)) as ExpressionNode;
 
             return StatementFactory.DeclareVariable(name, typeName, defaultValue);
+        }
+
+        public override Node VisitFunctionStatement(MetaCodeParser.FunctionStatementContext context)
+        {
+            var functionName = context.FunctionName.Text;
+            var returnType = context.ReturnType.With(type => type.Accept(this) as TypeNameNode);
+            var parameters = context.formalParameter()
+                                    .Select(parameter => parameter.Accept(this) as FunctionParameterNode)
+                                    .ToArray();
+            var body = context.BodyStatements.Accept(this) as BlockStatementNode;
+
+            return StatementFactory.Function(functionName, returnType, parameters, body);
+        }
+
+        public override Node VisitFormalParameter(MetaCodeParser.FormalParameterContext context)
+        {
+            var parameterName = context.Name.Text;
+            var typeName = context.Type.Accept(this) as TypeNameNode;
+            var attributes = context.Attributes.With(attribute => attribute.Accept(this));
+
+            return StatementFactory.FunctionFormalParameter(parameterName, typeName, null);
+        }
+
+        public override Node VisitReturnStatement(MetaCodeParser.ReturnStatementContext context)
+        {
+            var expression = context.ReturnExpression.Accept(this) as ExpressionNode;
+
+            return StatementFactory.Return(expression);
         }
 
         public override Node VisitInit(MetaCodeParser.InitContext context)

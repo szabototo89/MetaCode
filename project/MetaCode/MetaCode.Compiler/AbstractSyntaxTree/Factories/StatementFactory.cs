@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MetaCode.Compiler.AbstractSyntaxTree.Constants;
 using MetaCode.Compiler.AbstractSyntaxTree.Expressions;
@@ -38,20 +39,14 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
             if (falseStatement == null)
                 falseStatement = EmptyBlock();
 
-            if (condition.Type != typeof(bool))
-                CompilerService.Error("Condition must be logical expression!");
-
-            if (elseIfStatements.Any())
-            {
+            if (elseIfStatements.Any()) {
                 var elseIf = elseIfStatements.First();
                 falseStatement =
                     Block(
-                        new Lazy<StatementNodeBase[]>(
-                            () => new StatementNodeBase[]
+                        new StatementNodeBase[]
                             {
                                 IfThenElse(elseIf.ConditionExpression, elseIf.TrueStatementNode, elseIfStatements.Skip(1).ToArray())
                             }
-                        )
                     );
             }
 
@@ -63,7 +58,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
             return new SkipStatementNode();
         }
 
-        public ForeachLoopStatementNode Foreach(string variable, TypeNameNode variableType, ExpressionNode expression, Lazy<StatementNodeBase> body, bool createLoopVariable)
+        public ForeachLoopStatementNode Foreach(string variable, TypeNameNode variableType, ExpressionNode expression, StatementNodeBase body, bool createLoopVariable)
         {
             if (string.IsNullOrWhiteSpace(variable))
                 ThrowHelper.ThrowException("The variable is blank!");
@@ -72,35 +67,20 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
             if (body == null)
                 ThrowHelper.ThrowArgumentNullException(() => body);
 
-            if (!expression.Type.IsEnumerable())
-                CompilerService.Error("The expression of foreach must be enumerable!");
-
             VariableDeclaration variableNode = null;
 
-            if (createLoopVariable)
-            {
-                var scope = CompilerService.PushScope();
-                variableNode = scope.DeclareVariable(variable, variableType.With(type => type.Type) ?? expression.Type.GetItemType());
-                var statements = body.Value;
-                CompilerService.PopScope();
-
-                return new ForeachLoopStatementNode(variableNode, expression, statements);
+            if (createLoopVariable) {
+                return new ForeachLoopStatementNode(variableNode, expression, body);
             }
 
             variableNode = CompilerService.FindVariable(variable);
-            return new ForeachLoopStatementNode(variableNode, expression, body.Value);
+            return new ForeachLoopStatementNode(variableNode, expression, body);
         }
 
         public WhileLoopStatementNode While(ExpressionNode condition, StatementNodeBase body)
         {
             if (condition == null)
                 ThrowHelper.ThrowArgumentNullException(() => condition);
-
-            if (!condition.Type.IsLogical())
-                CompilerService.Error("Condition of while must be logical expression!");
-
-            if (!condition.Type.IsEnumerable())
-                CompilerService.Error("The while condition must be a logical expression!");
 
             return new WhileLoopStatementNode(condition, body);
         }
@@ -118,57 +98,58 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
             if (string.IsNullOrWhiteSpace(name))
                 ThrowHelper.ThrowException("The name is blank!");
 
-            Type type = null;
-
-            if (typeName == null)
-            {
-                if (initialValue == null)
-                    CompilerService.Error("Invalid variable declaration! You must define the type of variable!");
-                else
-                    type = initialValue.Type;
-            }
-            else
-                type = typeName.Type;
-
-            var scope = CompilerService.GetScope();
-            var declaration = scope.DeclareVariable(name, type);
-
-            if (initialValue == null)
-            {
-                ConstantLiteralNode constant = null;
-                if (type.IsLogical())
-                    constant = new BooleanConstantLiteralNode(false);
-                else if (type.IsNumeric())
-                    constant = new NumberConstantLiteralNode(0);
-                else if (type.IsClass)
-                    constant = new NullConstantLiteralNode(type);
-
-                initialValue = new ConstantExpressionNode(constant, null);
-            }
-
-            return new VariableDeclarationStatementNode(declaration, initialValue);
+            return new VariableDeclarationStatementNode(name, typeName, initialValue);
         }
 
         public BlockStatementNode EmptyBlock()
         {
-            return Block(new Lazy<StatementNodeBase[]>(() => new StatementNodeBase[0]));
+            return Block(new StatementNodeBase[0]);
         }
 
-        public BlockStatementNode Block(Lazy<StatementNodeBase[]> statementsFunction)
+        public BlockStatementNode Block(StatementNodeBase[] statements)
         {
-            if (statementsFunction == null)
-                ThrowHelper.ThrowArgumentNullException(() => statementsFunction);
+            if (statements == null) throw new ArgumentNullException("statements");
+            return new BlockStatementNode(statements);
+        }
 
-            var scope = CompilerService.PushScope();
+        public FunctionDeclarationStatementNode Function(string name, TypeNameNode returnType, FunctionParameterNode[] parameters, ExpressionNode body)
+        {
+            var statementFactory = CompilerService.StatementFactory;
 
-            var statements = statementsFunction.Value;
+            return Function(name, returnType, parameters, statementFactory.Block(new StatementNodeBase[] { statementFactory.Expression(body) }));
+        }
 
-            if (statements.Any(statement => statement == null))
-                ThrowHelper.ThrowException("There is a statement which is null!");
+        public FunctionDeclarationStatementNode Function(string name, TypeNameNode returnType, FunctionParameterNode[] parameters, BlockStatementNode body)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                ThrowHelper.ThrowException("The 'name' is blank!");
 
-            CompilerService.PopScope();
+            if (body == null)
+                ThrowHelper.ThrowArgumentNullException(() => body);
+            if (parameters == null)
+                ThrowHelper.ThrowArgumentNullException(() => parameters);
 
-            return new BlockStatementNode(statements, scope);
+            var type = returnType ?? new TypeNameNode("void");
+
+            return new FunctionDeclarationStatementNode(name, body, type, null);
+        }
+
+        public FunctionParameterNode FunctionFormalParameter(string name, TypeNameNode type, IEnumerable<AttributeNode> attributes)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                ThrowHelper.ThrowException("The name is blank!");
+            if (type == null)
+                ThrowHelper.ThrowArgumentNullException(() => type);
+
+            return new FunctionParameterNode(name, type, attributes);
+        }
+
+        public ReturnStatementNode Return(ExpressionNode expression)
+        {
+            if (expression == null)
+                ThrowHelper.ThrowArgumentNullException(() => expression);
+
+            return new ReturnStatementNode(expression);
         }
     }
 }

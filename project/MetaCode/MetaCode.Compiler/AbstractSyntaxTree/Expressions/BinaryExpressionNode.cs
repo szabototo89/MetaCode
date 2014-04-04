@@ -27,10 +27,5 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
         public ExpressionNode Right { get; internal set; }
 
         public BinaryOperatorNode Operator { get; internal set; }
-
-        public override Type Type
-        {
-            get { return Operator.Type; }
-        }
     }
 }

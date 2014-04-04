@@ -21,6 +21,12 @@ E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\bin\Debug
 E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\bin\Debug\MetaCode.Core.pdb
 E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\bin\Debug\Antlr4.Runtime.v4.5.xml
 E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCode.Compiler.csprojResolveAssemblyReference.cache
+E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\TreeSelectorLexer.cs
+E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\TreeSelectorParser.cs
+E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\TreeSelectorListener.cs
+E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\TreeSelectorBaseListener.cs
+E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\TreeSelectorVisitor.cs
+E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\TreeSelectorBaseVisitor.cs
 E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeLexer.cs
 E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeParser.cs
 E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCodeListener.cs
@@ -30,9 +36,3 @@ E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug
 E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCode.Compiler.csproj.Antlr4GeneratedCodeFileListAbsolute.txt
 E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCode.Compiler.dll
 E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\MetaCode.Compiler.pdb
-E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\TreeSelectorLexer.cs
-E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\TreeSelectorParser.cs
-E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\TreeSelectorListener.cs
-E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\TreeSelectorBaseListener.cs
-E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\TreeSelectorVisitor.cs
-E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\obj\Debug\TreeSelectorBaseVisitor.cs

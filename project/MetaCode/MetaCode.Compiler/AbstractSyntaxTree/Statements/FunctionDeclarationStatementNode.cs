@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using MetaCode.Compiler.AbstractSyntaxTree.Statements;
+﻿using System.Collections.Generic;
 using MetaCode.Core;
 
-namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
+namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 {
-    public class FunctionExpressionNode : PrimaryExpressionNode
+    public class FunctionDeclarationStatementNode : StatementNodeBase
     {
         public string Name { get; protected set; }
 
@@ -15,8 +13,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
 
         public bool IsAnonymFunction { get { return string.IsNullOrWhiteSpace(Name); } }
 
-        public FunctionExpressionNode(string name, BlockStatementNode functionBlock, TypeNameNode returnType, IEnumerable<AttributeNode> attributes)
-            : base(attributes)
+        public FunctionDeclarationStatementNode(string name, BlockStatementNode functionBlock, TypeNameNode returnType, IEnumerable<AttributeNode> attributes)
         {
             if (functionBlock == null)
                 ThrowHelper.ThrowArgumentNullException(() => functionBlock);
@@ -28,11 +25,6 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
             ReturnType = returnType;
 
             AddChildren(FunctionBlock, ReturnType);
-        }
-
-        public override Type Type
-        {
-            get { return typeof(Delegate); }
         }
     }
 }

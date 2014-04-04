@@ -36,10 +36,11 @@ namespace MetaCode.Compiler.Visitors
 
         public override Node VisitExpression(MetaCodeParser.ExpressionContext context)
         {
-            var result = GetNodeFromContext(context.PrimaryExpression,
+            var result = GetNodeFromContext(
+                context.PrimaryExpression,
                 context.FunctionCallExpression,
                 context.MemberExpression) ??
-                         VisitBinaryOperands(context.Left, context.Right, context.Operator);
+                VisitBinaryOperands(context.Left, context.Right, context.Operator);
 
             return result;
         }
@@ -56,7 +57,7 @@ namespace MetaCode.Compiler.Visitors
                     return new FunctionParameterNode[0];
 
                 var result = parameters.formalParameter().Select(param => {
-                    return ExpressionFactory.FunctionFormalParameter(param.Name.Text,
+                    return ExpressionFactory.FunctionFormalParameter(param.Identifier.Text,
                         param.Type.With(type => type.Accept(this) as TypeNameNode),
                         null);
                 });

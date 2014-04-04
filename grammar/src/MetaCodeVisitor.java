@@ -67,6 +67,13 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitMacroCallExpression(@NotNull MetaCodeParser.MacroCallExpressionContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#attributeDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAttributeDeclaration(@NotNull MetaCodeParser.AttributeDeclarationContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#elseIfStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -74,18 +81,18 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitElseIfStatement(@NotNull MetaCodeParser.ElseIfStatementContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link MetaCodeParser#functionStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunctionStatement(@NotNull MetaCodeParser.FunctionStatementContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#variableDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitVariableDeclaration(@NotNull MetaCodeParser.VariableDeclarationContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#functionStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionStatement(@NotNull MetaCodeParser.FunctionStatementContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#statements}.
@@ -107,13 +114,6 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSkipStatement(@NotNull MetaCodeParser.SkipStatementContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link MetaCodeParser#formalParameterList}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFormalParameterList(@NotNull MetaCodeParser.FormalParameterListContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#constant}.
@@ -165,18 +165,32 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitIfStatement(@NotNull MetaCodeParser.IfStatementContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link MetaCodeParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStatement(@NotNull MetaCodeParser.StatementContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#typeName}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitTypeName(@NotNull MetaCodeParser.TypeNameContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#memberExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMemberExpression(@NotNull MetaCodeParser.MemberExpressionContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#objectDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitObjectDeclaration(@NotNull MetaCodeParser.ObjectDeclarationContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link MetaCodeParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatement(@NotNull MetaCodeParser.StatementContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#whileStatement}.

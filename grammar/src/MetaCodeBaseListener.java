@@ -120,6 +120,19 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAttributeDeclaration(@NotNull MetaCodeParser.AttributeDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAttributeDeclaration(@NotNull MetaCodeParser.AttributeDeclarationContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterElseIfStatement(@NotNull MetaCodeParser.ElseIfStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -133,19 +146,6 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunctionStatement(@NotNull MetaCodeParser.FunctionStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunctionStatement(@NotNull MetaCodeParser.FunctionStatementContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterVariableDeclaration(@NotNull MetaCodeParser.VariableDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -153,6 +153,19 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVariableDeclaration(@NotNull MetaCodeParser.VariableDeclarationContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunctionStatement(@NotNull MetaCodeParser.FunctionStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionStatement(@NotNull MetaCodeParser.FunctionStatementContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -192,19 +205,6 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSkipStatement(@NotNull MetaCodeParser.SkipStatementContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFormalParameterList(@NotNull MetaCodeParser.FormalParameterListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFormalParameterList(@NotNull MetaCodeParser.FormalParameterListContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -302,19 +302,6 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatement(@NotNull MetaCodeParser.StatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStatement(@NotNull MetaCodeParser.StatementContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterTypeName(@NotNull MetaCodeParser.TypeNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -322,6 +309,45 @@ public class MetaCodeBaseListener implements MetaCodeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTypeName(@NotNull MetaCodeParser.TypeNameContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMemberExpression(@NotNull MetaCodeParser.MemberExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMemberExpression(@NotNull MetaCodeParser.MemberExpressionContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterObjectDeclaration(@NotNull MetaCodeParser.ObjectDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitObjectDeclaration(@NotNull MetaCodeParser.ObjectDeclarationContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStatement(@NotNull MetaCodeParser.StatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStatement(@NotNull MetaCodeParser.StatementContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

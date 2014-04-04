@@ -11,20 +11,15 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 
         public Scope Scope { get; protected set; }
 
-        public BlockStatementNode(IEnumerable<StatementNodeBase> statements, Scope scope)
+        public BlockStatementNode(IEnumerable<StatementNodeBase> statements)
         {
             if (statements == null)
                 ThrowHelper.ThrowArgumentNullException(() => statements);
 
-            if (scope == null)
-                ThrowHelper.ThrowArgumentNullException(() => scope);
-
             Statements = statements.Select(statement => {
                 statement.SetParent(this);
                 return statement;
-            });
-
-            Scope = scope;
+            }).ToArray();
         }
 
         public override IEnumerable<Node> Children

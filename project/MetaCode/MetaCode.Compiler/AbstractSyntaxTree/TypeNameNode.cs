@@ -5,12 +5,12 @@ namespace MetaCode.Compiler.AbstractSyntaxTree
 {
     public class TypeNameNode : Node
     {
-        public Type Type { get; protected set; }
+        public string Type { get; protected set; }
 
-        public TypeNameNode(Type type)
+        public TypeNameNode(string type)
         {
-            if (type == null)
-                ThrowHelper.ThrowArgumentNullException(() => type);
+            if (string.IsNullOrWhiteSpace(type))
+                ThrowHelper.ThrowException("The 'type' is blank!");
 
             Type = type;
         }

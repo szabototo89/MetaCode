@@ -87,6 +87,13 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitMacroCallExpression([NotNull] MetaCodeParser.MacroCallExpressionContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.attributeDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitAttributeDeclaration([NotNull] MetaCodeParser.AttributeDeclarationContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.elseIfStatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -94,18 +101,18 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitElseIfStatement([NotNull] MetaCodeParser.ElseIfStatementContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="MetaCodeParser.functionStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitFunctionStatement([NotNull] MetaCodeParser.FunctionStatementContext context);
-
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.variableDeclaration"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitVariableDeclaration([NotNull] MetaCodeParser.VariableDeclarationContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.functionStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFunctionStatement([NotNull] MetaCodeParser.FunctionStatementContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.statements"/>.
@@ -127,13 +134,6 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitSkipStatement([NotNull] MetaCodeParser.SkipStatementContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="MetaCodeParser.formalParameterList"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitFormalParameterList([NotNull] MetaCodeParser.FormalParameterListContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.constant"/>.
@@ -185,6 +185,13 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitIfStatement([NotNull] MetaCodeParser.IfStatementContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.typeName"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTypeName([NotNull] MetaCodeParser.TypeNameContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.memberExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -192,18 +199,18 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitMemberExpression([NotNull] MetaCodeParser.MemberExpressionContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.objectDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitObjectDeclaration([NotNull] MetaCodeParser.ObjectDeclarationContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitStatement([NotNull] MetaCodeParser.StatementContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="MetaCodeParser.typeName"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitTypeName([NotNull] MetaCodeParser.TypeNameContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.whileStatement"/>.

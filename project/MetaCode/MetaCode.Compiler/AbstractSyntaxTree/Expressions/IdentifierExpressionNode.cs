@@ -6,26 +6,14 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
 {
     public class IdentifierExpressionNode : PrimaryExpressionNode
     {
-        public Identifier Identifier { get; internal set; }
-
-        public IdentifierExpressionNode(Identifier identifier, IEnumerable<AttributeNode> attributes)
+        public IdentifierExpressionNode(string name, IEnumerable<AttributeNode> attributes)
             : base(attributes)
         {
-            if (identifier == null)
-                ThrowHelper.ThrowArgumentNullException(() => identifier);
-
-            Identifier = identifier;
-            AddChildren(Identifier);
+            if (string.IsNullOrWhiteSpace(name))
+                ThrowHelper.ThrowException("The 'name' is blank!");
+            Name = name;
         }
 
-        public string Name
-        {
-            get { return Identifier.Name; }
-        }
-
-        public override Type Type
-        {
-            get { return Identifier.Type; }
-        }
+        public string Name { get; protected set; }
     }
 }

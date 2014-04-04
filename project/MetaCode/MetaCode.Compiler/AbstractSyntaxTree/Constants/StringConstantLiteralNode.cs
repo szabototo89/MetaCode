@@ -5,7 +5,7 @@
         #region Constructors
 
         public StringConstantLiteralNode(string value)
-            : base(value, typeof(string))
+            : base(value)
         {
         }
 

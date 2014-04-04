@@ -7,10 +7,12 @@ statements  :   (statement ';')+
             ;
 
 statement   : Expression=expression
-			| Return=returnStatement
+            | Return=returnStatement
             | Attributes=attributes? FunctionDeclaration=functionStatement
             | Attributes=attributes? MacroDeclaration=macroStatement
             | Attributes=attributes? VariableDeclaration=variableDeclaration
+            | Attributes=attributes? ObjectDeclaration=objectDeclaration
+            | Attributes=attributes? AttributeDeclaration=attributeDeclaration
             | Attributes=attributes? If=ifStatement                 
             | Attributes=attributes? Block=blockStatement
             | Attributes=attributes? Foreach=foreachStatement
@@ -20,6 +22,14 @@ statement   : Expression=expression
 
 variableDeclaration :   Attributes=attributes? VAR VariableName=ID (':' VariableType=typeName)? ASSIGN VariableDefaultValue=expression
                         ;
+
+attributeDeclaration    :   'attribute' ATTRIBUTE_ID ('(' formalParameter (',' formalParameter)* ')')?
+                        ;
+
+objectDeclaration   :   'object' ID 
+                            (formalParameter ';')+
+                        END
+                    ;
 
 expression  : PrimaryExpression=primaryExpression
             | FunctionCallExpression=functionCallExpression 
@@ -52,7 +62,7 @@ memberExpression    : ID ('.' ID)+
 memberExpression    : (primaryExpression | functionCallExpression) ('.' memberTagExpression)+;         
 */
 
-memberTagExpression	:	identifier | functionCallExpression;
+memberTagExpression :   identifier | functionCallExpression;
 
 primaryExpression   :   Attributes=attributes? Constant=constant
                     |   Attributes=attributes? Id=ID
@@ -60,7 +70,7 @@ primaryExpression   :   Attributes=attributes? Constant=constant
                     |   Attributes=attributes? '(' InnerExpression=expression ')'
                     ;       
 
-functionStatement   :   FUNCTION FunctionName=ID '(' Parameters=formalParameterList? ')' (':' ReturnType=typeName) DO BodyStatements=statements END
+functionStatement   :   FUNCTION FunctionName=ID '(' Parameter=formalParameter (',' Parameter=formalParameter)* ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
                     ;
 
 macroStatement      :   (Type=IMPLICIT | Type=EXPLICIT) MACRO MacroName=ID '(' Identifier=ID ':' Selector=TREE_SELECTOR ')' DO BodyStatements=statements END
@@ -77,7 +87,7 @@ blockStatement      :   DO Body=statements END
 
 skipStatement       :   SKIP;
 
-returnStatement		:	RETURN expression;
+returnStatement     :   RETURN ReturnExpression=expression;
 
 assignmentExpression:   Variable=ID ASSIGN Value=expression (ConditionalAttributes=attributes? IF '(' ConditionalExpression=expression ')')?
                     ;
@@ -90,9 +100,6 @@ ifStatement     :   IF '(' Condition=expression ')' Statements=statements
 
 elseIfStatement :   ELSE IF '(' Condition=expression ')' Statements=statements
                 ;
-
-formalParameterList :   formalParameter (',' formalParameter)*
-                    ;
 
 formalParameter     :   Attributes=attributes? Name=ID ':' Type=typeName
                     ;                   
@@ -108,6 +115,7 @@ constant            :   Number=numberConstant
                     |   Boolean=booleanConstant
                     |   Array=arrayConstant
                     |   Interval=intervalConstant
+                    |   Null=NULL
                     |   TreeSelector=TREE_SELECTOR
                     ;
 

@@ -118,6 +118,17 @@ public interface IMetaCodeListener : IParseTreeListener {
 	void ExitMacroCallExpression([NotNull] MetaCodeParser.MacroCallExpressionContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.attributeDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAttributeDeclaration([NotNull] MetaCodeParser.AttributeDeclarationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.attributeDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAttributeDeclaration([NotNull] MetaCodeParser.AttributeDeclarationContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.elseIfStatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -129,17 +140,6 @@ public interface IMetaCodeListener : IParseTreeListener {
 	void ExitElseIfStatement([NotNull] MetaCodeParser.ElseIfStatementContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.functionStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterFunctionStatement([NotNull] MetaCodeParser.FunctionStatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.functionStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitFunctionStatement([NotNull] MetaCodeParser.FunctionStatementContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.variableDeclaration"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -149,6 +149,17 @@ public interface IMetaCodeListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitVariableDeclaration([NotNull] MetaCodeParser.VariableDeclarationContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.functionStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFunctionStatement([NotNull] MetaCodeParser.FunctionStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.functionStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFunctionStatement([NotNull] MetaCodeParser.FunctionStatementContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.statements"/>.
@@ -182,17 +193,6 @@ public interface IMetaCodeListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitSkipStatement([NotNull] MetaCodeParser.SkipStatementContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.formalParameterList"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterFormalParameterList([NotNull] MetaCodeParser.FormalParameterListContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.formalParameterList"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitFormalParameterList([NotNull] MetaCodeParser.FormalParameterListContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.constant"/>.
@@ -272,6 +272,17 @@ public interface IMetaCodeListener : IParseTreeListener {
 	void ExitIfStatement([NotNull] MetaCodeParser.IfStatementContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.typeName"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterTypeName([NotNull] MetaCodeParser.TypeNameContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.typeName"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitTypeName([NotNull] MetaCodeParser.TypeNameContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.memberExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -283,6 +294,17 @@ public interface IMetaCodeListener : IParseTreeListener {
 	void ExitMemberExpression([NotNull] MetaCodeParser.MemberExpressionContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.objectDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterObjectDeclaration([NotNull] MetaCodeParser.ObjectDeclarationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.objectDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitObjectDeclaration([NotNull] MetaCodeParser.ObjectDeclarationContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -292,17 +314,6 @@ public interface IMetaCodeListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitStatement([NotNull] MetaCodeParser.StatementContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.typeName"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterTypeName([NotNull] MetaCodeParser.TypeNameContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.typeName"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitTypeName([NotNull] MetaCodeParser.TypeNameContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.whileStatement"/>.

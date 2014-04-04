@@ -65,3 +65,11 @@ macro hello_world (
 		end;
 	end
 );
+
+object Person
+	name: string;
+	age: number;
+end;
+
+attribute @not-null;
+attribute @id(name: string);
