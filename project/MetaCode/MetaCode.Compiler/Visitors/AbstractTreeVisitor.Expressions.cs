@@ -39,6 +39,7 @@ namespace MetaCode.Compiler.Visitors
             var result = GetNodeFromContext(
                 context.PrimaryExpression,
                 context.FunctionCallExpression,
+                context.MacroCallExpression,
                 context.MemberExpression) ??
                 VisitBinaryOperands(context.Left, context.Right, context.Operator);
 
@@ -52,12 +53,12 @@ namespace MetaCode.Compiler.Visitors
 
             var parameters = context.Parameters;
 
-            var formalParameters = new Func<FunctionParameterNode[]>(() => {
+            var formalParameters = new Func<FormalParameterNode[]>(() => {
                 if (parameters == null)
-                    return new FunctionParameterNode[0];
+                    return new FormalParameterNode[0];
 
                 var result = parameters.formalParameter().Select(param => {
-                    return ExpressionFactory.FunctionFormalParameter(param.Identifier.Text,
+                    return ExpressionFactory.FormalParameter(param.Identifier.Text,
                         param.Type.With(type => type.Accept(this) as TypeNameNode),
                         null);
                 });
@@ -79,36 +80,61 @@ namespace MetaCode.Compiler.Visitors
 
         public override Node VisitPrimaryExpression(MetaCodeParser.PrimaryExpressionContext context)
         {
+            var attributes = context.attribute()
+                                    .Select(attribute => attribute.Accept(this) as AttributeNode)
+                                    .ToArray();
+
             if (context.Constant != null) {
                 var constant = context.Constant.Accept(this) as ConstantLiteralNode;
-                return ExpressionFactory.Constant(constant);
+                return ExpressionFactory.Constant(constant, attributes);
             }
 
             if (context.Id != null)
-                return ExpressionFactory.Identifier(context.Id.Text);
+                return ExpressionFactory.Identifier(context.Id.Text, attributes);
 
             if (context.Assignment != null) {
                 var assignment = context.Assignment;
+                var member = assignment.LeftValue.With(leftValue => leftValue.Accept(this) as MemberExpressionNode) ??
+                             ExpressionFactory.Member(new[] { assignment.VariableName.Text });
+
+                var value = assignment.RightValue.Accept(this) as ExpressionNode;
+
+                return ExpressionFactory.Assignment(member, value, attributes);
             }
 
             if (context.InnerExpression != null)
-                return context.InnerExpression.Accept(this);
+                return ExpressionFactory.InnerExpression(context.InnerExpression.Accept(this) as ExpressionNode, attributes);
 
             return base.VisitPrimaryExpression(context);
         }
 
-        /*public override Node VisitMemberExpression(MetaCodeParser.MemberExpressionContext context)
+        public override Node VisitMemberExpression(MetaCodeParser.MemberExpressionContext context)
         {
-            var primary = context.primaryExpression().With(expression => expression.Accept(this)) ??
-                          context.functionCallExpression().With(expression => expression.Accept(this));
+            var ids = context.ID().Select(id => id.GetText()).ToArray();
 
-            var tags = new[] { primary }.Concat(context.memberTagExpression()
-                                        .Select(tag => tag.functionCallExpression()
-                                                          .With(expression => expression.Accept(this))))
-                                        .ToArray();
+            return ExpressionFactory.Member(ids);
+        }
 
-            return ExpressionFactory.Member(tags.Cast<ExpressionNode>());
-        }*/
+        public override Node VisitFunctionCallExpression(MetaCodeParser.FunctionCallExpressionContext context)
+        {
+            var functionName = context.functionName.Text;
+            var expressions = context.expression()
+                                     .Select(expression => expression.Accept(this) as ExpressionNode)
+                                     .ToArray();
+
+
+            return ExpressionFactory.FunctionCall(functionName, expressions);
+        }
+
+        public override Node VisitMacroCallExpression(MetaCodeParser.MacroCallExpressionContext context)
+        {
+            var macroName = context.macroName.Text;
+            var statements = context.statement()
+                                    .Select(statement => statement.Accept(this) as StatementNodeBase)
+                                    .ToArray();
+
+            return ExpressionFactory.MacroCall(macroName, statements);
+        }
     }
 
 }

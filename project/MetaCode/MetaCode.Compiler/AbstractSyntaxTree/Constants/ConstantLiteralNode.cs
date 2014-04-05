@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Constants
 {
@@ -7,6 +8,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Constants
         public Type Type { get; internal set; }
 
         #region Constructors
+
         protected ConstantLiteralNode(Type type)
         {
             Type = type;

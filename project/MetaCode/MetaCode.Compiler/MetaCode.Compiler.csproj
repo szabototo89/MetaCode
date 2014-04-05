@@ -50,9 +50,14 @@
     <Compile Include="AbstractSyntaxTree\Constants\NullConstantLiteralNode.cs" />
     <Compile Include="AbstractSyntaxTree\Expressions\AssignmentExpressionNode.cs" />
     <Compile Include="AbstractSyntaxTree\Expressions\BinaryExpressionNode.cs" />
+    <Compile Include="AbstractSyntaxTree\Expressions\CallExpressionNodeBase.cs" />
     <Compile Include="AbstractSyntaxTree\Expressions\ConstantExpressionNode.cs" />
     <Compile Include="AbstractSyntaxTree\Constants\ConstantLiteralNode.cs" />
     <Compile Include="AbstractSyntaxTree\Expressions\ExpressionNode.cs" />
+    <Compile Include="AbstractSyntaxTree\Expressions\InnerExpressionNode.cs" />
+    <Compile Include="AbstractSyntaxTree\Statements\AttributeDeclarationStatementNode.cs" />
+    <Compile Include="AbstractSyntaxTree\Statements\ObjectDeclarationStatementNode.cs" />
+    <Compile Include="AbstractSyntaxTree\Statements\TypeDeclarationStatementNodeBase.cs" />
     <Compile Include="AbstractSyntaxTree\Statements\FunctionDeclarationStatementNode.cs" />
     <Compile Include="AbstractSyntaxTree\Expressions\IdentifierExpressionNode.cs" />
     <Compile Include="AbstractSyntaxTree\Expressions\FunctionCallExpressionNode.cs" />
@@ -85,7 +90,7 @@
     <Compile Include="AbstractSyntaxTree\Operators\Relational\LessThanOrEqualOperatorNode.cs" />
     <Compile Include="AbstractSyntaxTree\Operators\Relational\RelationalBinaryOperatorNode.cs" />
     <Compile Include="AbstractSyntaxTree\Operators\UnaryOperatorNode.cs" />
-    <Compile Include="AbstractSyntaxTree\FunctionParameterNode.cs" />
+    <Compile Include="AbstractSyntaxTree\FormalParameterNode.cs" />
     <Compile Include="AbstractSyntaxTree\Statements\BlockStatementNode.cs" />
     <Compile Include="AbstractSyntaxTree\Statements\ExpressionStatementNode.cs" />
     <Compile Include="AbstractSyntaxTree\Statements\ForeachLoopStatementNode.cs" />

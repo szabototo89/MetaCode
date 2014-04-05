@@ -327,17 +327,6 @@ public interface MetaCodeListener extends ParseTreeListener {
 	void exitFunctionCallExpression(@NotNull MetaCodeParser.FunctionCallExpressionContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link MetaCodeParser#attributes}.
-	 * @param ctx the parse tree
-	 */
-	void enterAttributes(@NotNull MetaCodeParser.AttributesContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MetaCodeParser#attributes}.
-	 * @param ctx the parse tree
-	 */
-	void exitAttributes(@NotNull MetaCodeParser.AttributesContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link MetaCodeParser#arrayConstant}.
 	 * @param ctx the parse tree
 	 */

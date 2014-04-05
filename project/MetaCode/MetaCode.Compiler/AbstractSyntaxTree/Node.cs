@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetaCode.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,10 +24,11 @@ namespace MetaCode.Compiler.AbstractSyntaxTree
 
         #region Internal methods
 
-        internal Node AddChildren(params Node[] children)
+        internal Node AddChildren<TNode>(IEnumerable<TNode> children)
+            where TNode : Node
         {
-            if (children == null) 
-                throw new ArgumentNullException("children", "The children is null!");
+            if (children == null)
+                ThrowHelper.ThrowArgumentNullException(() => children);
 
             _children = _children.Union(children).ToList();
 
@@ -34,6 +36,11 @@ namespace MetaCode.Compiler.AbstractSyntaxTree
                 child.SetParent(this);
 
             return this;
+        }
+
+        internal Node AddChildren(params Node[] children)
+        {
+            return AddChildren<Node>(children);
         }
 
         internal void SetParent(Node parent)

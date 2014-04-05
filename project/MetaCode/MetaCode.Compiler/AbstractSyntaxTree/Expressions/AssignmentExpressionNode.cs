@@ -7,11 +7,11 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
 {
     public class AssignmentExpressionNode : PrimaryExpressionNode
     {
-        public VariableDeclaration Variable { get; internal set; }
+        public MemberExpressionNode LeftValue { get; internal set; }
 
         public ExpressionNode Value { get; internal set; }
 
-        public AssignmentExpressionNode(VariableDeclaration variable, ExpressionNode value, IEnumerable<AttributeNode> attributes)
+        public AssignmentExpressionNode(MemberExpressionNode variable, ExpressionNode value, IEnumerable<AttributeNode> attributes)
             : base(attributes)
         {
             if (variable == null)
@@ -19,10 +19,10 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
             if (value == null)
                 ThrowHelper.ThrowArgumentNullException(() => value);
 
-            Variable = variable;
+            LeftValue = variable;
             Value = value;
 
-            AddChildren(Value);
+            AddChildren(LeftValue, Value);
         }
     }
 }

@@ -88,6 +88,17 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
             return new ArrayConstantLiteralNode(items.ToArray());
         }
 
+        public AttributeNode Attribute(string name, IEnumerable<ExpressionNode> expressions)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                ThrowHelper.ThrowException("The 'name' is blank!");
+
+            if (expressions == null)
+                ThrowHelper.ThrowArgumentNullException(() => expressions);
+
+            return new AttributeNode(name, expressions);
+        }
+
         // TODO: Create AppendTo function (like jQuery)
         /*public static TContent AppendTo<TContent, TNode>(this TContent content, TNode node)
             where TContent : Node

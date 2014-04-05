@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 {
@@ -12,10 +13,18 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
             get { return base.Children.Concat(new[] { Body }); }
         }
 
-        protected LoopStatementNodeBase(StatementNodeBase body)
+        public List<AttributeNode> Attributes { get; protected set; }
+
+        protected LoopStatementNodeBase(StatementNodeBase body, IEnumerable<AttributeNode> attributes)
         {
+            if (attributes == null)
+                ThrowHelper.ThrowArgumentNullException(() => attributes);
+
             Body = body;
+            Attributes = attributes.ToList();
+
             AddChildren(Body);
+            AddChildren(Attributes);
         }
     }
 }

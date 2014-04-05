@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using MetaCode.Compiler.AbstractSyntaxTree;
 using MetaCode.Compiler.AbstractSyntaxTree.Constants;
 using MetaCode.Compiler.AbstractSyntaxTree.Expressions;
@@ -55,8 +56,8 @@ namespace MetaCode.Compiler.Tests
                 "false;",
                 "\"Hello World\";",
                 "[];",
-                "[1,2,3,4]",
-                "1 to 10 by 32",
+                "[1,2,3,4];",
+                "1 to 10 by 32;",
             };
 
             // WHEN
@@ -90,6 +91,31 @@ namespace MetaCode.Compiler.Tests
         }
 
         [Test]
+        public void FunctionDeclarationWithAttributeTest()
+        {
+            // GIVEN
+            var source =
+                "@inline(true)" +
+                "function max(a: number, b: number) : number do " +
+                "  skip;" +
+                "end;"
+            ;
+
+            // WHEN
+            var result = ParseWithAbstractTreeVisitor(Compiler, source);
+
+            // THEN
+            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.NotNull(result.Children.First());
+            Assert.IsInstanceOf<FunctionDeclarationStatementNode>(result.Children.First());
+            var function = result.Children.First() as FunctionDeclarationStatementNode;
+            CollectionAssert.IsNotEmpty(function.Attributes);
+            var attribute = function.Attributes.First();
+            Assert.AreEqual("@inline", attribute.Name);
+            CollectionAssert.IsNotEmpty(attribute.Expressions);
+        }
+
+        [Test]
         public void ProcedureDeclarationTest()
         {
             // GIVEN
@@ -109,6 +135,95 @@ namespace MetaCode.Compiler.Tests
 
             var expected = result.Children.First() as FunctionDeclarationStatementNode;
             Assert.AreEqual("void", expected.ReturnType.Type);
+        }
+
+        [Test]
+        public void ObjectDeclarationTest()
+        {
+            // GIVEN
+            var source =
+                "object Point" +
+                "  x: number;" +
+                "  y: number;" +
+                "end;"
+            ;
+
+            // WHEN
+            var result = ParseWithAbstractTreeVisitor(Compiler, source);
+
+            // THEN
+            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.NotNull(result.Children.First());
+            Assert.IsInstanceOf<ObjectDeclarationStatementNode>(result.Children.First());
+        }
+
+        [Test]
+        public void AttributeDeclarationTest()
+        {
+            // GIVEN
+            var source = "attribute @id(name: string);";
+
+            // WHEN
+            var result = ParseWithAbstractTreeVisitor(Compiler, source);
+
+            // THEN
+            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.NotNull(result.Children.First());
+            Assert.IsInstanceOf<AttributeDeclarationStatementNode>(result.Children.First());
+        }
+
+        [Test]
+        public void MemberExpressionTest()
+        {
+            // GIVEN
+            var source = "Hello.World.Welcome.To.MetaCode;";
+
+            // WHEN
+            var result = ParseWithAbstractTreeVisitor(Compiler, source);
+
+            // THEN
+            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.NotNull(result.Children.First());
+            Assert.IsInstanceOf<ExpressionStatementNode>(result.Children.First());
+            var expression = (result.Children.First() as ExpressionStatementNode).Expression;
+            Assert.IsInstanceOf<MemberExpressionNode>(expression);
+        }
+
+        [Test]
+        public void MacroCallExpressionTest()
+        {
+            // GIVEN
+            var source = "macro parallel(do skip; end, if (true) skip; end);";
+
+            // WHEN
+            var result = ParseWithAbstractTreeVisitor(Compiler, source);
+
+            // THEN
+            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.NotNull(result.Children.First());
+            Assert.IsInstanceOf<ExpressionStatementNode>(result.Children.First());
+            var macroCall = (result.Children.First() as ExpressionStatementNode).Expression as MacroCallExpressionNode;
+            Assert.NotNull(macroCall);
+            CollectionAssert.IsNotEmpty(macroCall.ActualParameters);
+        }
+
+        [Test]
+        public void FunctionCallExpressionTest()
+        {
+            // GIVEN
+            var source = "parallel(1, 2, true);";
+
+            // WHEN
+            var result = ParseWithAbstractTreeVisitor(Compiler, source);
+
+            // THEN
+            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.NotNull(result.Children.First());
+            Assert.IsInstanceOf<ExpressionStatementNode>(result.Children.First());
+            var functionCall = (result.Children.First() as ExpressionStatementNode).Expression as FunctionCallExpressionNode;
+            Assert.NotNull(functionCall);
+            Assert.AreEqual("parallel", functionCall.FunctionName.Name);
+            CollectionAssert.IsNotEmpty(functionCall.ActualParameters);
         }
     }
 }

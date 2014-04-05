@@ -44,9 +44,12 @@ end;
 if (not (@convert false))
 	@cast("System.Int32") (0 to 3 by 2);
 end;
-*/
 
-@tail-recursive(false) function max(a: Integer, b: Integer): Integer do
+
+@tail-recursive(false) 
+@not-null
+@logged(true)
+function max(a: Integer, b: Integer): Integer do
 	if ({ if } < b)
 		a;
 	else 
@@ -73,3 +76,11 @@ end;
 
 attribute @not-null;
 attribute @id(name: string);
+
+@strict var p: Person;
+@strict p.name = "John Winchester";
+p.age = 45;*/
+
+@strict(5+5) foreach (var i : integer in [1, 2, 3, 4]) @id("my-foreach") do
+	skip;
+end;

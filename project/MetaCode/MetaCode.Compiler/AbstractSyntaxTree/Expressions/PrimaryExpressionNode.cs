@@ -8,9 +8,9 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
         protected PrimaryExpressionNode(IEnumerable<AttributeNode> attributes)
         {
             Attributes = (attributes ?? new List<AttributeNode>()).ToList();
-            AddChildren(Attributes.OfType<Node>().ToArray());
+            AddChildren(Attributes);
         }
 
-        public IEnumerable<AttributeNode> Attributes { get; internal set; }
+        public List<AttributeNode> Attributes { get; protected set; }
     }
 }

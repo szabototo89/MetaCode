@@ -9,8 +9,8 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
     {
         public ExpressionNode Condition { get; set; }
 
-        public WhileLoopStatementNode(ExpressionNode condition, StatementNodeBase body)
-            : base(body)
+        public WhileLoopStatementNode(ExpressionNode condition, StatementNodeBase body, AttributeNode[] attributes)
+            : base(body, attributes)
         {
             if (condition == null)
                 throw new ArgumentNullException("condition", "The Condition is null!");

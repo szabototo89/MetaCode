@@ -349,17 +349,6 @@ public interface IMetaCodeListener : IParseTreeListener {
 	void ExitFunctionCallExpression([NotNull] MetaCodeParser.FunctionCallExpressionContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.attributes"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterAttributes([NotNull] MetaCodeParser.AttributesContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.attributes"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitAttributes([NotNull] MetaCodeParser.AttributesContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.arrayConstant"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

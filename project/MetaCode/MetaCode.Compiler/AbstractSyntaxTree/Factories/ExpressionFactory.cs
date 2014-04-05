@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using Antlr4.Runtime.Tree;
 using MetaCode.Compiler.AbstractSyntaxTree.Constants;
 using MetaCode.Compiler.AbstractSyntaxTree.Expressions;
 using MetaCode.Compiler.AbstractSyntaxTree.Operators;
@@ -45,27 +47,36 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
             CompilerService.ExpressionFactory = this;
         }
 
-        public AssignmentExpressionNode Assignment(string identifier, ExpressionNode expression, IEnumerable<AttributeNode> attributes)
+        public AssignmentExpressionNode Assignment(MemberExpressionNode leftValue, ExpressionNode rightValue)
         {
-            if (string.IsNullOrWhiteSpace(identifier))
-                ThrowHelper.ThrowException("The identifier is blank!");
+            return Assignment(leftValue, rightValue, new AttributeNode[0]);
+        }
 
-            if (expression == null)
-                ThrowHelper.ThrowArgumentNullException(() => expression);
+        public AssignmentExpressionNode Assignment(MemberExpressionNode leftValue, ExpressionNode rightValue, IEnumerable<AttributeNode> attributes)
+        {
+            if (leftValue == null)
+                ThrowHelper.ThrowArgumentNullException(() => leftValue);
 
-            var variable = CompilerService.FindVariable(identifier);
-            if (variable == null)
-                CompilerService.Error(string.Format("Undefined variable: '{0}'", identifier));
+            if (rightValue == null)
+                ThrowHelper.ThrowArgumentNullException(() => rightValue);
 
-            return new AssignmentExpressionNode(variable, expression, attributes);
+            return new AssignmentExpressionNode(leftValue, rightValue, attributes);
         }
 
         public ConstantExpressionNode Constant(ConstantLiteralNode constant)
         {
+            return Constant(constant, new AttributeNode[0]);
+        }
+
+        public ConstantExpressionNode Constant(ConstantLiteralNode constant, IEnumerable<AttributeNode> attributes)
+        {
             if (constant == null)
                 ThrowHelper.ThrowArgumentNullException(() => constant);
 
-            return new ConstantExpressionNode(constant, null);
+            if (attributes == null)
+                ThrowHelper.ThrowArgumentNullException(() => attributes);
+
+            return new ConstantExpressionNode(constant, attributes);
         }
 
         public BinaryExpressionNode BinaryOperand(ExpressionNode left, ExpressionNode right, string @operator)
@@ -103,22 +114,96 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
         /// </summary>
         public IdentifierExpressionNode Identifier(string identifier)
         {
-            return new IdentifierExpressionNode(identifier, null);
+            return Identifier(identifier, new AttributeNode[0]);
+        }
+
+        /// <summary>
+        /// Find identifier by name
+        /// </summary>
+        public IdentifierExpressionNode Identifier(string identifier, IEnumerable<AttributeNode> attributes)
+        {
+            if (string.IsNullOrWhiteSpace(identifier))
+                ThrowHelper.ThrowException("The 'identifier' is blank!");
+
+            if (attributes == null)
+                ThrowHelper.ThrowArgumentNullException(() => attributes);
+
+            return new IdentifierExpressionNode(identifier, attributes);
         }
 
         public TypeNameNode Type(string typeName)
         {
+            return Type(typeName, new AttributeNode[0]);
+        }
+
+        public TypeNameNode Type(string typeName, AttributeNode[] attributes)
+        {
             if (string.IsNullOrWhiteSpace(typeName))
                 ThrowHelper.ThrowException("The 'typeName' is blank!");
 
-            return new TypeNameNode(typeName);
+            if (attributes == null)
+                ThrowHelper.ThrowArgumentNullException(() => attributes);
+
+            return new TypeNameNode(typeName, attributes);
         }
 
-        public MemberExpressionNode Member(IEnumerable<ExpressionNode> members)
+        public MemberExpressionNode Member(string[] members)
         {
             if (members == null)
                 ThrowHelper.ThrowArgumentNullException(() => members);
-            return new MemberExpressionNode(members.ToArray());
+
+            var identifiers = members.Select(member => new IdentifierExpressionNode(member, null))
+                                     .ToArray();
+
+            return new MemberExpressionNode(identifiers);
+        }
+
+        public ExpressionNode InnerExpression(ExpressionNode expression)
+        {
+            return InnerExpression(expression, new AttributeNode[0]);
+        }
+
+        public InnerExpressionNode InnerExpression(ExpressionNode expression, IEnumerable<AttributeNode> attributes)
+        {
+            if (expression == null)
+                ThrowHelper.ThrowArgumentNullException(() => expression);
+
+            if (attributes == null)
+                ThrowHelper.ThrowArgumentNullException(() => attributes);
+
+            return new InnerExpressionNode(expression, attributes);
+        }
+
+        public FunctionCallExpressionNode FunctionCall(string name)
+        {
+            return FunctionCall(name, new ExpressionNode[0]);
+        }
+
+        public FunctionCallExpressionNode FunctionCall(string name, ExpressionNode[] actualParameters)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                ThrowHelper.ThrowException("The 'name' is blank!");
+
+            if (actualParameters == null)
+                ThrowHelper.ThrowArgumentNullException(() => actualParameters);
+
+            return new FunctionCallExpressionNode(name, actualParameters);
+        }
+
+        public MacroCallExpressionNode MacroCall(string name)
+        {
+            return MacroCall(name, new StatementNodeBase[0]);
+        }
+
+        public MacroCallExpressionNode MacroCall(string name, StatementNodeBase[] actualParameters)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                ThrowHelper.ThrowException("The 'name' is blank!");
+
+            if (actualParameters == null)
+                ThrowHelper.ThrowArgumentNullException(() => actualParameters);
+
+            return new MacroCallExpressionNode(name, actualParameters);
         }
     }
 }

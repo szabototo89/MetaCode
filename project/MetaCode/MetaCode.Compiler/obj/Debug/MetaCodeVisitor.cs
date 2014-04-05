@@ -234,13 +234,6 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitFunctionCallExpression([NotNull] MetaCodeParser.FunctionCallExpressionContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="MetaCodeParser.attributes"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitAttributes([NotNull] MetaCodeParser.AttributesContext context);
-
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.arrayConstant"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

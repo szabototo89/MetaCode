@@ -73,11 +73,29 @@ namespace MetaCode.Compiler.Visitors
 
         public override Node VisitTypeName(MetaCodeParser.TypeNameContext context)
         {
+            var attributes = context.attribute()
+                                    .Select(attribute => attribute.Accept(this) as AttributeNode)
+                                    .ToArray();
+
             var identifiers = context.ID()
                                      .Select(id => id.GetText())
                                      .ToArray();
 
-            return ExpressionFactory.Type(string.Join(".", identifiers));
+            return ExpressionFactory.Type(string.Join(".", identifiers), attributes);
+        }
+
+        #endregion
+
+        #region Attribute Visitor method
+
+        public override Node VisitAttribute(MetaCodeParser.AttributeContext context)
+        {
+            var name = context.Name.Text;
+            var expressions = context.expression()
+                                     .Select(expression => expression.Accept(this) as ExpressionNode)
+                                     .ToArray();
+
+            return ConstantLiteralFactory.Attribute(name, expressions);
         }
 
         #endregion

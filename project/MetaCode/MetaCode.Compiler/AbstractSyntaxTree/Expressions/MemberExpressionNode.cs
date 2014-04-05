@@ -6,19 +6,15 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
 {
     public class MemberExpressionNode : ExpressionNode
     {
-        public ExpressionNode[] Members { get; protected set; }
+        public IdentifierExpressionNode[] Members { get; protected set; }
 
-        public MemberExpressionNode(ExpressionNode[] members)
+        public MemberExpressionNode(IdentifierExpressionNode[] members)
         {
             if (members == null)
                 ThrowHelper.ThrowArgumentNullException(() => members);
 
-            if (!members.All(member => member is IdentifierExpressionNode ||
-                                       member is FunctionCallExpressionNode ||
-                                       member is PrimaryExpressionNode))
-                throw new ArgumentException("All members must be an identifier, function call or primary expression node!");
-
             Members = members;
+            AddChildren(Members.Cast<Node>().ToArray());
         }
     }
 }

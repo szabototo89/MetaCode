@@ -214,13 +214,6 @@ public interface MetaCodeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitFunctionCallExpression(@NotNull MetaCodeParser.FunctionCallExpressionContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link MetaCodeParser#attributes}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAttributes(@NotNull MetaCodeParser.AttributesContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link MetaCodeParser#arrayConstant}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

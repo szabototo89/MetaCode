@@ -6,6 +6,13 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
 {
     public class IdentifierExpressionNode : PrimaryExpressionNode
     {
+        public string Name { get; protected set; }
+
+        public IdentifierExpressionNode(string name)
+            : this(name, null)
+        {
+        }
+
         public IdentifierExpressionNode(string name, IEnumerable<AttributeNode> attributes)
             : base(attributes)
         {
@@ -13,7 +20,5 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
                 ThrowHelper.ThrowException("The 'name' is blank!");
             Name = name;
         }
-
-        public string Name { get; protected set; }
     }
 }

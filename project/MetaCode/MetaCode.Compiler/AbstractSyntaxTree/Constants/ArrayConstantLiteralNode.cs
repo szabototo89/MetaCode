@@ -11,7 +11,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Constants
         public ArrayConstantLiteralNode(ExpressionNode[] values)
             : base(values)
         {
-            AddChildren(values);
+            AddChildren<ExpressionNode>(values);
         }
 
         #endregion

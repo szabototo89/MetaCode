@@ -411,19 +411,6 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	public virtual void ExitFunctionCallExpression([NotNull] MetaCodeParser.FunctionCallExpressionContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MetaCodeParser.attributes"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterAttributes([NotNull] MetaCodeParser.AttributesContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="MetaCodeParser.attributes"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitAttributes([NotNull] MetaCodeParser.AttributesContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.arrayConstant"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
