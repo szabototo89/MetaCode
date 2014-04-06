@@ -166,8 +166,9 @@ namespace MetaCode.Compiler.Visitors
 
         public override Node VisitInit(MetaCodeParser.InitContext context)
         {
-            var result = base.VisitInit(context);
-            return result;
+            var result = base.VisitInit(context) as BlockStatementNode;
+
+            return StatementFactory.CompilationUnit(result);
         }
     }
 }

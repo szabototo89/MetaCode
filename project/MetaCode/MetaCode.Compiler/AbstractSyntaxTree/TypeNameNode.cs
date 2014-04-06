@@ -5,7 +5,7 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree
 {
-    public class TypeNameNode : Node
+    public class TypeNameNode : Node, ISupportAttributes
     {
         public string Type { get; protected set; }
         public List<AttributeNode> Attributes { get; protected set; }

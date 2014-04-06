@@ -211,5 +211,13 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
 
             return new ReturnStatementNode(expression);
         }
+
+        public CompilationUnit CompilationUnit(BlockStatementNode block)
+        {
+            if (block == null)
+                ThrowHelper.ThrowArgumentNullException(() => block);
+
+            return new CompilationUnit(block.Statements);
+        }
     }
 }

@@ -79,8 +79,51 @@ attribute @id(name: string);
 
 @strict var p: Person;
 @strict p.name = "John Winchester";
-p.age = 45;*/
+p.age = 45;
 
 @strict(5+5) foreach (var i : integer in [1, 2, 3, 4]) @id("my-foreach") do
 	skip;
+end;
+*/
+
+macro generic ("Point", 
+	object Disposable
+		_object: TYPE;
+		isDisposed: boolean;
+	end
+);
+
+object Point 
+	x: number;
+	y: number;
+end;
+
+@extends(Point)
+object Point3
+	z: number;
+end;
+
+macro static(
+	Point3, function __static__Zero(): Point3 do 
+		var p: Point3;
+		p.x = 0;
+		p.y = 0;
+		p.z = 0;
+
+		return p;
+	end
+);
+
+var p3: Point3 = Point3.Zero;
+
+@generic(Point) 
+object Disposable 
+
+	@require(value.x != 0) 
+	@require(not (value.y == 0)) 
+	@ensure(this != null) 
+	actualObject: TYPE;
+
+	@invariant(this.actualObject == null)
+	isDisposed: boolean;
 end;

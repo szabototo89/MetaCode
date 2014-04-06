@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime.Dfa;
+using MetaCode.Compiler.AbstractSyntaxTree;
 using MetaCode.Compiler.AbstractSyntaxTree.Factories;
 using MetaCode.Compiler.Commons;
 using MetaCode.Core;
@@ -14,6 +15,7 @@ namespace MetaCode.Compiler.Services
     {
         private Scope _currentScope { get; set; }
         private Scope _globalScope { get; set; }
+        protected Dictionary<Node, Scope> _scopes { get; set; }
 
         public List<string> Errors { get; protected set; }
 
@@ -29,19 +31,30 @@ namespace MetaCode.Compiler.Services
         {
             Errors = new List<string>();
             Warnings = new List<string>();
+            _scopes = new Dictionary<Node, Scope>();
 
             _globalScope = _currentScope = Scope.CreateGlobalScope();
         }
 
         public CompilerService Warning(string message)
         {
-            Warnings.Add(string.Format("({0}:{1}) {2}", CurrentSpan.Start.Line, CurrentSpan.Start.Offset, message));
+            string warning = message;
+
+            if (CurrentSpan != null)
+                warning = string.Format("({0}:{1}) {2}", CurrentSpan.Start.Line, CurrentSpan.Start.Offset, message);
+
+            Warnings.Add(warning);
             return this;
         }
 
         public CompilerService Error(string message)
         {
-            Errors.Add(string.Format("({0}:{1}) {2}", CurrentSpan.Start.Line, CurrentSpan.Start.Offset, message));
+            string error = message;
+
+            if (CurrentSpan != null)
+                string.Format("({0}:{1}) {2}", CurrentSpan.Start.Line, CurrentSpan.Start.Offset, message);
+
+            Errors.Add(error);
             return this;
         }
 
@@ -50,9 +63,12 @@ namespace MetaCode.Compiler.Services
             get { return Singleton<CompilerService>.Instance; }
         }
 
-        public Scope PushScope()
+        public Scope PushScope(Node node)
         {
             _currentScope = _currentScope.CreateScope();
+
+            _scopes.Add(node, _currentScope);
+
             return _currentScope;
         }
 
@@ -78,7 +94,7 @@ namespace MetaCode.Compiler.Services
                     return variable;
 
                 scope = scope.Parent;
-            } while (scope != _globalScope);
+            } while (scope != null && scope != _globalScope);
 
             return null;
         }
@@ -91,6 +107,20 @@ namespace MetaCode.Compiler.Services
         public FunctionDeclaration FindFunction(string name)
         {
             return FindDeclaration(name, scope => scope.FunctionDeclarations);
+        }
+
+        public AttributeDeclaration FindAttribute(string name)
+        {
+            return FindDeclaration(name, scope => scope.AttributeDeclarations);
+        }
+
+        public Scope GetScopeByNode(Node node)
+        {
+            Scope result = null;
+            if (!_scopes.TryGetValue(node, out result))
+                return null;
+
+            return result;
         }
 
         public Scope GetGlobalScope()

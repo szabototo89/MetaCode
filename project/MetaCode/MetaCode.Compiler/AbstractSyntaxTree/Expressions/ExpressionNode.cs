@@ -6,7 +6,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
     {
         #region Public properties
 
-        //public abstract Type Type { get; }
+        //public abstract VariableType VariableType { get; }
 
         #endregion
 

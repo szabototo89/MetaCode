@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
 {
-    public class InnerExpressionNode : ExpressionNode
+    public class InnerExpressionNode : ExpressionNode, ISupportAttributes
     {
         public ExpressionNode Expression { get; set; }
         public List<AttributeNode> Attributes { get; protected set; }

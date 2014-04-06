@@ -69,7 +69,7 @@ namespace MetaCode.Compiler.Visitors
 
         #endregion
 
-        #region Type name Visitor method
+        #region VariableType name Visitor method
 
         public override Node VisitTypeName(MetaCodeParser.TypeNameContext context)
         {

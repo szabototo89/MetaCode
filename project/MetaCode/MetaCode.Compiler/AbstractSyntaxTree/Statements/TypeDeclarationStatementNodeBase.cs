@@ -5,7 +5,7 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 {
-    public abstract class TypeDeclarationStatementNodeBase : StatementNodeBase
+    public abstract class TypeDeclarationStatementNodeBase : StatementNodeBase, ISupportAttributes
     {
         public IdentifierExpressionNode Identifier { get; protected set; }
 

@@ -59,7 +59,7 @@ namespace MetaCode.Compiler.Visitors
 
                 var result = parameters.formalParameter().Select(param => {
                     return ExpressionFactory.FormalParameter(param.Identifier.Text,
-                        param.Type.With(type => type.Accept(this) as TypeNameNode),
+                        param.VariableType.With(type => type.Accept(this) as TypeNameNode),
                         null);
                 });
 
@@ -68,12 +68,12 @@ namespace MetaCode.Compiler.Visitors
 
             if (context.BodyExpression != null)
                 return ExpressionFactory.Function(identifier,
-                                                  returnType.Type,
+                                                  returnType.VariableType,
                                                   formalParameters,
                                                   new Lazy<ExpressionNode>(() => context.BodyExpression.Accept(this) as ExpressionNode));
 
             return ExpressionFactory.Function(identifier,
-                                              returnType.Type,
+                                              returnType.VariableType,
                                               formalParameters,
                                               new Lazy<BlockStatementNode>(() => context.BodyStatements.Accept(this) as BlockStatementNode));
         }*/

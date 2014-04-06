@@ -6,7 +6,7 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 {
-    public class BlockStatementNode : StatementNodeBase
+    public class BlockStatementNode : StatementNodeBase, ISupportAttributes
     {
         public IEnumerable<StatementNodeBase> Statements { get; protected set; }
 
@@ -27,11 +27,6 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 
             AddChildren(Statements);
             AddChildren(Attributes);
-        }
-
-        public override IEnumerable<Node> Children
-        {
-            get { return base.Children.Concat(Statements); }
         }
     }
 }

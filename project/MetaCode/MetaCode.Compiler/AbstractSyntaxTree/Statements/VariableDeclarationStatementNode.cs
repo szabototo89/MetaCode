@@ -7,11 +7,11 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 {
-    public class VariableDeclarationStatementNode : StatementNodeBase
+    public class VariableDeclarationStatementNode : StatementNodeBase, ISupportAttributes
     {
         public IdentifierExpressionNode Identifier { get; protected set; }
 
-        public TypeNameNode Type { get; set; }
+        public TypeNameNode VariableType { get; set; }
 
         public ExpressionNode InitialValue { get; protected set; }
 
@@ -19,23 +19,23 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 
         public List<AttributeNode> Attributes { get; protected set; }
 
-        public VariableDeclarationStatementNode(string name, TypeNameNode type, ExpressionNode initialValue, AttributeNode[] attributes)
+        public VariableDeclarationStatementNode(string name, TypeNameNode variableType, ExpressionNode initialValue, AttributeNode[] attributes)
         {
             if (name == null)
                 ThrowHelper.ThrowArgumentNullException(() => name);
 
-            if (type == null)
-                ThrowHelper.ThrowArgumentNullException(() => type);
+            if (variableType == null)
+                ThrowHelper.ThrowArgumentNullException(() => variableType);
 
             if (initialValue == null)
                 ThrowHelper.ThrowArgumentNullException(() => initialValue);
 
             InitialValue = initialValue;
             Identifier = new IdentifierExpressionNode(name, null);
-            Type = type;
+            VariableType = variableType;
             Attributes = attributes.ToList();
 
-            AddChildren(Identifier, Type, InitialValue);
+            AddChildren(Identifier, VariableType, InitialValue);
             AddChildren(Attributes);
         }
     }

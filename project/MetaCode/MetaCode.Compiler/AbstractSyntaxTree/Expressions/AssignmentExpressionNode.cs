@@ -9,20 +9,20 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
     {
         public MemberExpressionNode LeftValue { get; internal set; }
 
-        public ExpressionNode Value { get; internal set; }
+        public ExpressionNode RightValue { get; internal set; }
 
-        public AssignmentExpressionNode(MemberExpressionNode variable, ExpressionNode value, IEnumerable<AttributeNode> attributes)
+        public AssignmentExpressionNode(MemberExpressionNode variable, ExpressionNode rightValue, IEnumerable<AttributeNode> attributes)
             : base(attributes)
         {
             if (variable == null)
                 ThrowHelper.ThrowArgumentNullException(() => variable);
-            if (value == null)
-                ThrowHelper.ThrowArgumentNullException(() => value);
+            if (rightValue == null)
+                ThrowHelper.ThrowArgumentNullException(() => rightValue);
 
             LeftValue = variable;
-            Value = value;
+            RightValue = rightValue;
 
-            AddChildren(LeftValue, Value);
+            AddChildren(LeftValue, RightValue);
         }
     }
 }

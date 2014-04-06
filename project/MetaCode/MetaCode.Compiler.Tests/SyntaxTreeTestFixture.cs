@@ -41,7 +41,7 @@ namespace MetaCode.Compiler.Tests
             var result = ParseWithAbstractTreeVisitor(Compiler, source);
 
             // THEN
-            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.IsInstanceOf<CompilationUnit>(result);
             Assert.NotNull(result.Children.First());
             Assert.IsInstanceOf<BlockStatementNode>(result.Children.First());
             Assert.IsInstanceOf<SkipStatementNode>(result.Children.First().Children.First());
@@ -65,7 +65,7 @@ namespace MetaCode.Compiler.Tests
 
             // THEN
             foreach (var result in results) {
-                Assert.IsInstanceOf<BlockStatementNode>(result);
+                Assert.IsInstanceOf<CompilationUnit>(result);
                 Assert.NotNull(result.Children.First());
                 Assert.IsInstanceOf<ExpressionStatementNode>(result.Children.First());
             }
@@ -85,7 +85,7 @@ namespace MetaCode.Compiler.Tests
             var result = ParseWithAbstractTreeVisitor(Compiler, source);
 
             // THEN
-            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.IsInstanceOf<CompilationUnit>(result);
             Assert.NotNull(result.Children.First());
             Assert.IsInstanceOf<FunctionDeclarationStatementNode>(result.Children.First());
         }
@@ -105,7 +105,7 @@ namespace MetaCode.Compiler.Tests
             var result = ParseWithAbstractTreeVisitor(Compiler, source);
 
             // THEN
-            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.IsInstanceOf<CompilationUnit>(result);
             Assert.NotNull(result.Children.First());
             Assert.IsInstanceOf<FunctionDeclarationStatementNode>(result.Children.First());
             var function = result.Children.First() as FunctionDeclarationStatementNode;
@@ -129,7 +129,7 @@ namespace MetaCode.Compiler.Tests
             var result = ParseWithAbstractTreeVisitor(Compiler, source);
 
             // THEN
-            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.IsInstanceOf<CompilationUnit>(result);
             Assert.NotNull(result.Children.First());
             Assert.IsInstanceOf<FunctionDeclarationStatementNode>(result.Children.First());
 
@@ -152,7 +152,7 @@ namespace MetaCode.Compiler.Tests
             var result = ParseWithAbstractTreeVisitor(Compiler, source);
 
             // THEN
-            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.IsInstanceOf<CompilationUnit>(result);
             Assert.NotNull(result.Children.First());
             Assert.IsInstanceOf<ObjectDeclarationStatementNode>(result.Children.First());
         }
@@ -167,7 +167,7 @@ namespace MetaCode.Compiler.Tests
             var result = ParseWithAbstractTreeVisitor(Compiler, source);
 
             // THEN
-            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.IsInstanceOf<CompilationUnit>(result);
             Assert.NotNull(result.Children.First());
             Assert.IsInstanceOf<AttributeDeclarationStatementNode>(result.Children.First());
         }
@@ -182,7 +182,7 @@ namespace MetaCode.Compiler.Tests
             var result = ParseWithAbstractTreeVisitor(Compiler, source);
 
             // THEN
-            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.IsInstanceOf<CompilationUnit>(result);
             Assert.NotNull(result.Children.First());
             Assert.IsInstanceOf<ExpressionStatementNode>(result.Children.First());
             var expression = (result.Children.First() as ExpressionStatementNode).Expression;
@@ -199,7 +199,7 @@ namespace MetaCode.Compiler.Tests
             var result = ParseWithAbstractTreeVisitor(Compiler, source);
 
             // THEN
-            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.IsInstanceOf<CompilationUnit>(result);
             Assert.NotNull(result.Children.First());
             Assert.IsInstanceOf<ExpressionStatementNode>(result.Children.First());
             var macroCall = (result.Children.First() as ExpressionStatementNode).Expression as MacroCallExpressionNode;
@@ -217,7 +217,7 @@ namespace MetaCode.Compiler.Tests
             var result = ParseWithAbstractTreeVisitor(Compiler, source);
 
             // THEN
-            Assert.IsInstanceOf<BlockStatementNode>(result);
+            Assert.IsInstanceOf<CompilationUnit>(result);
             Assert.NotNull(result.Children.First());
             Assert.IsInstanceOf<ExpressionStatementNode>(result.Children.First());
             var functionCall = (result.Children.First() as ExpressionStatementNode).Expression as FunctionCallExpressionNode;

@@ -20,7 +20,7 @@ statement   : Expression=expression
             | Skip=skipStatement
             ;
 
-variableDeclaration :   Attributes=attribute* VAR VariableName=ID (':' VariableType=typeName)? (ASSIGN VariableDefaultValue=expression)?
+variableDeclaration :   attribute* VAR VariableName=ID (':' VariableType=typeName)? (ASSIGN VariableDefaultValue=expression)?
                         ;
 
 attributeDeclaration    :   attribute* 'attribute' AttributeName=ATTRIBUTE_ID ('(' formalParameter (',' formalParameter)* ')')?
@@ -50,9 +50,12 @@ expression  : PrimaryExpression=primaryExpression
             | Left=expression Operator=OR Right=expression                          
             ;
 
-functionCallExpression  :   primaryExpression '(' expression? ')';
+functionCallExpression  :   functionName=ID '(' expression (',' expression)* ')'
+                        |   functionName=ID '(' ')'
+                        ;
 
-macroCallExpression  :   MACRO ID '(' statement ')'
+macroCallExpression  :   MACRO macroName=ID '(' statement (',' statement)* ')'
+                     |   MACRO macroName=ID '(' ')'
                      ;
 
 memberExpression    : ID ('.' ID)+
@@ -70,7 +73,7 @@ primaryExpression   :   Attributes=attribute* Constant=constant
                     |   Attributes=attribute* '(' InnerExpression=expression ')'
                     ;       
 
-functionStatement   :   attribute* FUNCTION FunctionName=ID '(' Parameter=formalParameter (',' Parameter=formalParameter)* ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
+functionStatement   :   attribute* FUNCTION FunctionName=ID '(' (Parameter=formalParameter (',' Parameter=formalParameter)*)? ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
                     ;
 
 macroStatement      :   attribute* (Type=IMPLICIT | Type=EXPLICIT) MACRO MacroName=ID '(' Identifier=ID ':' Selector=TREE_SELECTOR ')' DO BodyStatements=statements END
@@ -82,7 +85,7 @@ foreachStatement    :   attribute* FOREACH '(' Var=VAR? Id=ID (':' VariableType=
 whileStatement      :   attribute* WHILE '(' ConditionExpression=expression ')' Body=statement
                     ;
 
-blockStatement      :   attribute* DO Body=statements END
+blockStatement      :   attribute* DO (statement ';')* END
                     ;
 
 skipStatement       :   SKIP;
@@ -102,7 +105,7 @@ ifStatement     :   attribute* IF '(' Condition=expression ')' Statements=statem
 elseIfStatement :   ELSE IF '(' Condition=expression ')' Statements=statements
                 ;
 
-formalParameter     :   Attributes=attribute* Name=ID ':' Type=typeName
+formalParameter     :   attribute* Name=ID ':' Type=typeName
                     ;                   
 
 actualParameterList :   expression (',' expression)*

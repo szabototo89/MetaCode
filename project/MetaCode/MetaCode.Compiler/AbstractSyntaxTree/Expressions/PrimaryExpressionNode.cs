@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
 {
-    public abstract class PrimaryExpressionNode : ExpressionNode
+    public abstract class PrimaryExpressionNode : ExpressionNode, ISupportAttributes
     {
         protected PrimaryExpressionNode(IEnumerable<AttributeNode> attributes)
         {

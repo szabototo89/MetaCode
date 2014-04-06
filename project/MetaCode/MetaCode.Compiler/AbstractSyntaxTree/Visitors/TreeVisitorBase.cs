@@ -11,12 +11,14 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
         public delegate TResult VisitorDelegate<in TNode>(TreeVisitorBase<TResult> visitor, TNode node) where TNode : Node;
 
         protected readonly Dictionary<Type, VisitorDelegate> _visitors;
+        protected readonly Dictionary<Type, VisitorDelegate> _implementsVisitors;
 
         protected VisitorDelegate _defaultVisitor;
 
         public TreeVisitorBase()
         {
             _visitors = new Dictionary<Type, VisitorDelegate>();
+            _implementsVisitors = new Dictionary<Type, VisitorDelegate>();
             InitDefaultVisitor();
         }
 

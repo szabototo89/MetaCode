@@ -4,7 +4,7 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 {
-    public abstract class LoopStatementNodeBase : StatementNodeBase
+    public abstract class LoopStatementNodeBase : StatementNodeBase, ISupportAttributes
     {
         public StatementNodeBase Body { get; internal set; }
 

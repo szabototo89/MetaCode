@@ -5,8 +5,10 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 {
-    public class FunctionDeclarationStatementNode : StatementNodeBase
+    public class FunctionDeclarationStatementNode : StatementNodeBase, ISupportAttributes
     {
+        public string FunctionName { get { return Identifier.Name; } }
+
         public IdentifierExpressionNode Identifier { get; protected set; }
 
         public BlockStatementNode FunctionBlock { get; protected set; }
@@ -14,6 +16,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
         public TypeNameNode ReturnType { get; protected set; }
 
         public IEnumerable<FormalParameterNode> Parameters { get; protected set; }
+
         public List<AttributeNode> Attributes { get; protected set; }
 
         public FunctionDeclarationStatementNode(string name, BlockStatementNode functionBlock, TypeNameNode returnType, FormalParameterNode[] parameters, IEnumerable<AttributeNode> attributes)

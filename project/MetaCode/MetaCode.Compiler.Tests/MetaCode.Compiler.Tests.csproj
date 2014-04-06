@@ -52,6 +52,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CompilerTestFixtureBase.cs" />
     <Compile Include="SyntaxTreeTestFixture.cs" />
+    <Compile Include="ExpressionTypeAnalyzerTestFixture.cs" />
+    <Compile Include="TypeDeclarationAnalyzerTestFixture.cs" />
     <Compile Include="TypeHelperTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>

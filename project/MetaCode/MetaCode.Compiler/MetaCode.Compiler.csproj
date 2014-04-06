@@ -55,7 +55,9 @@
     <Compile Include="AbstractSyntaxTree\Constants\ConstantLiteralNode.cs" />
     <Compile Include="AbstractSyntaxTree\Expressions\ExpressionNode.cs" />
     <Compile Include="AbstractSyntaxTree\Expressions\InnerExpressionNode.cs" />
+    <Compile Include="AbstractSyntaxTree\ISupportAttributes.cs" />
     <Compile Include="AbstractSyntaxTree\Statements\AttributeDeclarationStatementNode.cs" />
+    <Compile Include="AbstractSyntaxTree\Statements\MacroDeclarationStatementNode.cs" />
     <Compile Include="AbstractSyntaxTree\Statements\ObjectDeclarationStatementNode.cs" />
     <Compile Include="AbstractSyntaxTree\Statements\TypeDeclarationStatementNodeBase.cs" />
     <Compile Include="AbstractSyntaxTree\Statements\FunctionDeclarationStatementNode.cs" />
@@ -104,15 +106,20 @@
     <Compile Include="AbstractSyntaxTree\Statements\WhileLoopStatementNode.cs" />
     <Compile Include="AbstractSyntaxTree\TypeNameNode.cs" />
     <Compile Include="AbstractSyntaxTree\Variable.cs" />
+    <Compile Include="AbstractSyntaxTree\Visitors\ExpressionTypeAnalyzer.cs" />
     <Compile Include="AbstractSyntaxTree\Visitors\SemanticParserTreeVisitor.cs" />
     <Compile Include="AbstractSyntaxTree\Visitors\TreeVisitorBase.cs" />
+    <Compile Include="AbstractSyntaxTree\Visitors\DeclarationAnalyzer.cs" />
+    <Compile Include="Commons\AttributeDeclaration.cs" />
     <Compile Include="Commons\DeclarationBase.cs" />
+    <Compile Include="Commons\FormalParameter.cs" />
     <Compile Include="Commons\Scope.cs" />
     <Compile Include="Commons\TextLocation.cs" />
     <Compile Include="Commons\FunctionDeclaration.cs" />
     <Compile Include="Commons\MacroDeclaration.cs" />
     <Compile Include="Commons\TextSpan.cs" />
     <Compile Include="Commons\VariableDeclaration.cs" />
+    <Compile Include="CompilationUnit.cs" />
     <Compile Include="Grammar\MetaCode.g4.lexer.cs">
       <DependentUpon>MetaCode.g4</DependentUpon>
     </Compile>

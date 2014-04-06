@@ -12,6 +12,7 @@ namespace MetaCode.Compiler.Commons
         private readonly List<FunctionDeclaration> _functionDeclarations;
         private readonly List<VariableDeclaration> _variableDeclarations;
         private readonly List<MacroDeclaration> _macroDeclarations;
+        private readonly List<AttributeDeclaration> _attributeDeclarations;
 
         public Scope Parent { get; protected set; }
 
@@ -30,11 +31,17 @@ namespace MetaCode.Compiler.Commons
             get { return _macroDeclarations; }
         }
 
+        public IEnumerable<AttributeDeclaration> AttributeDeclarations
+        {
+            get { return _attributeDeclarations; }
+        }
+
         private Scope()
         {
             _variableDeclarations = new List<VariableDeclaration>();
             _functionDeclarations = new List<FunctionDeclaration>();
             _macroDeclarations = new List<MacroDeclaration>();
+            _attributeDeclarations = new List<AttributeDeclaration>();
         }
 
         public Scope(Scope parent)
@@ -82,18 +89,81 @@ namespace MetaCode.Compiler.Commons
 
         public VariableDeclaration DeclareVariable(string name, Type type)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                ThrowHelper.ThrowException("The 'name' is blank!");
+
+            if (type == null)
+                ThrowHelper.ThrowArgumentNullException(() => type);
+
             var declaration = new VariableDeclaration(name, type, this);
             _variableDeclarations.Add(declaration);
 
             return declaration;
         }
 
-        public FunctionDeclaration DeclareFunction(string name, Type returnType, Type[] parameters)
+        public FunctionDeclaration DeclareFunction(string name, Type returnType, FormalParameter[] parameters)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                ThrowHelper.ThrowException("The 'name' is blank!");
+
+            if (returnType == null)
+                ThrowHelper.ThrowArgumentNullException(() => returnType);
+
+            if (parameters == null)
+                ThrowHelper.ThrowArgumentNullException(() => parameters);
+
             var declaration = new FunctionDeclaration(name, returnType, parameters, this);
             _functionDeclarations.Add(declaration);
 
             return declaration;
+        }
+
+        public AttributeDeclaration DeclareAttribute(string name, FormalParameter[] formalParameters)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                ThrowHelper.ThrowException("The 'name' is blank!");
+
+            if (formalParameters == null)
+                ThrowHelper.ThrowArgumentNullException(() => formalParameters);
+
+            var declaration = new AttributeDeclaration(name, formalParameters, this);
+            _attributeDeclarations.Add(declaration);
+
+            return declaration;
+        }
+
+        private TDeclaration FindDeclaration<TDeclaration>(string name, Func<Scope, IEnumerable<TDeclaration>> declarations)
+           where TDeclaration : DeclarationBase
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                ThrowHelper.ThrowException("The name is blank!");
+
+            var scope = this;
+
+            do {
+                var variable = declarations(scope).FirstOrDefault(var => var.Name == name);
+                if (variable != null)
+                    return variable;
+
+                scope = scope.Parent;
+            } while (scope != null);
+
+            return null;
+        }
+
+        public VariableDeclaration FindVariable(string name)
+        {
+            return FindDeclaration(name, scope => scope.VariableDeclarations);
+        }
+
+        public FunctionDeclaration FindFunction(string name)
+        {
+            return FindDeclaration(name, scope => scope.FunctionDeclarations);
+        }
+
+        public AttributeDeclaration FindAttribute(string name)
+        {
+            return FindDeclaration(name, scope => scope.AttributeDeclarations);
         }
     }
 }

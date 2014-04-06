@@ -1,21 +1,23 @@
 ﻿using System;
+using MetaCode.Compiler.AbstractSyntaxTree;
+using MetaCode.Compiler.Grammar;
 using MetaCode.Core;
 
 namespace MetaCode.Compiler.Commons
 {
     public class FunctionDeclaration : DeclarationBase
     {
-        public Type[] FormalParameters { get; protected set; }
+        public FormalParameter[] FormalParameters { get; protected set; }
 
         public Type ReturnType { get; protected set; }
 
         public FunctionDeclaration(string name, Type returnType, Scope scope)
-            : this(name, returnType, new Type[0], scope)
+            : this(name, returnType, new FormalParameter[0], scope)
         {
 
         }
 
-        public FunctionDeclaration(string name, Type returnType, Type[] formalParameters, Scope scope)
+        public FunctionDeclaration(string name, Type returnType, FormalParameter[] formalParameters, Scope scope)
             : base(name, scope)
         {
             if (string.IsNullOrWhiteSpace(name))

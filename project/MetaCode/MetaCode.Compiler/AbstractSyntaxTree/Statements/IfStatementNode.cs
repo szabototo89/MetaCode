@@ -6,7 +6,7 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 {
-    public class IfStatementNode : StatementNodeBase
+    public class IfStatementNode : StatementNodeBase, ISupportAttributes
     {
         public ExpressionNode ConditionExpression { get; protected set; }
 
