@@ -1,4 +1,6 @@
-﻿using MetaCode.Core;
+﻿using MetaCode.Compiler.AbstractSyntaxTree;
+using MetaCode.Compiler.Commons.Declarations;
+using MetaCode.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,7 @@ namespace MetaCode.Compiler.Commons
         private readonly List<VariableDeclaration> _variableDeclarations;
         private readonly List<MacroDeclaration> _macroDeclarations;
         private readonly List<AttributeDeclaration> _attributeDeclarations;
+        private readonly List<TypeDeclaration> _typeDeclarations;
 
         public Scope Parent { get; protected set; }
 
@@ -36,12 +39,18 @@ namespace MetaCode.Compiler.Commons
             get { return _attributeDeclarations; }
         }
 
+        public IEnumerable<TypeDeclaration> TypeDeclarations
+        {
+            get { return _typeDeclarations; }
+        }
+
         private Scope()
         {
             _variableDeclarations = new List<VariableDeclaration>();
             _functionDeclarations = new List<FunctionDeclaration>();
             _macroDeclarations = new List<MacroDeclaration>();
             _attributeDeclarations = new List<AttributeDeclaration>();
+            _typeDeclarations = new List<TypeDeclaration>();
         }
 
         public Scope(Scope parent)
@@ -79,12 +88,16 @@ namespace MetaCode.Compiler.Commons
 
         public static Scope CreateGlobalScope()
         {
-            return new Scope();
-        }
+            var scope = new Scope();
+            scope._typeDeclarations.AddRange(new[]
+            {
+                new ConcreteTypeDeclaration("number", scope, typeof(Double)),     
+                new ConcreteTypeDeclaration("boolean", scope, typeof(Boolean)),     
+                new ConcreteTypeDeclaration("string", scope, typeof(String)),     
+                new ConcreteTypeDeclaration("array", scope, typeof(Object[])),     
+            });
 
-        public Scope CreateScope()
-        {
-            return new Scope(this);
+            return scope;
         }
 
         public VariableDeclaration DeclareVariable(string name, Type type)
@@ -118,7 +131,7 @@ namespace MetaCode.Compiler.Commons
             return declaration;
         }
 
-        public AttributeDeclaration DeclareAttribute(string name, FormalParameter[] formalParameters)
+        public AttributeDeclaration DeclareAttributeType(string name, FormalParameter[] formalParameters)
         {
             if (string.IsNullOrWhiteSpace(name))
                 ThrowHelper.ThrowException("The 'name' is blank!");
@@ -132,6 +145,20 @@ namespace MetaCode.Compiler.Commons
             return declaration;
         }
 
+        public ObjectTypeDeclaration DeclareObjectType(string name, FormalParameter[] formalParameters)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                ThrowHelper.ThrowException("The 'name' is blank!");
+
+            if (formalParameters == null)
+                ThrowHelper.ThrowArgumentNullException(() => formalParameters);
+
+            var declaration = new ObjectTypeDeclaration(name, formalParameters, this);
+            _typeDeclarations.Add(declaration);
+
+            return declaration;
+        }
+
         private TDeclaration FindDeclaration<TDeclaration>(string name, Func<Scope, IEnumerable<TDeclaration>> declarations)
            where TDeclaration : DeclarationBase
         {
@@ -140,7 +167,8 @@ namespace MetaCode.Compiler.Commons
 
             var scope = this;
 
-            do {
+            do
+            {
                 var variable = declarations(scope).FirstOrDefault(var => var.Name == name);
                 if (variable != null)
                     return variable;
@@ -164,6 +192,11 @@ namespace MetaCode.Compiler.Commons
         public AttributeDeclaration FindAttribute(string name)
         {
             return FindDeclaration(name, scope => scope.AttributeDeclarations);
+        }
+
+        public TypeDeclaration FindType(string name)
+        {
+            return FindDeclaration(name, scope => scope.TypeDeclarations);
         }
     }
 }

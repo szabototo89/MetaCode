@@ -3,9 +3,9 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
 {
-    public abstract class UnaryExpressionNode : ExpressionNode
+    public class UnaryExpressionNode : ExpressionNode
     {
-        protected UnaryExpressionNode(UnaryOperatorNode @operator, ExpressionNode expression)
+        public UnaryExpressionNode(UnaryOperatorNode @operator, ExpressionNode expression)
         {
             if (@operator == null)
                 ThrowHelper.ThrowArgumentNullException(() => @operator);

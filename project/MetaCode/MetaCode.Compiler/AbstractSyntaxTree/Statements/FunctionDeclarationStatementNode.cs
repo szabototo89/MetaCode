@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using MetaCode.Compiler.AbstractSyntaxTree.Expressions;
 using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 {
-    public class FunctionDeclarationStatementNode : StatementNodeBase, ISupportAttributes
+    public class FunctionDeclarationStatementNode : DeclarationStatementNodeBase, ISupportAttributes
     {
         public string FunctionName { get { return Identifier.Name; } }
-
-        public IdentifierExpressionNode Identifier { get; protected set; }
 
         public BlockStatementNode FunctionBlock { get; protected set; }
 
@@ -20,6 +19,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
         public List<AttributeNode> Attributes { get; protected set; }
 
         public FunctionDeclarationStatementNode(string name, BlockStatementNode functionBlock, TypeNameNode returnType, FormalParameterNode[] parameters, IEnumerable<AttributeNode> attributes)
+            : base(name)
         {
             if (functionBlock == null)
                 ThrowHelper.ThrowArgumentNullException(() => functionBlock);
@@ -30,7 +30,6 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
             if (attributes == null)
                 ThrowHelper.ThrowArgumentNullException(() => attributes);
 
-            Identifier = new IdentifierExpressionNode(name, null);
             FunctionBlock = functionBlock;
             ReturnType = returnType;
             Parameters = parameters;

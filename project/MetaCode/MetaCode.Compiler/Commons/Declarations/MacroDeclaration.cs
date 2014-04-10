@@ -1,4 +1,4 @@
-﻿namespace MetaCode.Compiler.Commons
+﻿namespace MetaCode.Compiler.Commons.Declarations
 {
     public class MacroDeclaration : DeclarationBase
     {

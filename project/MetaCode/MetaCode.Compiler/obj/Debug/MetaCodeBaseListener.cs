@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
+// Generated from E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -201,6 +201,19 @@ public partial class MetaCodeBaseListener : IMetaCodeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitStatements([NotNull] MetaCodeParser.StatementsContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.macroFormalParameter"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMacroFormalParameter([NotNull] MetaCodeParser.MacroFormalParameterContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.macroFormalParameter"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMacroFormalParameter([NotNull] MetaCodeParser.MacroFormalParameterContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.actualParameterList"/>.

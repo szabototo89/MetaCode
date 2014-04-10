@@ -1,9 +1,7 @@
-﻿using MetaCode.Core;
-using System;
-using System.CodeDom;
-using System.Reflection;
+﻿using System;
+using MetaCode.Core;
 
-namespace MetaCode.Compiler.Commons
+namespace MetaCode.Compiler.Commons.Declarations
 {
     public class VariableDeclaration : DeclarationBase
     {

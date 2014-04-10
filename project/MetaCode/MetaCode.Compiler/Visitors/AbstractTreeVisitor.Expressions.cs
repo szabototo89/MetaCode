@@ -34,6 +34,17 @@ namespace MetaCode.Compiler.Visitors
             return ExpressionFactory.BinaryOperand(leftExpression, rightExpression, operatorText);
         }
 
+        private Node VisitUnaryOperands(MetaCodeParser.ExpressionContext expression, IToken @operator)
+        {
+            if (new object[] { expression, @operator }.Any(value => value == null))
+                return null;
+
+            var expr = expression.Accept(this) as ExpressionNode;
+            var op = @operator.Text;
+
+            return ExpressionFactory.UnaryOperand(expr, op);
+        }
+
         public override Node VisitExpression(MetaCodeParser.ExpressionContext context)
         {
             var result = GetNodeFromContext(
@@ -41,7 +52,8 @@ namespace MetaCode.Compiler.Visitors
                 context.FunctionCallExpression,
                 context.MacroCallExpression,
                 context.MemberExpression) ??
-                VisitBinaryOperands(context.Left, context.Right, context.Operator);
+                VisitBinaryOperands(context.Left, context.Right, context.Operator) ??
+                VisitUnaryOperands(context.Expression, context.Operator);
 
             return result;
         }
@@ -84,7 +96,8 @@ namespace MetaCode.Compiler.Visitors
                                     .Select(attribute => attribute.Accept(this) as AttributeNode)
                                     .ToArray();
 
-            if (context.Constant != null) {
+            if (context.Constant != null)
+            {
                 var constant = context.Constant.Accept(this) as ConstantLiteralNode;
                 return ExpressionFactory.Constant(constant, attributes);
             }
@@ -92,7 +105,8 @@ namespace MetaCode.Compiler.Visitors
             if (context.Id != null)
                 return ExpressionFactory.Identifier(context.Id.Text, attributes);
 
-            if (context.Assignment != null) {
+            if (context.Assignment != null)
+            {
                 var assignment = context.Assignment;
                 var member = assignment.LeftValue.With(leftValue => leftValue.Accept(this) as MemberExpressionNode) ??
                              ExpressionFactory.Member(new[] { assignment.VariableName.Text });

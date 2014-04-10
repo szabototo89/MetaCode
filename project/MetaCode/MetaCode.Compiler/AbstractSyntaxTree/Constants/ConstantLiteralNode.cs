@@ -7,6 +7,8 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Constants
     {
         public Type Type { get; internal set; }
 
+        public Object Value { get; internal set; }
+
         #region Constructors
 
         protected ConstantLiteralNode(Type type)
@@ -21,7 +23,11 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Constants
     {
         #region Public properties
 
-        public TValue Value { get; internal set; }
+        public new TValue Value
+        {
+            get { return (TValue)base.Value; }
+            internal set { base.Value = value; }
+        }
 
         #endregion
 

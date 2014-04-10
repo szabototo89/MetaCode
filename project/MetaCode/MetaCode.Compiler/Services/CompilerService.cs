@@ -7,6 +7,7 @@ using Antlr4.Runtime.Dfa;
 using MetaCode.Compiler.AbstractSyntaxTree;
 using MetaCode.Compiler.AbstractSyntaxTree.Factories;
 using MetaCode.Compiler.Commons;
+using MetaCode.Compiler.Commons.Declarations;
 using MetaCode.Core;
 
 namespace MetaCode.Compiler.Services
@@ -63,13 +64,34 @@ namespace MetaCode.Compiler.Services
             get { return Singleton<CompilerService>.Instance; }
         }
 
+        protected Scope PushScope(Node node, Scope scope)
+        {
+            if (node == null)
+                ThrowHelper.ThrowArgumentNullException(() => node);
+            if (scope == null)
+                ThrowHelper.ThrowArgumentNullException(() => scope);
+
+            _scopes.Add(node, scope);
+
+            return scope;
+        }
+
+        public Scope PushFunctionScope(Node node, FunctionDeclaration function)
+        {
+            if (node == null)
+                ThrowHelper.ThrowArgumentNullException(() => node);
+
+            if (function == null)
+                ThrowHelper.ThrowArgumentNullException(() => function);
+
+            _currentScope = _currentScope.CreateFunctionScope(function);
+            return PushScope(node, _currentScope);
+        }
+
         public Scope PushScope(Node node)
         {
             _currentScope = _currentScope.CreateScope();
-
-            _scopes.Add(node, _currentScope);
-
-            return _currentScope;
+            return PushScope(node, _currentScope);
         }
 
         public void PopScope()
@@ -88,7 +110,8 @@ namespace MetaCode.Compiler.Services
 
             var scope = _currentScope;
 
-            do {
+            do
+            {
                 var variable = declarations(scope).FirstOrDefault(var => var.Name == name);
                 if (variable != null)
                     return variable;
@@ -121,6 +144,20 @@ namespace MetaCode.Compiler.Services
                 return null;
 
             return result;
+        }
+
+        public FunctionScope GetFunctionScope(Scope scope)
+        {
+            if (scope == null)
+                ThrowHelper.ThrowArgumentNullException(() => scope);
+
+            var current = scope;
+            do
+            {
+                current = current.Parent;
+            } while (current != null && !(current is FunctionScope));
+
+            return current as FunctionScope;
         }
 
         public Scope GetGlobalScope()

@@ -1,9 +1,8 @@
 ﻿using System;
 using MetaCode.Compiler.AbstractSyntaxTree;
-using MetaCode.Compiler.Grammar;
 using MetaCode.Core;
 
-namespace MetaCode.Compiler.Commons
+namespace MetaCode.Compiler.Commons.Declarations
 {
     public class FunctionDeclaration : DeclarationBase
     {

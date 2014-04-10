@@ -7,11 +7,11 @@ namespace MetaCode.Compiler.AbstractSyntaxTree
     {
         public BlockStatementNode Scope { get; internal set; }
 
-        public Identifier Identifier { get; internal set; }
+        public IdentifierNode Identifier { get; internal set; }
 
         public TypeNameNode TypeName { get; internal set; }
 
-        public Variable(Identifier identifier, TypeNameNode typeName, BlockStatementNode scope)
+        public Variable(IdentifierNode identifier, TypeNameNode typeName, BlockStatementNode scope)
         {
             if (identifier == null)
                 throw new ArgumentNullException("identifier", "The identifier is null!");

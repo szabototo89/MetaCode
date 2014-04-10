@@ -73,13 +73,13 @@ primaryExpression   :   Attributes=attribute* Constant=constant
                     |   Attributes=attribute* '(' InnerExpression=expression ')'
                     ;       
 
-functionStatement   :   attribute* FUNCTION FunctionName=ID '(' Parameter=formalParameter (',' Parameter=formalParameter)* ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
+functionStatement   :   attribute* FUNCTION FunctionName=ID ('(' Parameter=formalParameter (',' Parameter=formalParameter)* ')')? (':' ReturnType=typeName)? DO BodyStatements=statements END
                     ;
 
-macroStatement      :   attribute* (Type=IMPLICIT | Type=EXPLICIT) MACRO MacroName=ID '(' Identifier=ID ':' Selector=TREE_SELECTOR ')' DO BodyStatements=statements END
+macroStatement      :   attribute* (Type=IMPLICIT | Type=EXPLICIT) MACRO MacroName=ID '(' macroFormalParameter (',' macroFormalParameter)* ')' DO BodyStatements=statements END
                     ;
 
-foreachStatement    :   attribute* FOREACH '(' Var=VAR? Id=ID (':' VariableType=typeName)? IN ArrayExpression=expression ')' Body=statement
+foreachStatement    :   attribute* FOREACH '(' Var=VAR Id=ID (':' VariableType=typeName) IN ArrayExpression=expression ')' Body=statement
                     ;
 
 whileStatement      :   attribute* WHILE '(' ConditionExpression=expression ')' Body=statement
@@ -107,6 +107,9 @@ elseIfStatement :   ELSE IF '(' Condition=expression ')' Statements=statements
 
 formalParameter     :   Attributes=attribute* Name=ID ':' Type=typeName
                     ;                   
+
+macroFormalParameter:   Name=ID ':' Selector=TREE_SELECTOR
+                    ;              
 
 actualParameterList :   expression (',' expression)*
                     ;
@@ -219,6 +222,7 @@ LETTER  :   [a-zA-Z]
         ;
 
 STRING  :   '"' .*? '"'
+		|	'\'' .*? '\''
         ;
 
 NUMBER  :   INT

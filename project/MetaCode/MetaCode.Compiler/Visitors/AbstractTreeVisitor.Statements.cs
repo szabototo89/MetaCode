@@ -11,6 +11,7 @@ using Antlr4.Runtime.Atn;
 using MetaCode.Compiler.AbstractSyntaxTree;
 using MetaCode.Compiler.AbstractSyntaxTree.Expressions;
 using MetaCode.Compiler.AbstractSyntaxTree.Statements;
+using MetaCode.Compiler.Commons;
 using MetaCode.Compiler.Grammar;
 using MetaCode.Core;
 
@@ -29,7 +30,9 @@ namespace MetaCode.Compiler.Visitors
                 context.VariableDeclaration,
                 context.FunctionDeclaration,
                 context.ObjectDeclaration,
-                context.AttributeDeclaration
+                context.AttributeDeclaration,
+                context.MacroDeclaration,
+                context.Return
             ) ?? new ExpressionStatementNode(context.Expression.Accept(this) as ExpressionNode);
         }
 
@@ -162,6 +165,28 @@ namespace MetaCode.Compiler.Visitors
             var expression = context.ReturnExpression.Accept(this) as ExpressionNode;
 
             return StatementFactory.Return(expression);
+        }
+
+        public override Node VisitMacroFormalParameter(MetaCodeParser.MacroFormalParameterContext context)
+        {
+            var identifier = context.Name.Text;
+            var treeSelector = context.Selector.Text;
+
+            return new MacroFormalParameterNode(identifier, treeSelector);
+        }
+
+        public override Node VisitMacroStatement(MetaCodeParser.MacroStatementContext context)
+        {
+            var identifier = context.MacroName.Text;
+            var body = context.BodyStatements.Accept(this) as BlockStatementNode;
+
+            var parameters = context.macroFormalParameter()
+                                    .Select(param => param.Accept(this) as MacroFormalParameterNode)
+                                    .ToArray();
+
+            var type = context.Type.Text == "implicit" ? MacroType.Implicit : MacroType.Explicit;
+
+            return StatementFactory.Macro(identifier, parameters, body, type);
         }
 
         public override Node VisitInit(MetaCodeParser.InitContext context)

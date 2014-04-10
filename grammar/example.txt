@@ -127,3 +127,5 @@ object Disposable
 	@invariant(this.actualObject == null)
 	isDisposed: boolean;
 end;
+
+macro 

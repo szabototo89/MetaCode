@@ -1,6 +1,6 @@
 ﻿using MetaCode.Core;
 
-namespace MetaCode.Compiler.Commons
+namespace MetaCode.Compiler.Commons.Declarations
 {
     public class DeclarationBase
     {

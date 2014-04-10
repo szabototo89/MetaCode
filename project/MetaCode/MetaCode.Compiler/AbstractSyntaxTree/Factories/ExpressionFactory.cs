@@ -40,6 +40,9 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
                 {"==", new EqualityOperatorNode()},
                 {"!=", new InequalityOperatorNode()},
 
+                {"and", new ConjunctionBinaryOperatorNode()},
+                {"or", new DisjunctionOperatorNode()},
+
                 {"not", new NegationOperatorNode()},
             };
 
@@ -204,6 +207,24 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
                 ThrowHelper.ThrowArgumentNullException(() => actualParameters);
 
             return new MacroCallExpressionNode(name, actualParameters);
+        }
+
+        public UnaryExpressionNode UnaryOperand(ExpressionNode expr, string op)
+        {
+            if (expr == null)
+                ThrowHelper.ThrowArgumentNullException(() => expr);
+
+            OperatorNode operatorNode;
+
+            if (!_operators.TryGetValue(op, out operatorNode))
+                throw new Exception("Unsupported operator!");
+
+            if (operatorNode is LogicalUnaryOperatorNode)
+            {
+                return new UnaryExpressionNode(operatorNode as LogicalUnaryOperatorNode, expr);
+            }
+
+            throw new Exception("Invalid operator has found!");
         }
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
+// Generated from E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -120,6 +120,13 @@ public interface IMetaCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitStatements([NotNull] MetaCodeParser.StatementsContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="MetaCodeParser.macroFormalParameter"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMacroFormalParameter([NotNull] MetaCodeParser.MacroFormalParameterContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MetaCodeParser.actualParameterList"/>.

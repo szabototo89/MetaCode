@@ -29,7 +29,7 @@ namespace MetaCode.Compiler.Visitors
 
         public override Node VisitStringConstant(MetaCodeParser.StringConstantContext context)
         {
-            return new StringConstantLiteralNode(context.GetText().Trim('"'));
+            return new StringConstantLiteralNode(context.GetText().Trim('"').Trim('\''));
         }
 
         public override Node VisitBooleanConstant(MetaCodeParser.BooleanConstantContext context)
@@ -80,7 +80,7 @@ namespace MetaCode.Compiler.Visitors
             var identifiers = context.ID()
                                      .Select(id => id.GetText())
                                      .ToArray();
-
+            
             return ExpressionFactory.Type(string.Join(".", identifiers), attributes);
         }
 

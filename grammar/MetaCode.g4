@@ -51,11 +51,11 @@ expression  : PrimaryExpression=primaryExpression
             ;
 
 functionCallExpression  :   functionName=ID '(' expression (',' expression)* ')'
-                        |   functionName=ID '(' ')'
-                        ;
+						|	functionName=ID '(' ')'
+						;
 
 macroCallExpression  :   MACRO macroName=ID '(' statement (',' statement)* ')'
-                     |   MACRO macroName=ID '(' ')'
+					 |	 MACRO macroName=ID '(' ')'
                      ;
 
 memberExpression    : ID ('.' ID)+
@@ -73,7 +73,7 @@ primaryExpression   :   Attributes=attribute* Constant=constant
                     |   Attributes=attribute* '(' InnerExpression=expression ')'
                     ;       
 
-functionStatement   :   attribute* FUNCTION FunctionName=ID '(' (Parameter=formalParameter (',' Parameter=formalParameter)*)? ')' (':' ReturnType=typeName)? DO BodyStatements=statements END
+functionStatement   :   attribute* FUNCTION FunctionName=ID ('(' Parameter=formalParameter (',' Parameter=formalParameter)* ')')? (':' ReturnType=typeName)? DO BodyStatements=statements END
                     ;
 
 macroStatement      :   attribute* (Type=IMPLICIT | Type=EXPLICIT) MACRO MacroName=ID '(' Identifier=ID ':' Selector=TREE_SELECTOR ')' DO BodyStatements=statements END
@@ -105,7 +105,7 @@ ifStatement     :   attribute* IF '(' Condition=expression ')' Statements=statem
 elseIfStatement :   ELSE IF '(' Condition=expression ')' Statements=statements
                 ;
 
-formalParameter     :   attribute* Name=ID ':' Type=typeName
+formalParameter     :   Attributes=attribute* Name=ID ':' Type=typeName
                     ;                   
 
 actualParameterList :   expression (',' expression)*

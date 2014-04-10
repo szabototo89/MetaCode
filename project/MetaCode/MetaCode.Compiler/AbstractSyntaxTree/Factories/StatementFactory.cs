@@ -45,7 +45,8 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
             if (falseStatement == null)
                 falseStatement = EmptyBlock();
 
-            if (elseIfStatements.Any()) {
+            if (elseIfStatements.Any())
+            {
                 var elseIf = elseIfStatements.First();
                 falseStatement =
                     Block(
@@ -210,6 +211,30 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Factories
                 ThrowHelper.ThrowArgumentNullException(() => expression);
 
             return new ReturnStatementNode(expression);
+        }
+
+        public MacroDeclarationStatementNode Macro(string identifier, IEnumerable<MacroFormalParameterNode> formalParameters, BlockStatementNode body, MacroType type)
+        {
+            if (string.IsNullOrWhiteSpace(identifier))
+                ThrowHelper.ThrowException("The identifier is blank!");
+
+            if (formalParameters == null)
+                ThrowHelper.ThrowArgumentNullException(() => formalParameters);
+
+            if (body == null)
+                ThrowHelper.ThrowArgumentNullException(() => body);
+
+            return new MacroDeclarationStatementNode(identifier, formalParameters, body, type);
+        }
+
+        public MacroDeclarationStatementNode ImplicitMacro(string identifier, IEnumerable<MacroFormalParameterNode> formalParameters, BlockStatementNode body)
+        {
+            return Macro(identifier, formalParameters, body, MacroType.Implicit);
+        }
+
+        public MacroDeclarationStatementNode ExplicitMacro(string identifier, IEnumerable<MacroFormalParameterNode> formalParameters, BlockStatementNode body)
+        {
+            return Macro(identifier, formalParameters, body, MacroType.Explicit);
         }
 
         public CompilationUnit CompilationUnit(BlockStatementNode block)

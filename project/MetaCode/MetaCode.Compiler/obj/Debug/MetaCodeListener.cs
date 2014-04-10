@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
+// Generated from E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Compiler\Grammar\MetaCode.g4 by ANTLR 4.2-SNAPSHOT
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -171,6 +171,17 @@ public interface IMetaCodeListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitStatements([NotNull] MetaCodeParser.StatementsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MetaCodeParser.macroFormalParameter"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMacroFormalParameter([NotNull] MetaCodeParser.MacroFormalParameterContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MetaCodeParser.macroFormalParameter"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMacroFormalParameter([NotNull] MetaCodeParser.MacroFormalParameterContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MetaCodeParser.actualParameterList"/>.
