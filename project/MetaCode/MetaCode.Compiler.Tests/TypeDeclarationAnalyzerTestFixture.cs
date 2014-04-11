@@ -71,10 +71,18 @@ namespace MetaCode.Compiler.Tests
                     var index : number = 0;
                     writeline('Testing while statement ...');
 
-                    while (index < 5) do
-                        index = index + 1;
-                    end;
+                    while (index < 5) 
+                        writeline(index = index + 1);
+
                     writeline('done');
+
+                    macro replace(
+                        __value__ = 'tree',
+                        if (__value__ == null)
+                            error('Hello World!'); 
+                        end
+                    );
+
                     /*if (not ((50 + 4) > 10))
                         var c : number = a * a;
                         writeline(false);
