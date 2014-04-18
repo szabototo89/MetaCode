@@ -1,0 +1,9 @@
+E:\Development\Projects\Boo\BooMacoDemo\BooMacoDemo\obj\Debug\BooMacroDemo.booprojResolveAssemblyReference.cache
+E:\Development\Projects\Boo\BooMacoDemo\BooMacoDemo\bin\Debug\BooMacroDemo.exe
+E:\Development\Projects\Boo\BooMacoDemo\BooMacoDemo\bin\Debug\BooMacroDemo.pdb
+E:\Development\Projects\Boo\BooMacoDemo\BooMacoDemo\bin\Debug\Boo.Lang.Useful.dll
+E:\Development\Projects\Boo\BooMacoDemo\BooMacoDemo\bin\Debug\Boo.Lang.Compiler.dll
+E:\Development\Projects\Boo\BooMacoDemo\BooMacoDemo\bin\Debug\Boo.Lang.dll
+E:\Development\Projects\Boo\BooMacoDemo\BooMacoDemo\bin\Debug\Boo.Lang.Parser.dll
+E:\Development\Projects\Boo\BooMacoDemo\BooMacoDemo\obj\Debug\BooMacroDemo.exe
+E:\Development\Projects\Boo\BooMacoDemo\BooMacoDemo\obj\Debug\BooMacroDemo.pdb

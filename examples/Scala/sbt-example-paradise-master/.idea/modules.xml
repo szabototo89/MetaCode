@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/project/core-build.iml" filepath="$PROJECT_DIR$/core/project/core-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/macros/macros.iml" filepath="$PROJECT_DIR$/macros/macros.iml" />
+      <module fileurl="file://$PROJECT_DIR$/macros/project/macros-build.iml" filepath="$PROJECT_DIR$/macros/project/macros-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/root.iml" filepath="$PROJECT_DIR$/root.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project/root-build.iml" filepath="$PROJECT_DIR$/project/root-build.iml" />
+    </modules>
+  </component>
+</project>
+

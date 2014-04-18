@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ivy-report.xsl"?>
+<ivy-report version="1.0">
+	<info
+		organisation="org.scalamacros"
+		module="macros_2.11"
+		revision="1.0.0"
+		conf="plugin"
+		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
+		date="20140418205212"/>
+	<dependencies>
+		<module organisation="org.scalamacros" name="paradise_2.11.0">
+			<revision name="2.1.0" error="not found" downloaded="false" searched="false" conf="default(compile)" position="-1">
+				<caller organisation="org.scalamacros" name="macros_2.11" conf="plugin" rev="2.1.0" rev-constraint-default="2.1.0" rev-constraint-dynamic="2.1.0" callerrev="1.0.0"/>
+				<artifacts>
+				</artifacts>
+			</revision>
+		</module>
+	</dependencies>
+</ivy-report>

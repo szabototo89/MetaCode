@@ -1,0 +1,3 @@
+http://vimeo.com/74553075 - Scala macros (video)
+
+http://infoscience.epfl.ch/record/185242/files/QuasiquotesForScala.pdf - Quasiquotes for Scala

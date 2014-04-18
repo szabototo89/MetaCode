@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/HelloMacro.iml" filepath="$PROJECT_DIR$/HelloMacro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project/HelloMacro-build.iml" filepath="$PROJECT_DIR$/project/HelloMacro-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo/project/demo-build.iml" filepath="$PROJECT_DIR$/demo/project/demo-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/macros/macros.iml" filepath="$PROJECT_DIR$/macros/macros.iml" />
+      <module fileurl="file://$PROJECT_DIR$/macros/project/macros-build.iml" filepath="$PROJECT_DIR$/macros/project/macros-build.iml" />
+    </modules>
+  </component>
+</project>
+

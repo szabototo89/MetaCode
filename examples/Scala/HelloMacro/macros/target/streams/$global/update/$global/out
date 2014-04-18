@@ -1,0 +1,298 @@
+[info] Updating {file:/E:/Development/Projects/Scala/HelloMacro/}macros...
+[debug] :: resolving dependencies :: org.scalamacros#macros_2.11;1.0.0
+[debug] 	confs: [compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool]
+[debug] 	validate = true
+[debug] 	refresh = false
+[debug] resolving dependencies for configuration 'compile'
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->default(compile)]
+[info] Resolving org.scala-lang#scala-library;2.11.0 ...
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@4d9768
+[debug] sbt-chain: module revision found in cache: org.scala-lang#scala-library;2.11.0
+[debug] 	local: revision in cache: org.scala-lang#scala-library;2.11.0
+[debug] 	found org.scala-lang#scala-library;2.11.0 in sbt-chain
+[debug] 	[2.11.0] org.scala-lang#scala-library;2.11.0
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->master]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->default(compile)]
+[info] Resolving org.scala-lang#scala-reflect;2.11.0 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang#scala-reflect;2.11.0 {compile=[default(compile)]}
+[debug] sbt-chain: module revision found in cache: org.scala-lang#scala-reflect;2.11.0
+[debug] 	local: revision in cache: org.scala-lang#scala-reflect;2.11.0
+[debug] 	found org.scala-lang#scala-reflect;2.11.0 in sbt-chain
+[debug] 	[2.11.0] org.scala-lang#scala-reflect;2.11.0
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->compile]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->master]
+[debug] resolving dependencies for configuration 'runtime'
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [runtime]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->default(compile)]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->master]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->default(compile)]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->compile]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->master]
+[debug] resolving dependencies for configuration 'test'
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [test]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [runtime]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->default(compile)]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->master]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->default(compile)]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->compile]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->master]
+[debug] resolving dependencies for configuration 'provided'
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [provided]
+[debug] resolving dependencies for configuration 'optional'
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [optional]
+[debug] resolving dependencies for configuration 'compile-internal'
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [compile-internal]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->default(compile)]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->master]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->default(compile)]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->compile]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->master]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [optional]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [provided]
+[debug] resolving dependencies for configuration 'runtime-internal'
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [runtime-internal]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [runtime]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->default(compile)]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->master]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->default(compile)]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->compile]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->master]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [optional]
+[debug] resolving dependencies for configuration 'test-internal'
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [test-internal]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [test]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [runtime]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->default(compile)]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [compile->master]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->default(compile)]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->compile]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-reflect;2.11.0 [compile->master]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [optional]
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [provided]
+[debug] resolving dependencies for configuration 'plugin'
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [plugin]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scalamacros#paradise_2.11.0;2.1.0 [plugin->default(compile)]
+[info] Resolving org.scalamacros#paradise_2.11.0;2.1.0 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scalamacros#paradise_2.11.0;2.1.0 {plugin=[default(compile)]}
+[debug] 		tried C:\Users\szabototo89\.ivy2\local\org.scalamacros\paradise_2.11.0\2.1.0\ivys\ivy.xml
+[debug] 	local: no ivy file found for org.scalamacros#paradise_2.11.0;2.1.0
+[debug] 		tried http://repo1.maven.org/maven2/org/scalamacros/paradise_2.11.0/2.1.0/paradise_2.11.0-2.1.0.pom
+[debug] CLIENT ERROR: Not Found url=http://repo1.maven.org/maven2/org/scalamacros/paradise_2.11.0/2.1.0/paradise_2.11.0-2.1.0.pom
+[debug] 	public: no ivy file found for org.scalamacros#paradise_2.11.0;2.1.0
+[debug] 		tried https://oss.sonatype.org/content/repositories/snapshots/org/scalamacros/paradise_2.11.0/2.1.0/paradise_2.11.0-2.1.0.pom
+[debug] CLIENT ERROR: Not Found url=https://oss.sonatype.org/content/repositories/snapshots/org/scalamacros/paradise_2.11.0/2.1.0/paradise_2.11.0-2.1.0.pom
+[debug] 	sonatype-snapshots: no ivy file found for org.scalamacros#paradise_2.11.0;2.1.0
+[debug] 		tried https://oss.sonatype.org/content/repositories/releases/org/scalamacros/paradise_2.11.0/2.1.0/paradise_2.11.0-2.1.0.pom
+[debug] CLIENT ERROR: Not Found url=https://oss.sonatype.org/content/repositories/releases/org/scalamacros/paradise_2.11.0/2.1.0/paradise_2.11.0-2.1.0.pom
+[debug] 	sonatype-releases: no ivy file found for org.scalamacros#paradise_2.11.0;2.1.0
+[warn] 	module not found: org.scalamacros#paradise_2.11.0;2.1.0
+[warn] ==== local: tried
+[warn]   C:\Users\szabototo89\.ivy2\local\org.scalamacros\paradise_2.11.0\2.1.0\ivys\ivy.xml
+[warn] ==== public: tried
+[warn]   http://repo1.maven.org/maven2/org/scalamacros/paradise_2.11.0/2.1.0/paradise_2.11.0-2.1.0.pom
+[warn] ==== sonatype-snapshots: tried
+[warn]   https://oss.sonatype.org/content/repositories/snapshots/org/scalamacros/paradise_2.11.0/2.1.0/paradise_2.11.0-2.1.0.pom
+[warn] ==== sonatype-releases: tried
+[warn]   https://oss.sonatype.org/content/repositories/releases/org/scalamacros/paradise_2.11.0/2.1.0/paradise_2.11.0-2.1.0.pom
+[debug] resolving dependencies for configuration 'sources'
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [sources]
+[debug] resolving dependencies for configuration 'docs'
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [docs]
+[debug] resolving dependencies for configuration 'pom'
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [pom]
+[debug] resolving dependencies for configuration 'scala-tool'
+[debug] == resolving dependencies for org.scalamacros#macros_2.11;1.0.0 [scala-tool]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-compiler;2.11.0 [scala-tool->default]
+[info] Resolving org.scala-lang#scala-compiler;2.11.0 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang#scala-compiler;2.11.0 {scala-tool=[default, optional(default)]}
+[debug] sbt-chain: module revision found in cache: org.scala-lang#scala-compiler;2.11.0
+[debug] 	local: revision in cache: org.scala-lang#scala-compiler;2.11.0
+[debug] 	found org.scala-lang#scala-compiler;2.11.0 in sbt-chain
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-compiler;2.11.0 [scala-tool->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-compiler;2.11.0 [scala-tool->compile]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->default]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->runtime]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->compile]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->master]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->optional(default)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang#scala-reflect;2.11.0 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang#scala-reflect;2.11.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang.modules#scala-xml_2.11;1.0.1 [compile->master(*)]
+[info] Resolving org.scala-lang.modules#scala-xml_2.11;1.0.1 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang.modules#scala-xml_2.11;1.0.1 {compile=[compile(*), master(*)], runtime=[runtime(*)]}
+[debug] sbt-chain: module revision found in cache: org.scala-lang.modules#scala-xml_2.11;1.0.1
+[debug] 	local: revision in cache: org.scala-lang.modules#scala-xml_2.11;1.0.1
+[debug] 	found org.scala-lang.modules#scala-xml_2.11;1.0.1 in sbt-chain
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang.modules#scala-xml_2.11;1.0.1 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.1->org.scala-lang#scala-library;2.11.0 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.1->org.scala-lang#scala-library;2.11.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1 [compile->master(*)]
+[info] Resolving org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1 ...
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1 {compile=[compile(*), master(*)], runtime=[runtime(*)]}
+[debug] sbt-chain: module revision found in cache: org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1
+[debug] 	local: revision in cache: org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1
+[debug] 	found org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1 in sbt-chain
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1->org.scala-lang#scala-library;2.11.0 [compile->master(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1->org.scala-lang#scala-library;2.11.0 [compile->compile(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang#scala-reflect;2.11.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang#scala-reflect;2.11.0 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-reflect;2.11.0->org.scala-lang#scala-library;2.11.0 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang.modules#scala-xml_2.11;1.0.1 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang.modules#scala-xml_2.11;1.0.1 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.1->org.scala-lang#scala-library;2.11.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-xml_2.11;1.0.1->org.scala-lang#scala-library;2.11.0 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1 [runtime->compile]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1->org.scala-lang#scala-library;2.11.0 [runtime->runtime(*)]
+[debug] == resolving dependencies org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1->org.scala-lang#scala-library;2.11.0 [runtime->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-compiler;2.11.0 [scala-tool->master]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-compiler;2.11.0 [scala-tool->optional(default)]
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->jline#jline;2.11 [optional->master(*)]
+[info] Resolving jline#jline;2.11 ...
+[debug] sbt-chain: Checking cache for: dependency: jline#jline;2.11 {optional=[compile(*), master(*)]}
+[debug] sbt-chain: module revision found in cache: jline#jline;2.11
+[debug] 	local: revision in cache: jline#jline;2.11
+[debug] 	found jline#jline;2.11 in sbt-chain
+[debug] == resolving dependencies org.scala-lang#scala-compiler;2.11.0->jline#jline;2.11 [optional->compile(*)]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [scala-tool->default]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [scala-tool->runtime]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [scala-tool->compile]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [scala-tool->master]
+[debug] == resolving dependencies org.scalamacros#macros_2.11;1.0.0->org.scala-lang#scala-library;2.11.0 [scala-tool->optional(default)]
+[debug] circular dependency found: org.scala-lang#scala-compiler;2.11.0->org.scala-lang.modules#scala-xml_2.11;1.0.1->...
+[debug] 	resolved ivy file produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\org.scalamacros\macros_2.11\1.0.0\resolved.xml.xml
+[debug] :: downloading artifacts ::
+[debug] 	[NOT REQUIRED] org.scala-lang#scala-library;2.11.0!scala-library.jar
+[debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.11.0!scala-reflect.jar
+[debug] 	[NOT REQUIRED] org.scala-lang#scala-compiler;2.11.0!scala-compiler.jar
+[debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.11;1.0.1!scala-xml_2.11.jar(bundle)
+[debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1!scala-parser-combinators_2.11.jar(bundle)
+[debug] 	[NOT REQUIRED] jline#jline;2.11!jline.jar
+[debug] :: resolution report :: resolve 5779ms :: artifacts dl 4ms
+[warn] 	::::::::::::::::::::::::::::::::::::::::::::::
+[warn] 	::          UNRESOLVED DEPENDENCIES         ::
+[warn] 	::::::::::::::::::::::::::::::::::::::::::::::
+[warn] 	:: org.scalamacros#paradise_2.11.0;2.1.0: not found
+[warn] 	::::::::::::::::::::::::::::::::::::::::::::::
+[debug] 	report for org.scalamacros#macros_2.11;1.0.0 compile produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\reports\org.scalamacros-macros_2.11-compile.xml
+[debug] 	report for org.scalamacros#macros_2.11;1.0.0 runtime produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\reports\org.scalamacros-macros_2.11-runtime.xml
+[debug] 	report for org.scalamacros#macros_2.11;1.0.0 test produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\reports\org.scalamacros-macros_2.11-test.xml
+[debug] 	report for org.scalamacros#macros_2.11;1.0.0 provided produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\reports\org.scalamacros-macros_2.11-provided.xml
+[debug] 	report for org.scalamacros#macros_2.11;1.0.0 optional produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\reports\org.scalamacros-macros_2.11-optional.xml
+[debug] 	report for org.scalamacros#macros_2.11;1.0.0 compile-internal produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\reports\org.scalamacros-macros_2.11-compile-internal.xml
+[debug] 	report for org.scalamacros#macros_2.11;1.0.0 runtime-internal produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\reports\org.scalamacros-macros_2.11-runtime-internal.xml
+[debug] 	report for org.scalamacros#macros_2.11;1.0.0 test-internal produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\reports\org.scalamacros-macros_2.11-test-internal.xml
+[debug] 	report for org.scalamacros#macros_2.11;1.0.0 plugin produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\reports\org.scalamacros-macros_2.11-plugin.xml
+[debug] 	report for org.scalamacros#macros_2.11;1.0.0 sources produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\reports\org.scalamacros-macros_2.11-sources.xml
+[debug] 	report for org.scalamacros#macros_2.11;1.0.0 docs produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\reports\org.scalamacros-macros_2.11-docs.xml
+[debug] 	report for org.scalamacros#macros_2.11;1.0.0 pom produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\reports\org.scalamacros-macros_2.11-pom.xml
+[debug] 	report for org.scalamacros#macros_2.11;1.0.0 scala-tool produced in E:\Development\Projects\Scala\HelloMacro\macros\target\resolution-cache\reports\org.scalamacros-macros_2.11-scala-tool.xml
+[debug] 	resolve done (5779ms resolve - 4ms download)
+sbt.ResolveException: unresolved dependency: org.scalamacros#paradise_2.11.0;2.1.0: not found
+	at sbt.IvyActions$.sbt$IvyActions$$resolve(IvyActions.scala:213)
+	at sbt.IvyActions$$anonfun$update$1.apply(IvyActions.scala:122)
+	at sbt.IvyActions$$anonfun$update$1.apply(IvyActions.scala:121)
+	at sbt.IvySbt$Module$$anonfun$withModule$1.apply(Ivy.scala:116)
+	at sbt.IvySbt$Module$$anonfun$withModule$1.apply(Ivy.scala:116)
+	at sbt.IvySbt$$anonfun$withIvy$1.apply(Ivy.scala:104)
+	at sbt.IvySbt.sbt$IvySbt$$action$1(Ivy.scala:51)
+	at sbt.IvySbt$$anon$3.call(Ivy.scala:60)
+	at xsbt.boot.Locks$GlobalLock.withChannel$1(Locks.scala:98)
+	at xsbt.boot.Locks$GlobalLock.xsbt$boot$Locks$GlobalLock$$withChannelRetries$1(Locks.scala:81)
+	at xsbt.boot.Locks$GlobalLock$$anonfun$withFileLock$1.apply(Locks.scala:102)
+	at xsbt.boot.Using$.withResource(Using.scala:11)
+	at xsbt.boot.Using$.apply(Using.scala:10)
+	at xsbt.boot.Locks$GlobalLock.ignoringDeadlockAvoided(Locks.scala:62)
+	at xsbt.boot.Locks$GlobalLock.withLock(Locks.scala:52)
+	at xsbt.boot.Locks$.apply0(Locks.scala:31)
+	at xsbt.boot.Locks$.apply(Locks.scala:28)
+	at sbt.IvySbt.withDefaultLogger(Ivy.scala:60)
+	at sbt.IvySbt.withIvy(Ivy.scala:101)
+	at sbt.IvySbt.withIvy(Ivy.scala:97)
+	at sbt.IvySbt$Module.withModule(Ivy.scala:116)
+	at sbt.IvyActions$.update(IvyActions.scala:121)
+	at sbt.Classpaths$$anonfun$sbt$Classpaths$$work$1$1.apply(Defaults.scala:1144)
+	at sbt.Classpaths$$anonfun$sbt$Classpaths$$work$1$1.apply(Defaults.scala:1142)
+	at sbt.Classpaths$$anonfun$doWork$1$1$$anonfun$73.apply(Defaults.scala:1165)
+	at sbt.Classpaths$$anonfun$doWork$1$1$$anonfun$73.apply(Defaults.scala:1163)
+	at sbt.Tracked$$anonfun$lastOutput$1.apply(Tracked.scala:35)
+	at sbt.Classpaths$$anonfun$doWork$1$1.apply(Defaults.scala:1167)
+	at sbt.Classpaths$$anonfun$doWork$1$1.apply(Defaults.scala:1162)
+	at sbt.Tracked$$anonfun$inputChanged$1.apply(Tracked.scala:45)
+	at sbt.Classpaths$.cachedUpdate(Defaults.scala:1170)
+	at sbt.Classpaths$$anonfun$updateTask$1.apply(Defaults.scala:1135)
+	at sbt.Classpaths$$anonfun$updateTask$1.apply(Defaults.scala:1113)
+	at scala.Function1$$anonfun$compose$1.apply(Function1.scala:47)
+	at sbt.$tilde$greater$$anonfun$$u2219$1.apply(TypeFunctions.scala:42)
+	at sbt.std.Transform$$anon$4.work(System.scala:64)
+	at sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:237)
+	at sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:237)
+	at sbt.ErrorHandling$.wideConvert(ErrorHandling.scala:18)
+	at sbt.Execute.work(Execute.scala:244)
+	at sbt.Execute$$anonfun$submit$1.apply(Execute.scala:237)
+	at sbt.Execute$$anonfun$submit$1.apply(Execute.scala:237)
+	at sbt.ConcurrentRestrictions$$anon$4$$anonfun$1.apply(ConcurrentRestrictions.scala:160)
+	at sbt.CompletionService$$anon$2.call(CompletionService.scala:30)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:724)
+[error] (macros/*:update) sbt.ResolveException: unresolved dependency: org.scalamacros#paradise_2.11.0;2.1.0: not found
