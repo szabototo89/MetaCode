@@ -1,0 +1,7 @@
+print("Program futásának kezdete ...")
+i := 0
+loop (i < 10) do
+  print(toString(i) + " sor: ")
+  i := i + 1
+end loop
+print("Program futásának vége.")
