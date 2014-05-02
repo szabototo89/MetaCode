@@ -18,27 +18,6 @@ public interface ImperativeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitExpression(@NotNull ImperativeParser.ExpressionContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ImperativeParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStatement(@NotNull ImperativeParser.StatementContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link ImperativeParser#functionCall}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunctionCall(@NotNull ImperativeParser.FunctionCallContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link ImperativeParser#assignment}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssignment(@NotNull ImperativeParser.AssignmentContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link ImperativeParser#constant}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -51,6 +30,13 @@ public interface ImperativeVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLoopStatement(@NotNull ImperativeParser.LoopStatementContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ImperativeParser#returnStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnStatement(@NotNull ImperativeParser.ReturnStatementContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ImperativeParser#init}.
@@ -67,16 +53,65 @@ public interface ImperativeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitSkip(@NotNull ImperativeParser.SkipContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ImperativeParser#actualParameters}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitActualParameters(@NotNull ImperativeParser.ActualParametersContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link ImperativeParser#ifStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitIfStatement(@NotNull ImperativeParser.IfStatementContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ImperativeParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatement(@NotNull ImperativeParser.StatementContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ImperativeParser#assignment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignment(@NotNull ImperativeParser.AssignmentContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ImperativeParser#functionCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCall(@NotNull ImperativeParser.FunctionCallContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ImperativeParser#functionDefinition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionDefinition(@NotNull ImperativeParser.FunctionDefinitionContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ImperativeParser#formalParameters}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFormalParameters(@NotNull ImperativeParser.FormalParametersContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ImperativeParser#sequence}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSequence(@NotNull ImperativeParser.SequenceContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ImperativeParser#procedureDefinition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProcedureDefinition(@NotNull ImperativeParser.ProcedureDefinitionContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ImperativeParser#actualParameters}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitActualParameters(@NotNull ImperativeParser.ActualParametersContext ctx);
 }

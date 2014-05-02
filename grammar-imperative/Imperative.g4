@@ -1,15 +1,35 @@
 grammar Imperative;
 
-init: (statement)+;
-		//|	functionDefinition
-		//| macroDefinition)*;
+init: sequence
+		|	functionDefinition
+		| procedureDefinition
+		;
+		//| macroDefinition;
 
-	statement		:		skip
-							|		assignment
-							|		functionCall
-							|		ifStatement
-							|		loopStatement
-							;
+functionDefinition	:  'function' ID '(' formalParameters? ')' 'returns' ID 'begin'
+													sequence
+											 'endfunction'
+										;
+
+procedureDefinition	:		'procedure' ID '(' formalParameters? ')' 'begin'
+													sequence
+												'endfunction'
+										;
+
+formalParameters		:		(ID ':' ID) (',' (ID ':' ID))*
+										;
+
+statement		:		skip
+						|		assignment
+						|		returnStatement
+						|		functionCall
+						|		ifStatement
+						|		loopStatement
+						;
+
+returnStatement	: 'return' expression;
+
+sequence			:		statement+;
 
 skip					:		'skip'
 						  ;
@@ -17,10 +37,10 @@ skip					:		'skip'
 assignment		:		ID ':='	expression
 							;
 
-ifStatement		:		'if' '(' expression ')' 'then' statement+ 'endif'
+ifStatement		:		'if' '(' expression ')' 'then' sequence 'endif'
 							;
 
-loopStatement	:   'loop' '(' expression ')' 'do' statement+ 'end' 'loop'	
+loopStatement	:   'loop' '(' expression ')' 'do' sequence 'endloop'	
 						  ;
 
 functionCall  :		ID '(' actualParameters ')'

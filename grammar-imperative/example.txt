@@ -1,7 +1,15 @@
+function max(a: Integer, b: Integer) returns Integer
+begin
+	if (a > b) then
+		return a
+	endif
+	return b
+endfunction
+
 print("Program futásának kezdete ...")
 i := 0
 loop (i < 10) do
   print(toString(i) + " sor: ")
   i := i + 1
-end loop
+endloop
 print("Program futásának vége.")

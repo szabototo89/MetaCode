@@ -29,45 +29,6 @@ public class ImperativeBaseListener implements ImperativeListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterStatement(@NotNull ImperativeParser.StatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitStatement(@NotNull ImperativeParser.StatementContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterFunctionCall(@NotNull ImperativeParser.FunctionCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitFunctionCall(@NotNull ImperativeParser.FunctionCallContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterAssignment(@NotNull ImperativeParser.AssignmentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitAssignment(@NotNull ImperativeParser.AssignmentContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
 	@Override public void enterConstant(@NotNull ImperativeParser.ConstantContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -88,6 +49,19 @@ public class ImperativeBaseListener implements ImperativeListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitLoopStatement(@NotNull ImperativeParser.LoopStatementContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterReturnStatement(@NotNull ImperativeParser.ReturnStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitReturnStatement(@NotNull ImperativeParser.ReturnStatementContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -120,19 +94,6 @@ public class ImperativeBaseListener implements ImperativeListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterActualParameters(@NotNull ImperativeParser.ActualParametersContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitActualParameters(@NotNull ImperativeParser.ActualParametersContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
 	@Override public void enterIfStatement(@NotNull ImperativeParser.IfStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -140,6 +101,110 @@ public class ImperativeBaseListener implements ImperativeListener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitIfStatement(@NotNull ImperativeParser.IfStatementContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterStatement(@NotNull ImperativeParser.StatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitStatement(@NotNull ImperativeParser.StatementContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterAssignment(@NotNull ImperativeParser.AssignmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitAssignment(@NotNull ImperativeParser.AssignmentContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterFunctionCall(@NotNull ImperativeParser.FunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFunctionCall(@NotNull ImperativeParser.FunctionCallContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterFunctionDefinition(@NotNull ImperativeParser.FunctionDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFunctionDefinition(@NotNull ImperativeParser.FunctionDefinitionContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterFormalParameters(@NotNull ImperativeParser.FormalParametersContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFormalParameters(@NotNull ImperativeParser.FormalParametersContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterSequence(@NotNull ImperativeParser.SequenceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitSequence(@NotNull ImperativeParser.SequenceContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterProcedureDefinition(@NotNull ImperativeParser.ProcedureDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitProcedureDefinition(@NotNull ImperativeParser.ProcedureDefinitionContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterActualParameters(@NotNull ImperativeParser.ActualParametersContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitActualParameters(@NotNull ImperativeParser.ActualParametersContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

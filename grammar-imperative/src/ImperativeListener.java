@@ -19,39 +19,6 @@ public interface ImperativeListener extends ParseTreeListener {
 	void exitExpression(@NotNull ImperativeParser.ExpressionContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link ImperativeParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void enterStatement(@NotNull ImperativeParser.StatementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ImperativeParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void exitStatement(@NotNull ImperativeParser.StatementContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ImperativeParser#functionCall}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunctionCall(@NotNull ImperativeParser.FunctionCallContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ImperativeParser#functionCall}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunctionCall(@NotNull ImperativeParser.FunctionCallContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ImperativeParser#assignment}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssignment(@NotNull ImperativeParser.AssignmentContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ImperativeParser#assignment}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignment(@NotNull ImperativeParser.AssignmentContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link ImperativeParser#constant}.
 	 * @param ctx the parse tree
 	 */
@@ -72,6 +39,17 @@ public interface ImperativeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLoopStatement(@NotNull ImperativeParser.LoopStatementContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link ImperativeParser#returnStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnStatement(@NotNull ImperativeParser.ReturnStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ImperativeParser#returnStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnStatement(@NotNull ImperativeParser.ReturnStatementContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link ImperativeParser#init}.
@@ -96,17 +74,6 @@ public interface ImperativeListener extends ParseTreeListener {
 	void exitSkip(@NotNull ImperativeParser.SkipContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link ImperativeParser#actualParameters}.
-	 * @param ctx the parse tree
-	 */
-	void enterActualParameters(@NotNull ImperativeParser.ActualParametersContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ImperativeParser#actualParameters}.
-	 * @param ctx the parse tree
-	 */
-	void exitActualParameters(@NotNull ImperativeParser.ActualParametersContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link ImperativeParser#ifStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -116,4 +83,92 @@ public interface ImperativeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIfStatement(@NotNull ImperativeParser.IfStatementContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link ImperativeParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatement(@NotNull ImperativeParser.StatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ImperativeParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatement(@NotNull ImperativeParser.StatementContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link ImperativeParser#assignment}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignment(@NotNull ImperativeParser.AssignmentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ImperativeParser#assignment}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignment(@NotNull ImperativeParser.AssignmentContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link ImperativeParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCall(@NotNull ImperativeParser.FunctionCallContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ImperativeParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCall(@NotNull ImperativeParser.FunctionCallContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link ImperativeParser#functionDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionDefinition(@NotNull ImperativeParser.FunctionDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ImperativeParser#functionDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionDefinition(@NotNull ImperativeParser.FunctionDefinitionContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link ImperativeParser#formalParameters}.
+	 * @param ctx the parse tree
+	 */
+	void enterFormalParameters(@NotNull ImperativeParser.FormalParametersContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ImperativeParser#formalParameters}.
+	 * @param ctx the parse tree
+	 */
+	void exitFormalParameters(@NotNull ImperativeParser.FormalParametersContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link ImperativeParser#sequence}.
+	 * @param ctx the parse tree
+	 */
+	void enterSequence(@NotNull ImperativeParser.SequenceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ImperativeParser#sequence}.
+	 * @param ctx the parse tree
+	 */
+	void exitSequence(@NotNull ImperativeParser.SequenceContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link ImperativeParser#procedureDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void enterProcedureDefinition(@NotNull ImperativeParser.ProcedureDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ImperativeParser#procedureDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void exitProcedureDefinition(@NotNull ImperativeParser.ProcedureDefinitionContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link ImperativeParser#actualParameters}.
+	 * @param ctx the parse tree
+	 */
+	void enterActualParameters(@NotNull ImperativeParser.ActualParametersContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ImperativeParser#actualParameters}.
+	 * @param ctx the parse tree
+	 */
+	void exitActualParameters(@NotNull ImperativeParser.ActualParametersContext ctx);
 }
