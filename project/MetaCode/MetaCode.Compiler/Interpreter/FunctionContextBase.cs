@@ -2,11 +2,11 @@
 
 namespace MetaCode.Compiler.Interpreter
 {
-    public abstract class FunctionContext
+    public abstract class FunctionContextBase
     {
         public string Name { get;  protected set; }
 
-        protected FunctionContext(string name)
+        protected FunctionContextBase(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
                 ThrowHelper.ThrowException("The 'name' is blank!");

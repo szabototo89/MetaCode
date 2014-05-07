@@ -55,6 +55,7 @@
     <Compile Include="AbstractSyntaxTree\Constants\ConstantLiteralNode.cs" />
     <Compile Include="AbstractSyntaxTree\Expressions\ExpressionNode.cs" />
     <Compile Include="AbstractSyntaxTree\Expressions\InnerExpressionNode.cs" />
+    <Compile Include="AbstractSyntaxTree\Expressions\MacroCallExpressionNode.cs" />
     <Compile Include="AbstractSyntaxTree\ISupportAttributes.cs" />
     <Compile Include="AbstractSyntaxTree\MacroFormalParameterNode.cs" />
     <Compile Include="AbstractSyntaxTree\Statements\AttributeDeclarationStatementNode.cs" />
@@ -136,8 +137,9 @@
       <DependentUpon>MetaCode.g4</DependentUpon>
     </Compile>
     <Compile Include="Helpers\TypeHelper.cs" />
-    <Compile Include="Interpreter\FunctionContext.cs" />
+    <Compile Include="Interpreter\FunctionContextBase.cs" />
     <Compile Include="Interpreter\InterpreterContext.cs" />
+    <Compile Include="Interpreter\MacroContextBase.cs" />
     <Compile Include="Interpreter\NativeFunctionContext.cs" />
     <Compile Include="Interpreter\VariableContext.cs" />
     <Compile Include="MetaCodeCompiler.cs" />
@@ -162,19 +164,32 @@
     <Compile Include="obj\Debug\TreeSelectorParser.cs" />
     <Compile Include="obj\Debug\TreeSelectorVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Selectors\AnySelector.cs" />
+    <Compile Include="Selectors\BranchingSelector.cs" />
+    <Compile Include="Selectors\DelegateSelector.cs" />
+    <Compile Include="Selectors\ForeachSelector.cs" />
+    <Compile Include="Selectors\FunctionCallSelector.cs" />
+    <Compile Include="Selectors\FunctionDeclarationSelector.cs" />
     <Compile Include="Selectors\NodeSelector.cs" />
     <Compile Include="Selectors\NodeSelectorAttribute.cs" />
-    <Compile Include="Selectors\SelectorOperation.cs" />
+    <Compile Include="Selectors\Operators\ChooseChildrenOperator.cs" />
+    <Compile Include="Selectors\Operators\ChooseNeighbourOperator.cs" />
+    <Compile Include="Selectors\Operators\ChooseDirectChildOperator.cs" />
+    <Compile Include="Selectors\Operators\NodeSelectorOperator.cs" />
+    <Compile Include="Selectors\SequenceSelector.cs" />
+    <Compile Include="Selectors\VariableDeclarationSelector.cs" />
+    <Compile Include="Selectors\WhileSelector.cs" />
     <Compile Include="Services\CompilerService.cs" />
     <Compile Include="Services\ExpressionService.cs" />
     <Compile Include="Services\InformationBase.cs" />
+    <Compile Include="TreeSelectorCompiler.cs" />
     <Compile Include="Visitors\AbstractTreeVisitor.Constants.cs" />
     <Compile Include="Visitors\AbstractTreeVisitor.cs" />
     <Compile Include="Visitors\AbstractTreeVisitor.Utilities.cs" />
     <Compile Include="Visitors\AttributeVisitor.cs" />
     <Compile Include="Visitors\AbstractTreeVisitor.Expressions.cs" />
     <Compile Include="Visitors\NumberVisitor.cs" />
-    <Compile Include="Visitors\TreeSelectorVisitor.cs" />
+    <Compile Include="Visitors\TreeSelector\NodeSelectorVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Antlr4 Include="Grammar\MetaCode.g4">

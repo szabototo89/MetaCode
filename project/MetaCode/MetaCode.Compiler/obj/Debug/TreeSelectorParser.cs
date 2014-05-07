@@ -29,20 +29,17 @@ using DFA = Antlr4.Runtime.Dfa.DFA;
 [System.CLSCompliant(false)]
 public partial class TreeSelectorParser : Parser {
 	public const int
-		T__5=1, T__4=2, T__3=3, T__2=4, T__1=5, T__0=6, WHILE=7, FOREACH=8, FUNCTION=9, 
-		IF=10, TRUE_STATEMENT=11, ELSE_STATEMENT=12, BODY=13, EXPRESSION=14, VARIABLE=15, 
-		DECLARATION=16, ALL=17, ID=18, WHITESPACE=19, NEWLINE=20;
+		T__5=1, T__4=2, T__3=3, T__2=4, T__1=5, T__0=6, OPERATOR=7, ID=8, WHITESPACE=9, 
+		NEWLINE=10;
 	public static readonly string[] tokenNames = {
-		"<INVALID>", "']'", "'>'", "','", "'+'", "'['", "'='", "'while'", "'foreach'", 
-		"'function'", "'if'", "'else-if'", "'else'", "'body'", "'expression'", 
-		"'variable'", "'declaration'", "'*'", "ID", "WHITESPACE", "NEWLINE"
+		"<INVALID>", "']'", "'{'", "','", "'['", "'='", "'}'", "OPERATOR", "ID", 
+		"WHITESPACE", "NEWLINE"
 	};
 	public const int
 		RULE_init = 0, RULE_selectors = 1, RULE_selector = 2, RULE_attribute = 3, 
-		RULE_operator = 4, RULE_statement = 5, RULE_baseStatement = 6;
+		RULE_statement = 4;
 	public static readonly string[] ruleNames = {
-		"init", "selectors", "selector", "attribute", "operator", "statement", 
-		"baseStatement"
+		"init", "selectors", "selector", "attribute", "statement"
 	};
 
 	public override string GrammarFileName { get { return "TreeSelector.g4"; } }
@@ -89,9 +86,9 @@ public partial class TreeSelectorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 14; Match(5);
-			State = 15; selectors();
-			State = 16; Match(1);
+			State = 10; Match(2);
+			State = 11; selectors();
+			State = 12; Match(6);
 			}
 		}
 		catch (RecognitionException re) {
@@ -140,18 +137,18 @@ public partial class TreeSelectorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 18; selector(0);
-			State = 23;
+			State = 14; selector();
+			State = 19;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			while (_la==3) {
 				{
 				{
-				State = 19; Match(3);
-				State = 20; selector(0);
+				State = 15; Match(3);
+				State = 16; selector();
 				}
 				}
-				State = 25;
+				State = 21;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
@@ -169,18 +166,16 @@ public partial class TreeSelectorParser : Parser {
 	}
 
 	public partial class SelectorContext : ParserRuleContext {
+		public StatementContext Parent;
+		public IToken Operator;
+		public SelectorContext Child;
 		public StatementContext statement() {
 			return GetRuleContext<StatementContext>(0);
 		}
-		public SelectorContext selector(int i) {
-			return GetRuleContext<SelectorContext>(i);
+		public SelectorContext selector() {
+			return GetRuleContext<SelectorContext>(0);
 		}
-		public OperatorContext @operator() {
-			return GetRuleContext<OperatorContext>(0);
-		}
-		public IReadOnlyList<SelectorContext> selector() {
-			return GetRuleContexts<SelectorContext>();
-		}
+		public ITerminalNode OPERATOR() { return GetToken(TreeSelectorParser.OPERATOR, 0); }
 		public SelectorContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -203,46 +198,29 @@ public partial class TreeSelectorParser : Parser {
 
 	[RuleVersion(0)]
 	public SelectorContext selector() {
-		return selector(0);
-	}
-
-	private SelectorContext selector(int _p) {
-		ParserRuleContext _parentctx = _ctx;
-		int _parentState = State;
-		SelectorContext _localctx = new SelectorContext(_ctx, _parentState);
-		SelectorContext _prevctx = _localctx;
-		int _startState = 4;
-		EnterRecursionRule(_localctx, 4, RULE_selector, _p);
+		SelectorContext _localctx = new SelectorContext(_ctx, State);
+		EnterRule(_localctx, 4, RULE_selector);
+		int _la;
 		try {
-			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			{
-			State = 27; statement();
-			}
-			_ctx.stop = _input.Lt(-1);
-			State = 35;
-			_errHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(_input,1,_ctx);
-			while ( _alt!=2 && _alt!=-1 ) {
-				if ( _alt==1 ) {
-					if ( _parseListeners!=null ) TriggerExitRuleEvent();
-					_prevctx = _localctx;
+			State = 22; _localctx.Parent = statement();
+			State = 27;
+			_la = _input.La(1);
+			if (_la==OPERATOR || _la==ID) {
+				{
+				State = 24;
+				_la = _input.La(1);
+				if (_la==OPERATOR) {
 					{
-					{
-					_localctx = new SelectorContext(_parentctx, _parentState);
-					PushNewRecursionContext(_localctx, _startState, RULE_selector);
-					State = 29;
-					if (!(Precpred(_ctx, 1))) throw new FailedPredicateException(this, "Precpred(_ctx, 1)");
-					State = 30; @operator();
-					State = 31; selector(2);
+					State = 23; _localctx.Operator = Match(OPERATOR);
 					}
-					} 
 				}
-				State = 37;
-				_errHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(_input,1,_ctx);
+
+				State = 26; _localctx.Child = selector();
+				}
 			}
+
 			}
 		}
 		catch (RecognitionException re) {
@@ -251,12 +229,14 @@ public partial class TreeSelectorParser : Parser {
 			_errHandler.Recover(this, re);
 		}
 		finally {
-			UnrollRecursionContexts(_parentctx);
+			ExitRule();
 		}
 		return _localctx;
 	}
 
 	public partial class AttributeContext : ParserRuleContext {
+		public IToken Property;
+		public IToken Value;
 		public IReadOnlyList<ITerminalNode> ID() { return GetTokens(TreeSelectorParser.ID); }
 		public ITerminalNode ID(int i) {
 			return GetToken(TreeSelectorParser.ID, i);
@@ -285,62 +265,22 @@ public partial class TreeSelectorParser : Parser {
 	public AttributeContext attribute() {
 		AttributeContext _localctx = new AttributeContext(_ctx, State);
 		EnterRule(_localctx, 6, RULE_attribute);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 38; Match(5);
-			State = 39; Match(ID);
-			State = 40; Match(6);
-			State = 41; Match(ID);
-			State = 42; Match(1);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.ReportError(this, re);
-			_errHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class OperatorContext : ParserRuleContext {
-		public OperatorContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int GetRuleIndex() { return RULE_operator; }
-		public override void EnterRule(IParseTreeListener listener) {
-			ITreeSelectorListener typedListener = listener as ITreeSelectorListener;
-			if (typedListener != null) typedListener.EnterOperator(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			ITreeSelectorListener typedListener = listener as ITreeSelectorListener;
-			if (typedListener != null) typedListener.ExitOperator(this);
-		}
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITreeSelectorVisitor<TResult> typedVisitor = visitor as ITreeSelectorVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitOperator(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public OperatorContext @operator() {
-		OperatorContext _localctx = new OperatorContext(_ctx, State);
-		EnterRule(_localctx, 8, RULE_operator);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 44;
+			State = 29; Match(4);
+			State = 30; _localctx.Property = Match(ID);
+			State = 33;
 			_la = _input.La(1);
-			if ( !(_la==2 || _la==4) ) {
-			_errHandler.RecoverInline(this);
+			if (_la==5) {
+				{
+				State = 31; Match(5);
+				State = 32; _localctx.Value = Match(ID);
+				}
 			}
-			Consume();
+
+			State = 35; Match(1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -355,14 +295,14 @@ public partial class TreeSelectorParser : Parser {
 	}
 
 	public partial class StatementContext : ParserRuleContext {
+		public IToken Selector;
+		public AttributeContext Attributes;
 		public IReadOnlyList<AttributeContext> attribute() {
 			return GetRuleContexts<AttributeContext>();
 		}
+		public ITerminalNode ID() { return GetToken(TreeSelectorParser.ID, 0); }
 		public AttributeContext attribute(int i) {
 			return GetRuleContext<AttributeContext>(i);
-		}
-		public BaseStatementContext baseStatement() {
-			return GetRuleContext<BaseStatementContext>(0);
 		}
 		public StatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -387,26 +327,24 @@ public partial class TreeSelectorParser : Parser {
 	[RuleVersion(0)]
 	public StatementContext statement() {
 		StatementContext _localctx = new StatementContext(_ctx, State);
-		EnterRule(_localctx, 10, RULE_statement);
+		EnterRule(_localctx, 8, RULE_statement);
+		int _la;
 		try {
-			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 46; baseStatement();
-			State = 50;
+			State = 37; _localctx.Selector = Match(ID);
+			State = 41;
 			_errHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(_input,2,_ctx);
-			while ( _alt!=2 && _alt!=-1 ) {
-				if ( _alt==1 ) {
-					{
-					{
-					State = 47; attribute();
-					}
-					} 
+			_la = _input.La(1);
+			while (_la==4) {
+				{
+				{
+				State = 38; _localctx.Attributes = attribute();
 				}
-				State = 52;
+				}
+				State = 43;
 				_errHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(_input,2,_ctx);
+				_la = _input.La(1);
 			}
 			}
 		}
@@ -419,161 +357,26 @@ public partial class TreeSelectorParser : Parser {
 			ExitRule();
 		}
 		return _localctx;
-	}
-
-	public partial class BaseStatementContext : ParserRuleContext {
-		public IToken Statement;
-		public ITerminalNode ELSE_STATEMENT() { return GetToken(TreeSelectorParser.ELSE_STATEMENT, 0); }
-		public ITerminalNode WHILE() { return GetToken(TreeSelectorParser.WHILE, 0); }
-		public ITerminalNode BODY() { return GetToken(TreeSelectorParser.BODY, 0); }
-		public ITerminalNode IF() { return GetToken(TreeSelectorParser.IF, 0); }
-		public ITerminalNode ALL() { return GetToken(TreeSelectorParser.ALL, 0); }
-		public ITerminalNode VARIABLE() { return GetToken(TreeSelectorParser.VARIABLE, 0); }
-		public ITerminalNode EXPRESSION() { return GetToken(TreeSelectorParser.EXPRESSION, 0); }
-		public ITerminalNode FUNCTION() { return GetToken(TreeSelectorParser.FUNCTION, 0); }
-		public ITerminalNode TRUE_STATEMENT() { return GetToken(TreeSelectorParser.TRUE_STATEMENT, 0); }
-		public ITerminalNode FOREACH() { return GetToken(TreeSelectorParser.FOREACH, 0); }
-		public BaseStatementContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int GetRuleIndex() { return RULE_baseStatement; }
-		public override void EnterRule(IParseTreeListener listener) {
-			ITreeSelectorListener typedListener = listener as ITreeSelectorListener;
-			if (typedListener != null) typedListener.EnterBaseStatement(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			ITreeSelectorListener typedListener = listener as ITreeSelectorListener;
-			if (typedListener != null) typedListener.ExitBaseStatement(this);
-		}
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITreeSelectorVisitor<TResult> typedVisitor = visitor as ITreeSelectorVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitBaseStatement(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public BaseStatementContext baseStatement() {
-		BaseStatementContext _localctx = new BaseStatementContext(_ctx, State);
-		EnterRule(_localctx, 12, RULE_baseStatement);
-		try {
-			State = 63;
-			switch (_input.La(1)) {
-			case WHILE:
-				EnterOuterAlt(_localctx, 1);
-				{
-				State = 53; _localctx.Statement = Match(WHILE);
-				}
-				break;
-			case FOREACH:
-				EnterOuterAlt(_localctx, 2);
-				{
-				State = 54; _localctx.Statement = Match(FOREACH);
-				}
-				break;
-			case FUNCTION:
-				EnterOuterAlt(_localctx, 3);
-				{
-				State = 55; _localctx.Statement = Match(FUNCTION);
-				}
-				break;
-			case IF:
-				EnterOuterAlt(_localctx, 4);
-				{
-				State = 56; _localctx.Statement = Match(IF);
-				}
-				break;
-			case TRUE_STATEMENT:
-				EnterOuterAlt(_localctx, 5);
-				{
-				State = 57; _localctx.Statement = Match(TRUE_STATEMENT);
-				}
-				break;
-			case ELSE_STATEMENT:
-				EnterOuterAlt(_localctx, 6);
-				{
-				State = 58; _localctx.Statement = Match(ELSE_STATEMENT);
-				}
-				break;
-			case BODY:
-				EnterOuterAlt(_localctx, 7);
-				{
-				State = 59; _localctx.Statement = Match(BODY);
-				}
-				break;
-			case EXPRESSION:
-				EnterOuterAlt(_localctx, 8);
-				{
-				State = 60; _localctx.Statement = Match(EXPRESSION);
-				}
-				break;
-			case VARIABLE:
-				EnterOuterAlt(_localctx, 9);
-				{
-				State = 61; _localctx.Statement = Match(VARIABLE);
-				}
-				break;
-			case ALL:
-				EnterOuterAlt(_localctx, 10);
-				{
-				State = 62; _localctx.Statement = Match(ALL);
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.ReportError(this, re);
-			_errHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public override bool Sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
-		switch (ruleIndex) {
-		case 2: return selector_sempred((SelectorContext)_localctx, predIndex);
-		}
-		return true;
-	}
-	private bool selector_sempred(SelectorContext _localctx, int predIndex) {
-		switch (predIndex) {
-		case 0: return Precpred(_ctx, 1);
-		}
-		return true;
 	}
 
 	public static readonly string _serializedATN =
-		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3\x16\x44\x4\x2\t"+
-		"\x2\x4\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x4\a\t\a\x4\b\t\b\x3\x2"+
-		"\x3\x2\x3\x2\x3\x2\x3\x3\x3\x3\x3\x3\a\x3\x18\n\x3\f\x3\xE\x3\x1B\v\x3"+
-		"\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\a\x4$\n\x4\f\x4\xE\x4\'\v\x4"+
-		"\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x6\x3\x6\x3\a\x3\a\a\a\x33\n\a"+
-		"\f\a\xE\a\x36\v\a\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x5"+
-		"\b\x42\n\b\x3\b\x2\x2\x3\x6\t\x2\x2\x4\x2\x6\x2\b\x2\n\x2\f\x2\xE\x2\x2"+
-		"\x3\x4\x2\x4\x4\x6\x6H\x2\x10\x3\x2\x2\x2\x4\x14\x3\x2\x2\x2\x6\x1C\x3"+
-		"\x2\x2\x2\b(\x3\x2\x2\x2\n.\x3\x2\x2\x2\f\x30\x3\x2\x2\x2\xE\x41\x3\x2"+
-		"\x2\x2\x10\x11\a\a\x2\x2\x11\x12\x5\x4\x3\x2\x12\x13\a\x3\x2\x2\x13\x3"+
-		"\x3\x2\x2\x2\x14\x19\x5\x6\x4\x2\x15\x16\a\x5\x2\x2\x16\x18\x5\x6\x4\x2"+
-		"\x17\x15\x3\x2\x2\x2\x18\x1B\x3\x2\x2\x2\x19\x17\x3\x2\x2\x2\x19\x1A\x3"+
-		"\x2\x2\x2\x1A\x5\x3\x2\x2\x2\x1B\x19\x3\x2\x2\x2\x1C\x1D\b\x4\x1\x2\x1D"+
-		"\x1E\x5\f\a\x2\x1E%\x3\x2\x2\x2\x1F \f\x3\x2\x2 !\x5\n\x6\x2!\"\x5\x6"+
-		"\x4\x4\"$\x3\x2\x2\x2#\x1F\x3\x2\x2\x2$\'\x3\x2\x2\x2%#\x3\x2\x2\x2%&"+
-		"\x3\x2\x2\x2&\a\x3\x2\x2\x2\'%\x3\x2\x2\x2()\a\a\x2\x2)*\a\x14\x2\x2*"+
-		"+\a\b\x2\x2+,\a\x14\x2\x2,-\a\x3\x2\x2-\t\x3\x2\x2\x2./\t\x2\x2\x2/\v"+
-		"\x3\x2\x2\x2\x30\x34\x5\xE\b\x2\x31\x33\x5\b\x5\x2\x32\x31\x3\x2\x2\x2"+
-		"\x33\x36\x3\x2\x2\x2\x34\x32\x3\x2\x2\x2\x34\x35\x3\x2\x2\x2\x35\r\x3"+
-		"\x2\x2\x2\x36\x34\x3\x2\x2\x2\x37\x42\a\t\x2\x2\x38\x42\a\n\x2\x2\x39"+
-		"\x42\a\v\x2\x2:\x42\a\f\x2\x2;\x42\a\r\x2\x2<\x42\a\xE\x2\x2=\x42\a\xF"+
-		"\x2\x2>\x42\a\x10\x2\x2?\x42\a\x11\x2\x2@\x42\a\x13\x2\x2\x41\x37\x3\x2"+
-		"\x2\x2\x41\x38\x3\x2\x2\x2\x41\x39\x3\x2\x2\x2\x41:\x3\x2\x2\x2\x41;\x3"+
-		"\x2\x2\x2\x41<\x3\x2\x2\x2\x41=\x3\x2\x2\x2\x41>\x3\x2\x2\x2\x41?\x3\x2"+
-		"\x2\x2\x41@\x3\x2\x2\x2\x42\xF\x3\x2\x2\x2\x6\x19%\x34\x41";
+		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3\f/\x4\x2\t\x2\x4"+
+		"\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x3\x2\x3\x2\x3\x2\x3\x2\x3\x3"+
+		"\x3\x3\x3\x3\a\x3\x14\n\x3\f\x3\xE\x3\x17\v\x3\x3\x4\x3\x4\x5\x4\x1B\n"+
+		"\x4\x3\x4\x5\x4\x1E\n\x4\x3\x5\x3\x5\x3\x5\x3\x5\x5\x5$\n\x5\x3\x5\x3"+
+		"\x5\x3\x6\x3\x6\a\x6*\n\x6\f\x6\xE\x6-\v\x6\x3\x6\x2\x2\x2\a\x2\x2\x4"+
+		"\x2\x6\x2\b\x2\n\x2\x2\x2.\x2\f\x3\x2\x2\x2\x4\x10\x3\x2\x2\x2\x6\x18"+
+		"\x3\x2\x2\x2\b\x1F\x3\x2\x2\x2\n\'\x3\x2\x2\x2\f\r\a\x4\x2\x2\r\xE\x5"+
+		"\x4\x3\x2\xE\xF\a\b\x2\x2\xF\x3\x3\x2\x2\x2\x10\x15\x5\x6\x4\x2\x11\x12"+
+		"\a\x5\x2\x2\x12\x14\x5\x6\x4\x2\x13\x11\x3\x2\x2\x2\x14\x17\x3\x2\x2\x2"+
+		"\x15\x13\x3\x2\x2\x2\x15\x16\x3\x2\x2\x2\x16\x5\x3\x2\x2\x2\x17\x15\x3"+
+		"\x2\x2\x2\x18\x1D\x5\n\x6\x2\x19\x1B\a\t\x2\x2\x1A\x19\x3\x2\x2\x2\x1A"+
+		"\x1B\x3\x2\x2\x2\x1B\x1C\x3\x2\x2\x2\x1C\x1E\x5\x6\x4\x2\x1D\x1A\x3\x2"+
+		"\x2\x2\x1D\x1E\x3\x2\x2\x2\x1E\a\x3\x2\x2\x2\x1F \a\x6\x2\x2 #\a\n\x2"+
+		"\x2!\"\a\a\x2\x2\"$\a\n\x2\x2#!\x3\x2\x2\x2#$\x3\x2\x2\x2$%\x3\x2\x2\x2"+
+		"%&\a\x3\x2\x2&\t\x3\x2\x2\x2\'+\a\n\x2\x2(*\x5\b\x5\x2)(\x3\x2\x2\x2*"+
+		"-\x3\x2\x2\x2+)\x3\x2\x2\x2+,\x3\x2\x2\x2,\v\x3\x2\x2\x2-+\x3\x2\x2\x2"+
+		"\a\x15\x1A\x1D#+";
 	public static readonly ATN _ATN =
 		new ATNDeserializer().Deserialize(_serializedATN.ToCharArray());
 }

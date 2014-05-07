@@ -52,13 +52,6 @@ public interface ITreeSelectorVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitSelectors([NotNull] TreeSelectorParser.SelectorsContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TreeSelectorParser.baseStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitBaseStatement([NotNull] TreeSelectorParser.BaseStatementContext context);
-
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="TreeSelectorParser.attribute"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -71,12 +64,5 @@ public interface ITreeSelectorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitInit([NotNull] TreeSelectorParser.InitContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TreeSelectorParser.@operator"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitOperator([NotNull] TreeSelectorParser.OperatorContext context);
 }
 } // namespace MetaCode.Compiler.Grammar

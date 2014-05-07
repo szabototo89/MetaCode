@@ -66,17 +66,6 @@ public partial class TreeSelectorBaseVisitor<Result> : AbstractParseTreeVisitor<
 	public virtual Result VisitSelectors([NotNull] TreeSelectorParser.SelectorsContext context) { return VisitChildren(context); }
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TreeSelectorParser.baseStatement"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitBaseStatement([NotNull] TreeSelectorParser.BaseStatementContext context) { return VisitChildren(context); }
-
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="TreeSelectorParser.attribute"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
@@ -97,16 +86,5 @@ public partial class TreeSelectorBaseVisitor<Result> : AbstractParseTreeVisitor<
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitInit([NotNull] TreeSelectorParser.InitContext context) { return VisitChildren(context); }
-
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TreeSelectorParser.@operator"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitOperator([NotNull] TreeSelectorParser.OperatorContext context) { return VisitChildren(context); }
 }
 } // namespace MetaCode.Compiler.Grammar

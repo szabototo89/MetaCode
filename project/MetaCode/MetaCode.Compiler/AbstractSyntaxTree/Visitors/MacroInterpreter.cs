@@ -16,6 +16,7 @@ using MetaCode.Compiler.Grammar;
 using MetaCode.Compiler.Helpers;
 using MetaCode.Compiler.Interpreter;
 using MetaCode.Compiler.Services;
+using MetaCode.Compiler.Visitors;
 using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
@@ -29,6 +30,8 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
         private bool _isInInterpreterMode;
 
+        private CompilationUnit _root;
+
         public MacroInterpreter(CompilerService compilerService)
         {
             if (compilerService == null)
@@ -41,6 +44,51 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
             _interpreterContext = new InterpreterContext(compilerService);
 
             Initialize();
+            InitializeNativeFunctions();
+        }
+
+        private void InitializeNativeFunctions()
+        {
+            _interpreterContext.DeclareNativeFunction("toSyntaxTree", new Func<object, object>(value =>
+            {
+                var compiler = new MetaCodeCompiler();
+                return compiler.ParseWithVisitor<Node, AbstractTreeVisitor>(value.ToString(), () => new AbstractTreeVisitor(CompilerService.Instance));
+            }));
+
+            _interpreterContext.DeclareNativeFunction("find", new Func<object, object, object>((tree, filter) =>
+            {
+                if (!(tree is Node) && !(tree is string))
+                    throw new Exception("The first parameter must be a node or string!");
+
+                if (!filter.Is<string>())
+                    throw new Exception("The second parameter must be a string!");
+
+                var treeSelectorCompiler = new TreeSelectorCompiler();
+                var selectors = treeSelectorCompiler.Parse(filter.ToString());
+                var result = new List<Node>();
+
+                foreach (var selector in selectors)
+                {
+                    if (tree is Node)
+                        result.AddRange(selector.SelectNode(tree.As<Node>()));
+                    else
+                    {
+                        var compiler = new MetaCodeCompiler();
+                        var node = compiler.ParseWithVisitor<Node, AbstractTreeVisitor>(
+                                               tree.ToString(),
+                                               () => new AbstractTreeVisitor(CompilerService.Instance));
+
+                        result.AddRange(selector.SelectNode(node));
+                    }
+                }
+
+                return result;
+            }));
+
+            _interpreterContext.DeclareNativeMacroFunction("replace", args =>
+            {
+                return args.First();
+            });
         }
 
         private void Initialize()
@@ -48,6 +96,8 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
             this.
                 DefaultVisitor((visitor, node) =>
                 {
+                    node.Is<CompilationUnit>(unit => _root = unit);
+
                     foreach (var child in node.Children)
                         visitor.VisitChild(child);
                     return this;
@@ -55,6 +105,20 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                 .If<MacroDeclarationStatementNode>((visitor, node) =>
                 {
                     _isInInterpreterMode = true;
+
+                    var treeSelector = new TreeSelectorCompiler();
+
+                    foreach (var parameter in node.FormalParameters)
+                    {
+                        var selectors = treeSelector.Parse(parameter.Selector);
+                        var value = new List<Node>();
+
+                        foreach (var selector in selectors)
+                            value.AddRange(selector.SelectNode(_root));
+
+                        _interpreterContext.DeclareVariable(parameter.Name, value);
+                    }
+
                     foreach (var child in node.Children)
                         visitor.VisitChild(child);
                     _isInInterpreterMode = false;
@@ -260,6 +324,17 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     return this;
                 })
+                .If<MacroCallExpressionNode>((visitor, node) =>
+                {
+                    if (!_isInInterpreterMode)
+                        return this;
+
+                    var name = node.FunctionName.Name;
+                    var result = _interpreterContext.InvokeMacroFunction(name, node.ActualParameters);
+                    _expressionStack.Push(result);
+
+                    return this;
+                })
                 .If<FunctionCallExpressionNode>((visitor, node) =>
                 {
                     if (!_isInInterpreterMode)
@@ -269,7 +344,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     foreach (var param in node.ActualParameters)
                         visitor.VisitChild(param);
 
-                    List<object> parameters = new List<object>();
+                    var parameters = new List<object>();
 
                     for (int i = 0; i < node.ActualParameters.Count(); i++)
                         parameters.Add(_expressionStack.Pop());

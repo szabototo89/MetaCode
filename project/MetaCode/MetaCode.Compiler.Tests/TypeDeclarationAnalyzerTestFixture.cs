@@ -60,37 +60,23 @@ namespace MetaCode.Compiler.Tests
         {
             // GIVEN
             var source = @"
-                implicit macro inline(tree: { if > body }, tree2: { * }) do
-                    writeline('Hello World!');
-                    var a : array = [1, 2, 3, 4];
-
-                    foreach (var value : number in [12 + 8, 3, 4, 5]) do
-                        writeline(value);
+                implicit macro inline(tree: { * > if }) do
+                    foreach (var t : any in tree) do
+                       writeline(find(t, '{ if[condition] }'));
                     end;
-
-                    var index : number = 0;
-                    writeline('Testing while statement ...');
-
-                    while (index < 5) 
-                        writeline(index = index + 1);
-
-                    writeline('done');
-
-                    macro replace(
-                        __value__ = 'tree',
-                        if (__value__ == null)
-                            error('Hello World!'); 
-                        end
-                    );
-
-                    /*if (not ((50 + 4) > 10))
-                        var c : number = a * a;
-                        writeline(false);
-                        skip;   
-                    else 
-                        writeline(10 + a);
-                    end;*/
                 end;
+
+                if (24 > 42) 
+                  skip;
+                end;
+
+                if (24 > 42) 
+                  skip;
+                end;
+
+                if (24 > 42) 
+                  skip;
+                end;  
             ";
 
             var compilerService = new CompilerService();

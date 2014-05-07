@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MetaCode.Compiler.AbstractSyntaxTree.Statements;
 using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
@@ -25,13 +24,5 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Expressions
 
         public IEnumerable<TNode> ActualParameters { get; internal set; }
         public IdentifierExpressionNode FunctionName { get; set; }
-    }
-
-    public class MacroCallExpressionNode : CallExpressionNodeBase<StatementNodeBase>
-    {
-        public MacroCallExpressionNode(string name, IEnumerable<StatementNodeBase> actualParameters)
-            : base(name, actualParameters)
-        {
-        }
     }
 }

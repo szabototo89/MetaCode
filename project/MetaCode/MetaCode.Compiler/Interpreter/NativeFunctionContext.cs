@@ -3,7 +3,7 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.Interpreter
 {
-    public class NativeFunctionContext : FunctionContext
+    public class NativeFunctionContext : FunctionContextBase
     {
         public Delegate Function { get; protected set; }
 

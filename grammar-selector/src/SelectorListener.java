@@ -1,4 +1,4 @@
-// Generated from ../Selector.g4 by ANTLR 4.2
+// Generated from ../Selector.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -39,17 +39,6 @@ public interface SelectorListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSelectors(@NotNull SelectorParser.SelectorsContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link SelectorParser#baseStatement}.
-	 * @param ctx the parse tree
-	 */
-	void enterBaseStatement(@NotNull SelectorParser.BaseStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SelectorParser#baseStatement}.
-	 * @param ctx the parse tree
-	 */
-	void exitBaseStatement(@NotNull SelectorParser.BaseStatementContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link SelectorParser#attribute}.

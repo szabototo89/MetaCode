@@ -1,4 +1,4 @@
-// Generated from ../Selector.g4 by ANTLR 4.2
+// Generated from ../Selector.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -30,13 +30,6 @@ public interface SelectorVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSelectors(@NotNull SelectorParser.SelectorsContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link SelectorParser#baseStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBaseStatement(@NotNull SelectorParser.BaseStatementContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link SelectorParser#attribute}.

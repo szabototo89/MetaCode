@@ -73,19 +73,6 @@ public partial class TreeSelectorBaseListener : ITreeSelectorListener {
 	public virtual void ExitSelectors([NotNull] TreeSelectorParser.SelectorsContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TreeSelectorParser.baseStatement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterBaseStatement([NotNull] TreeSelectorParser.BaseStatementContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TreeSelectorParser.baseStatement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitBaseStatement([NotNull] TreeSelectorParser.BaseStatementContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TreeSelectorParser.attribute"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -110,19 +97,6 @@ public partial class TreeSelectorBaseListener : ITreeSelectorListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitInit([NotNull] TreeSelectorParser.InitContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TreeSelectorParser.@operator"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterOperator([NotNull] TreeSelectorParser.OperatorContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TreeSelectorParser.@operator"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitOperator([NotNull] TreeSelectorParser.OperatorContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>

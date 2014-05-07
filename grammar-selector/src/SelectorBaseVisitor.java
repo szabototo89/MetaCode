@@ -1,4 +1,4 @@
-// Generated from ../Selector.g4 by ANTLR 4.2
+// Generated from ../Selector.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -13,57 +13,49 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 public class SelectorBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements SelectorVisitor<T> {
 	/**
 	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitStatement(@NotNull SelectorParser.StatementContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitSelector(@NotNull SelectorParser.SelectorContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitSelectors(@NotNull SelectorParser.SelectorsContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitBaseStatement(@NotNull SelectorParser.BaseStatementContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitAttribute(@NotNull SelectorParser.AttributeContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitInit(@NotNull SelectorParser.InitContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitOperator(@NotNull SelectorParser.OperatorContext ctx) { return visitChildren(ctx); }
 }

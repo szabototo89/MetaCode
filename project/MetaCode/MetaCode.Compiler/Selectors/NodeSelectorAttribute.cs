@@ -14,7 +14,7 @@ namespace MetaCode.Compiler.Selectors
                 ThrowHelper.ThrowException("The name is blank!");
 
             if (string.IsNullOrWhiteSpace(value))
-                ThrowHelper.ThrowException("The value is blank!");
+                value = string.Empty;
 
             Name = name;
             Value = value;

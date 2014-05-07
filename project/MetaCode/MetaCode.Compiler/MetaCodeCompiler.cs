@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime;
 using MetaCode.Compiler.Grammar;
-using MetaCode.Compiler.Visitors;
 using MetaCode.Core;
+using AttributeVisitor = MetaCode.Compiler.Visitors.AttributeVisitor;
 
 namespace MetaCode.Compiler
 {
