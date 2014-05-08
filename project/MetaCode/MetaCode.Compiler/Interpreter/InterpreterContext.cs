@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MetaCode.Compiler.AbstractSyntaxTree;
+using MetaCode.Compiler.AbstractSyntaxTree.Statements;
 using MetaCode.Compiler.Services;
 using MetaCode.Core;
 
@@ -15,7 +16,8 @@ namespace MetaCode.Compiler.Interpreter
 
         private readonly Stack<Dictionary<string, VariableContext>> _variables;
         private readonly Stack<Dictionary<string, FunctionContextBase>> _functions;
-        private readonly Stack<Dictionary<string, MacroContextBase>> _macros; 
+        private readonly Stack<Dictionary<string, MacroContextBase>> _macros;
+        private readonly Stack<Dictionary<string, TypeContextBase>> _types; 
 
         public InterpreterContext(CompilerService compilerService)
         {
@@ -26,6 +28,7 @@ namespace MetaCode.Compiler.Interpreter
             _variables = new Stack<Dictionary<string, VariableContext>>();
             _functions = new Stack<Dictionary<string, FunctionContextBase>>();
             _macros = new Stack<Dictionary<string, MacroContextBase>>();
+            _types = new Stack<Dictionary<string, TypeContextBase>>();
 
             InitializeFunctions();
 
@@ -49,6 +52,7 @@ namespace MetaCode.Compiler.Interpreter
             _variables.Push(new Dictionary<string, VariableContext>());
             _functions.Push(new Dictionary<string, FunctionContextBase>());
             _macros.Push(new Dictionary<string, MacroContextBase>());
+            _types.Push(new Dictionary<string, TypeContextBase>());
             return this;
         }
 
@@ -57,6 +61,7 @@ namespace MetaCode.Compiler.Interpreter
             _variables.Pop();
             _functions.Pop();
             _macros.Pop();
+            _types.Pop();
             return this;
         }
 
@@ -106,6 +111,20 @@ namespace MetaCode.Compiler.Interpreter
             }
 
             throw new Exception(string.Format("Variable ({0}) not found!", name));
+        }
+
+        public InterpreterContext DeclareFunction(string name, FunctionDeclarationStatementNode function)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                ThrowHelper.ThrowException("The 'name' is blank!");
+
+            if (function == null)
+                ThrowHelper.ThrowArgumentNullException(() => function);
+
+            _functions.First()
+                      .Add(name, new FunctionContext(name, function, this));
+
+            return this;
         }
 
         public InterpreterContext DeclareNativeFunction(string name, Delegate function)

@@ -37,6 +37,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
             StandardTypes = new Dictionary<string, Type>();
 
             StandardTypes.Add("number", typeof(Double));
+            StandardTypes.Add("any", typeof(Object));
             StandardTypes.Add("string", typeof(String));
             StandardTypes.Add("boolean", typeof(Boolean));
             StandardTypes.Add("array", typeof(Array));

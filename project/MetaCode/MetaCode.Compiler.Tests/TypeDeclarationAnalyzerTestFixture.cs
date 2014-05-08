@@ -60,10 +60,14 @@ namespace MetaCode.Compiler.Tests
         {
             // GIVEN
             var source = @"
-                implicit macro inline(tree: { * > if }) do
+                implicit macro inline(tree: { * > if, * > while[body] }) do
                     foreach (var t : any in tree) do
                        writeline(find(t, '{ if[condition] }'));
                     end;
+                end;
+
+                while (false) do
+                  var i : number = 1;
                 end;
 
                 if (24 > 42) 
@@ -81,6 +85,28 @@ namespace MetaCode.Compiler.Tests
 
             var compilerService = new CompilerService();
             var analyzer = new MacroInterpreter(compilerService);
+
+            // WHEN
+            var node = ParseWithAbstractTreeVisitor(Compiler, source);
+            analyzer.VisitChild(node as CompilationUnit);
+
+            // THEN
+        }
+
+        [Test]
+        public void InterpreterTest()
+        {
+            // GIVEN
+            var source = @"
+                var j : number = 0;
+                foreach (var i : number in [1,2,3,4,5,6]) do
+                  j = 3 * i;
+                  writeline(j + '. Hello World!');
+                end;
+            ";
+
+            var compilerService = new CompilerService();
+            var analyzer = new CodeInterpreter(compilerService);
 
             // WHEN
             var node = ParseWithAbstractTreeVisitor(Compiler, source);

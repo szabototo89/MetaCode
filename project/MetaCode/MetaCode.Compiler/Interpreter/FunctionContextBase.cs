@@ -1,4 +1,5 @@
-﻿using MetaCode.Core;
+﻿using MetaCode.Compiler.Commons.Declarations;
+using MetaCode.Core;
 
 namespace MetaCode.Compiler.Interpreter
 {

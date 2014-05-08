@@ -124,6 +124,15 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     _isInInterpreterMode = false;
                     return this;
                 })
+                .If<FunctionDeclarationStatementNode>((visitor, node) =>
+                {
+                    if (!_isInInterpreterMode)
+                        return this;
+
+                    
+
+                    return this;
+                })
                 .If<UnaryExpressionNode>((visitor, node) =>
                 {
                     if (!_isInInterpreterMode)
@@ -149,9 +158,6 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                 })
                 .If<BinaryExpressionNode>((visitor, node) =>
                 {
-                    if (!_isInInterpreterMode)
-                        return this;
-
                     visitor.VisitChild(node.Left);
                     visitor.VisitChild(node.Right);
 
@@ -162,25 +168,33 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     if (op is NumericBinaryOperatorNode)
                     {
-                        if (!left.GetType().IsNumeric())
-                            CompilerService.Error("Left expression must be numeric type!");
-                        if (!right.GetType().IsNumeric())
-                            CompilerService.Error("Right expression must be numeric type!");
+                        if (left is string || right is string)
+                        {
+                            var result = (left ?? string.Empty).ToString() + (right ?? string.Empty).ToString();
+                            _expressionStack.Push(result);
+                        }
+                        else
+                        {
+                            if (!left.GetType().IsNumeric())
+                                CompilerService.Error("Left expression must be numeric type!");
+                            if (!right.GetType().IsNumeric())
+                                CompilerService.Error("Right expression must be numeric type!");
 
-                        double result = 0;
-                        var leftValue = left.Cast<double>();
-                        var rightValue = right.Cast<double>();
+                            double result = 0;
+                            var leftValue = left.Cast<double>();
+                            var rightValue = right.Cast<double>();
 
-                        if (op is AdditionOperatorNode)
-                            result = leftValue + rightValue;
-                        else if (op is SubtractionOperatorNode)
-                            result = leftValue - rightValue;
-                        else if (op is MultiplicationOperatorNode)
-                            result = leftValue * rightValue;
-                        else if (op is DivisionOperatorNode)
-                            result = leftValue / rightValue;
+                            if (op is AdditionOperatorNode)
+                                result = leftValue + rightValue;
+                            else if (op is SubtractionOperatorNode)
+                                result = leftValue - rightValue;
+                            else if (op is MultiplicationOperatorNode)
+                                result = leftValue * rightValue;
+                            else if (op is DivisionOperatorNode)
+                                result = leftValue / rightValue;
 
-                        _expressionStack.Push(result);
+                            _expressionStack.Push(result);
+                        }
                     }
                     else if (op is RelationalBinaryOperatorNode)
                     {

@@ -109,6 +109,7 @@
     <Compile Include="AbstractSyntaxTree\Statements\WhileLoopStatementNode.cs" />
     <Compile Include="AbstractSyntaxTree\TypeNameNode.cs" />
     <Compile Include="AbstractSyntaxTree\Variable.cs" />
+    <Compile Include="AbstractSyntaxTree\Visitors\CodeInterpreter.cs" />
     <Compile Include="AbstractSyntaxTree\Visitors\ExpressionTypeAnalyzer.cs" />
     <Compile Include="AbstractSyntaxTree\Visitors\MacroInterpreter.cs" />
     <Compile Include="AbstractSyntaxTree\Visitors\SemanticParserTreeVisitor.cs" />
@@ -137,10 +138,14 @@
       <DependentUpon>MetaCode.g4</DependentUpon>
     </Compile>
     <Compile Include="Helpers\TypeHelper.cs" />
+    <Compile Include="Interpreter\AttributeTypeContext.cs" />
+    <Compile Include="Interpreter\FunctionContext.cs" />
     <Compile Include="Interpreter\FunctionContextBase.cs" />
     <Compile Include="Interpreter\InterpreterContext.cs" />
     <Compile Include="Interpreter\MacroContextBase.cs" />
     <Compile Include="Interpreter\NativeFunctionContext.cs" />
+    <Compile Include="Interpreter\ObjectTypeContext.cs" />
+    <Compile Include="Interpreter\TypeContextBase.cs" />
     <Compile Include="Interpreter\VariableContext.cs" />
     <Compile Include="MetaCodeCompiler.cs" />
     <Compile Include="obj\Debug\MetaCodeBaseListener.cs">
@@ -165,6 +170,7 @@
     <Compile Include="obj\Debug\TreeSelectorVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Selectors\AnySelector.cs" />
+    <Compile Include="Selectors\AttributeSelector.cs" />
     <Compile Include="Selectors\BranchingSelector.cs" />
     <Compile Include="Selectors\DelegateSelector.cs" />
     <Compile Include="Selectors\ForeachSelector.cs" />

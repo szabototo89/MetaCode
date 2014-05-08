@@ -64,18 +64,6 @@ namespace MetaCode.Compiler.Services
             get { return Singleton<CompilerService>.Instance; }
         }
 
-        protected Scope PushScope(Node node, Scope scope)
-        {
-            if (node == null)
-                ThrowHelper.ThrowArgumentNullException(() => node);
-            if (scope == null)
-                ThrowHelper.ThrowArgumentNullException(() => scope);
-
-            _scopes.Add(node, scope);
-
-            return scope;
-        }
-
         public Scope PushFunctionScope(Node node, FunctionDeclaration function)
         {
             if (node == null)
@@ -92,6 +80,18 @@ namespace MetaCode.Compiler.Services
         {
             _currentScope = _currentScope.CreateScope();
             return PushScope(node, _currentScope);
+        }
+
+        protected Scope PushScope(Node node, Scope scope)
+        {
+            if (node == null)
+                ThrowHelper.ThrowArgumentNullException(() => node);
+            if (scope == null)
+                ThrowHelper.ThrowArgumentNullException(() => scope);
+
+            _scopes.Add(node, scope);
+
+            return scope;
         }
 
         public void PopScope()

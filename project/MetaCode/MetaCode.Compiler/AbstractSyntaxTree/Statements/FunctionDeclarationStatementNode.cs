@@ -10,7 +10,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
     {
         public string FunctionName { get { return Identifier.Name; } }
 
-        public BlockStatementNode FunctionBlock { get; protected set; }
+        public BlockStatementNode FunctionBody { get; protected set; }
 
         public TypeNameNode ReturnType { get; protected set; }
 
@@ -18,11 +18,11 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 
         public List<AttributeNode> Attributes { get; protected set; }
 
-        public FunctionDeclarationStatementNode(string name, BlockStatementNode functionBlock, TypeNameNode returnType, FormalParameterNode[] parameters, IEnumerable<AttributeNode> attributes)
+        public FunctionDeclarationStatementNode(string name, BlockStatementNode functionBody, TypeNameNode returnType, FormalParameterNode[] parameters, IEnumerable<AttributeNode> attributes)
             : base(name)
         {
-            if (functionBlock == null)
-                ThrowHelper.ThrowArgumentNullException(() => functionBlock);
+            if (functionBody == null)
+                ThrowHelper.ThrowArgumentNullException(() => functionBody);
             if (returnType == null)
                 ThrowHelper.ThrowArgumentNullException(() => returnType);
             if (parameters == null)
@@ -30,12 +30,12 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
             if (attributes == null)
                 ThrowHelper.ThrowArgumentNullException(() => attributes);
 
-            FunctionBlock = functionBlock;
+            FunctionBody = functionBody;
             ReturnType = returnType;
             Parameters = parameters;
             Attributes = attributes.ToList();
 
-            AddChildren(FunctionBlock, ReturnType);
+            AddChildren(FunctionBody, ReturnType);
             AddChildren(Parameters);
             AddChildren(Attributes);
         }

@@ -23,6 +23,7 @@ namespace MetaCode.Compiler.Visitors.TreeSelector
             _Selectors = new Dictionary<string, Func<NodeSelector>>
             {
                 { "*", () => new AnySelector() },
+                { "attribute", () => new AttributeSelector() },
                 { "if", () => new BranchingSelector() },
                 { "foreach", () => new ForeachSelector() },
                 { "while", () => new WhileSelector() },
