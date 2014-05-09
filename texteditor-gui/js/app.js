@@ -9,3 +9,5 @@ $(function() {
 		initEditor("text-editor-left")
 		initEditor("text-editor-right")
 });
+
+MetaCode.Compiler.AbstractSyntaxTree
