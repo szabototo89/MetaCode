@@ -1,3 +1,12 @@
 http://vimeo.com/74553075 - Scala macros (video)
 
 http://infoscience.epfl.ch/record/185242/files/QuasiquotesForScala.pdf - Quasiquotes for Scala
+
+Referenciák:
+
+	- Sinkovics Ábel - metaparse
+	- Javascript The good parts
+	- ugyanúgy jöhet Ruby/Python-os könyv is
+	- Scala specifikáció
+	- Scala könyv
+	

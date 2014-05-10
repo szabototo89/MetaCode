@@ -33,7 +33,7 @@ namespace MetaCode.Compiler.Selectors
         {
             Func<bool> filter = () => (node is VariableDeclarationStatementNode);
 
-            TryGetAttribute("name", attribute =>
+            TryGetAttribute("identifier", attribute =>
             {
                 var result = filter();
                 filter = () => result && 
