@@ -9,4 +9,3 @@ Referenciák:
 	- ugyanúgy jöhet Ruby/Python-os könyv is
 	- Scala specifikáció
 	- Scala könyv
-	
