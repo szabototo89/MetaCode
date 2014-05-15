@@ -86,7 +86,7 @@ p.age = 45;
 end;
 */
 
-macro generic ("Point", 
+/*macro generic ("Point", 
 	object Disposable
 		_object: TYPE;
 		isDisposed: boolean;
@@ -128,4 +128,23 @@ object Disposable
 	isDisposed: boolean;
 end;
 
-macro 
+macro */
+
+var i : number = 0;
+var n : number = 100;
+var sum : number = 0;
+
+while (i < n) do
+  sum = sum + 2 * i;
+  i = i + 1;
+end;
+
+implicit macro debugWhile(tree: { * > while }) do
+	var message_begin : string = "Beléptünk a ciklusba";
+	var message_end : string = "Kiléptünk a ciklusból";
+	
+	prependTo(tree, "writeline(" + message_begin + ")");
+	appendTo(tree, "writeline(" + message_end + ")");
+
+	return tree;
+end;

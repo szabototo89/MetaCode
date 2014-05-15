@@ -60,10 +60,26 @@ namespace MetaCode.Compiler.Tests
         {
             // GIVEN
             var source = @"
-                implicit macro inline(tree: { * > if, * > while[body] }) do
+                macro convertToWhile(tree : { * > foreach }) do
+                   
+                end;
+
+                implicit macro inline(tree: { * > while[body] }) do
                     foreach (var t : any in tree) do
                        writeline(find(t, '{ if[condition] }'));
                     end;
+                end;
+
+                foreach (var i : Number in [1,2,3,4]) do
+                    writeline(i);
+                end;
+
+                var i : number = 0;
+                var n : number = 100;
+                var sum : number = 0;
+                while (i < n) do
+                  sum := sum + 2 * i;
+                  i := i + 1;
                 end;
 
                 while (false) do
