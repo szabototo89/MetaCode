@@ -192,9 +192,9 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
         private void JoinByComma<TNode>(IEnumerable<TNode> collection, TreeVisitorBase<CodeBuilder> visitor)
             where TNode : Node
         {
-            JoinByComma(", ", collection, visitor);
+            JoinBySeparator(", ", collection, visitor);
         }
-        private void JoinByComma<TNode>(string separator, IEnumerable<TNode> collection, TreeVisitorBase<CodeBuilder> visitor)
+        private void JoinBySeparator<TNode>(string separator, IEnumerable<TNode> collection, TreeVisitorBase<CodeBuilder> visitor)
                     where TNode : Node
         {
             if (collection.Any()) {
