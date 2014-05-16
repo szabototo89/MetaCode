@@ -43,8 +43,14 @@ namespace MetaCode.Compiler.Tests
                 toString('Hello World', 10);
                 (10 + 5) * b;
                 foreach (var str : string in ['Hello', 'World']) do
-                    writeline(str);
+                    if (a > 10) 
+                      if (true) writeline(str); end;
+                    else
+                      skip;
+                    end;
                 end;
+
+                var b : number = 100;
             ";
 
             var analyzer = new CodeGenerator();
@@ -54,7 +60,7 @@ namespace MetaCode.Compiler.Tests
             var result = analyzer.VisitChild(node as CompilationUnit);
 
             // THEN
-            Debug.WriteLine(result);
+            Debug.WriteLine(result.ToString());
         }
 
     }

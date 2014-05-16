@@ -25,9 +25,9 @@ namespace MetaCode.Core
             return that.AppendLine(value.ToString());
         }
 
-        public static StringBuilder ToStringBuilder(this string value)
+        public static CodeBuilder ToCodeBuilder(this string value)
         {
-            return new StringBuilder(value);
+            return new CodeBuilder(value);
         }
     }
 }

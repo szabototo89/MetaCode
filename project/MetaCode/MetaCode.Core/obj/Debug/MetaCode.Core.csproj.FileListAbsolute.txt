@@ -6,3 +6,4 @@ E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Core\bin\Debug\MetaCo
 E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Core\bin\Debug\MetaCode.Core.pdb
 E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Core\obj\Debug\MetaCode.Core.dll
 E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.Core\obj\Debug\MetaCode.Core.pdb
+E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.Core\obj\Debug\MetaCode.Core.csprojResolveAssemblyReference.cache

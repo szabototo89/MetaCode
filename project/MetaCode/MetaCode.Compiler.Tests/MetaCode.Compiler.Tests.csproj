@@ -66,6 +66,10 @@
       <Project>{4fdbe36f-0e31-4ed1-87a0-3a63a4151be2}</Project>
       <Name>MetaCode.Compiler</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MetaCode.Core\MetaCode.Core.csproj">
+      <Project>{838E8EE6-AAC1-4B4F-899A-F1978AFCF2E3}</Project>
+      <Name>MetaCode.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
