@@ -48,34 +48,27 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
         private void Initialize()
         {
             this.
-                DefaultVisitor((visitor, node) =>
-                {
+                DefaultVisitor((visitor, node) => {
                     node.Is<CompilationUnit>(unit => _root = unit);
 
                     foreach (var child in node.Children)
                         visitor.VisitChild(child);
                     return this;
                 })
-                .If<FunctionDeclarationStatementNode>((visitor, node) =>
-                {
-
-
-
+                .If<FunctionDeclarationStatementNode>((visitor, node) => {
+                    _interpreterContext.DeclareFunction(node.FunctionName, node, this);
                     return this;
                 })
-                .If<UnaryExpressionNode>((visitor, node) =>
-                {
+                .If<UnaryExpressionNode>((visitor, node) => {
                     visitor.VisitChild(node.Expression);
                     var op = node.Operator;
                     var expression = _expressionStack.Pop();
 
-                    if (op is LogicalUnaryOperatorNode)
-                    {
+                    if (op is LogicalUnaryOperatorNode) {
                         if (!expression.GetType().IsLogical())
                             CompilerService.Error("Expression must be logical type!");
 
-                        if (op is NegationOperatorNode)
-                        {
+                        if (op is NegationOperatorNode) {
                             bool result = !expression.Cast<bool>();
                             _expressionStack.Push(result);
                         }
@@ -83,8 +76,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     return this;
                 })
-                .If<BinaryExpressionNode>((visitor, node) =>
-                {
+                .If<BinaryExpressionNode>((visitor, node) => {
                     visitor.VisitChild(node.Left);
                     visitor.VisitChild(node.Right);
 
@@ -93,15 +85,12 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     var right = _expressionStack.Pop();
                     var left = _expressionStack.Pop();
 
-                    if (op is NumericBinaryOperatorNode)
-                    {
-                        if (left is string || right is string)
-                        {
+                    if (op is NumericBinaryOperatorNode) {
+                        if (left is string || right is string) {
                             var result = (left ?? string.Empty).ToString() + (right ?? string.Empty).ToString();
                             _expressionStack.Push(result);
                         }
-                        else
-                        {
+                        else {
                             if (!left.GetType().IsNumeric())
                                 CompilerService.Error("Left expression must be numeric type!");
                             if (!right.GetType().IsNumeric())
@@ -116,15 +105,14 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                             else if (op is SubtractionOperatorNode)
                                 result = leftValue - rightValue;
                             else if (op is MultiplicationOperatorNode)
-                                result = leftValue*rightValue;
+                                result = leftValue * rightValue;
                             else if (op is DivisionOperatorNode)
-                                result = leftValue/rightValue;
+                                result = leftValue / rightValue;
 
                             _expressionStack.Push(result);
                         }
                     }
-                    else if (op is RelationalBinaryOperatorNode)
-                    {
+                    else if (op is RelationalBinaryOperatorNode) {
                         if (!left.GetType().IsNumeric())
                             CompilerService.Error("Left expression must be numeric type!");
                         if (!right.GetType().IsNumeric())
@@ -151,8 +139,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                         _expressionStack.Push(result);
                     }
-                    else if (op is LogicalBinaryOperatorNode)
-                    {
+                    else if (op is LogicalBinaryOperatorNode) {
                         if (!left.GetType().IsLogical())
                             CompilerService.Error("Left expression must be logical type!");
                         if (!right.GetType().IsLogical())
@@ -172,17 +159,29 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     return this;
                 })
-                .If<AssignmentExpressionNode>((visitor, node) =>
-                {
-                    var variable = node.LeftValue.Members.First().Name;
+                .If<AssignmentExpressionNode>((visitor, node) => {
                     visitor.VisitChild(node.RightValue);
+                    var variable = node.LeftValue.Members.First().Name;
 
-                    _interpreterContext.SetValueOfVariable(variable, _expressionStack.Pop());
+                    if (node.LeftValue.Members.Length == 1) {
+                        _interpreterContext.SetValueOfVariable(variable, _expressionStack.Pop());
+                    }
+                    else {
+                        var members = string.Join(".",
+                            node.LeftValue.Members.Skip(1)
+                                .Select(member => member.Name));
+                        var value =
+                            _interpreterContext.GetValueOfVariable(
+                                variable);
+                        if (!(value is Dictionary<string, object>))
+                            value = new Dictionary<string, object>();
+                        value.As<Dictionary<string, object>>()[members] = _expressionStack.Pop();
+                        _interpreterContext.SetValueOfVariable(variable, value);
+                    }
 
                     return this;
                 })
-                .If<ArrayConstantLiteralNode>((visitor, node) =>
-                {
+                .If<ArrayConstantLiteralNode>((visitor, node) => {
                     foreach (var value in node.Value)
                         visitor.VisitChild(value);
 
@@ -195,30 +194,25 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     return this;
                 })
-                .If<ConstantExpressionNode>((visitor, node) =>
-                {
-                    if (node.Constant is ArrayConstantLiteralNode)
-                    {
+                .If<ConstantExpressionNode>((visitor, node) => {
+                    if (node.Constant is ArrayConstantLiteralNode) {
                         visitor.VisitChild(node.Constant);
                     }
-                    else
-                    {
+                    else {
                         var value = node.Constant.Value;
                         _expressionStack.Push(value);
                     }
 
                     return this;
                 })
-                .If<IdentifierExpressionNode>((visitor, node) =>
-                {
+                .If<IdentifierExpressionNode>((visitor, node) => {
                     var name = node.Name;
                     var value = _interpreterContext.GetValueOfVariable(name);
                     _expressionStack.Push(value);
 
                     return this;
                 })
-                .If<VariableDeclarationStatementNode>((visitor, node) =>
-                {
+                .If<VariableDeclarationStatementNode>((visitor, node) => {
                     var name = node.VariableName;
                     visitor.VisitChild(node.InitialValue);
                     var value = _expressionStack.Pop();
@@ -227,16 +221,14 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     return this;
                 })
-                .If<AttributeDeclarationStatementNode>((visitor, node) =>
-                {
+                .If<AttributeDeclarationStatementNode>((visitor, node) => {
                     var name = node.AttributeName;
 
                     //_interpreterContext.DeclareAttribute(name, node);
 
                     return this;
                 })
-                .If<ForeachLoopStatementNode>((visitor, node) =>
-                {
+                .If<ForeachLoopStatementNode>((visitor, node) => {
                     var variable = node.LoopVariable.Name;
 
                     _interpreterContext.PushBlock();
@@ -245,8 +237,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     visitor.VisitChild(node.Expression);
                     var array = _expressionStack.Pop() as IEnumerable;
 
-                    foreach (var value in array)
-                    {
+                    foreach (var value in array) {
                         _interpreterContext.SetValueOfVariable(variable, value);
                         visitor.VisitChild(node.Body);
                     }
@@ -255,16 +246,27 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     return this;
                 })
-                .If<MacroCallExpressionNode>((visitor, node) =>
-                {
+                .If<MemberExpressionNode>((visitor, node) => {
+                    var variable = _interpreterContext.GetValueOfVariable(node.Members.First().Name).As<Dictionary<string, object>>();
+                    if (variable == null)
+                        ThrowHelper.ThrowException("Wrong type of " + node.Members.First().Name);
+
+                    var members = string.Join(".", node.Members.Skip(1).Select(member => member.Name));
+                    _expressionStack.Push(variable[members]);
+
+                    return this;
+                })
+                .If<MacroCallExpressionNode>((visitor, node) => {
                     var name = node.FunctionName.Name;
                     var result = _interpreterContext.InvokeMacroFunction(name, node.ActualParameters);
                     _expressionStack.Push(result);
 
                     return this;
                 })
-                .If<FunctionCallExpressionNode>((visitor, node) =>
-                {
+                .If<ReturnStatementNode>((visitor, node) => {
+                    return this;
+                })
+                .If<FunctionCallExpressionNode>((visitor, node) => {
                     var name = node.FunctionName.Name;
                     foreach (var param in node.ActualParameters)
                         visitor.VisitChild(param);
@@ -275,27 +277,26 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                         parameters.Add(_expressionStack.Pop());
 
                     var result = _interpreterContext.InvokeFunction(name, parameters.ToArray().Reverse());
-                    _expressionStack.Push(result);
+
+                    if (result != TypeHelper.Void)
+                        _expressionStack.Push(result);
 
                     return this;
                 })
-                .If<WhileLoopStatementNode>((visitor, node) =>
-                {
-                    visitor.VisitChild(node.Condition);
+                .If<WhileLoopStatementNode>((visitor, node) => {
+                    visitor.VisitChild(node.ConditionExpression);
                     var condition = _expressionStack.Pop().Cast<bool>();
 
-                    while (condition)
-                    {
+                    while (condition) {
                         visitor.VisitChild(node.Body);
-                        visitor.VisitChild(node.Condition);
+                        visitor.VisitChild(node.ConditionExpression);
 
                         condition = _expressionStack.Pop().Cast<bool>();
                     }
 
                     return this;
                 })
-                .If<BlockStatementNode>((visitor, node) =>
-                {
+                .If<BlockStatementNode>((visitor, node) => {
                     _interpreterContext.PushBlock();
 
                     foreach (var child in node.Children)
@@ -305,8 +306,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     return this;
                 })
-                .If<IfStatementNode>((visitor, node) =>
-                {
+                .If<IfStatementNode>((visitor, node) => {
                     visitor.VisitChild(node.ConditionExpression);
 
                     if (!_expressionStack.Peek().Is<bool>())

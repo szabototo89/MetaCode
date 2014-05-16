@@ -17,7 +17,7 @@ namespace MetaCode.Compiler.Selectors
 
             TryGetAttribute("condition", attribute =>
             {
-                result = statement.Condition;
+                result = statement.ConditionExpression;
             });
 
             return result;

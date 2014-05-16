@@ -109,6 +109,7 @@
     <Compile Include="AbstractSyntaxTree\Statements\WhileLoopStatementNode.cs" />
     <Compile Include="AbstractSyntaxTree\TypeNameNode.cs" />
     <Compile Include="AbstractSyntaxTree\Variable.cs" />
+    <Compile Include="AbstractSyntaxTree\Visitors\CodeGenerator.cs" />
     <Compile Include="AbstractSyntaxTree\Visitors\CodeInterpreter.cs" />
     <Compile Include="AbstractSyntaxTree\Visitors\ExpressionTypeAnalyzer.cs" />
     <Compile Include="AbstractSyntaxTree\Visitors\MacroInterpreter.cs" />

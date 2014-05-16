@@ -55,26 +55,22 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
         private void Initialize()
         {
             this
-                .DefaultVisitor((visitor, node) =>
-                {
+                .DefaultVisitor((visitor, node) => {
                     foreach (var child in node.Children)
                         visitor.VisitChild(child);
                     return this;
                 })
-                .If<BlockStatementNode>((visitor, node) =>
-                {
+                .If<BlockStatementNode>((visitor, node) => {
                     CompilerService.PushScope(node);
                     foreach (var child in node.Children)
                         visitor.VisitChild(child);
                     CompilerService.PopScope();
                     return this;
                 })
-                .If<FunctionDeclarationStatementNode>((visitor, node) =>
-                {
+                .If<FunctionDeclarationStatementNode>((visitor, node) => {
                     var scope = CompilerService.GetScope();
 
-                    if (scope.FunctionDeclarations.Any(function => function.Name == node.FunctionName))
-                    {
+                    if (scope.FunctionDeclarations.Any(function => function.Name == node.FunctionName)) {
                         CompilerService.Error(string.Format("This function ({0}) is already defined!", node.FunctionName));
                         return this;
                     }
@@ -82,7 +78,9 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     var formalParameters = GetFormalParameters(node.Parameters);
                     var functionDeclaration = scope.DeclareFunction(node.FunctionName, FindType(node.ReturnType.Type), formalParameters);
 
-                    CompilerService.PushFunctionScope(node, functionDeclaration);
+                    var functionScope = CompilerService.PushFunctionScope(node, functionDeclaration);
+
+                    functionScope.DeclareVariable("result", FindType(node.ReturnType.Type));
 
                     foreach (var child in node.Children)
                         visitor.VisitChild(child);
@@ -91,12 +89,10 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     return this;
                 })
-                .If<ObjectDeclarationStatementNode>((visitor, node) =>
-                {
+                .If<ObjectDeclarationStatementNode>((visitor, node) => {
                     var scope = CompilerService.GetScope();
 
-                    if (scope.TypeDeclarations.Any(obj => obj.Name == node.ObjectName))
-                    {
+                    if (scope.TypeDeclarations.Any(obj => obj.Name == node.ObjectName)) {
                         CompilerService.Error(string.Format("This object ({0}) is already defined!", node.ObjectName));
                         return this;
                     }
@@ -109,12 +105,10 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     return this;
                 })
-                .If<AttributeDeclarationStatementNode>((visitor, node) =>
-                {
+                .If<AttributeDeclarationStatementNode>((visitor, node) => {
                     var scope = CompilerService.GetScope();
 
-                    if (scope.AttributeDeclarations.Any(attribute => attribute.Name == node.AttributeName))
-                    {
+                    if (scope.AttributeDeclarations.Any(attribute => attribute.Name == node.AttributeName)) {
                         CompilerService.Error("This attribute is already defined!");
                         return this;
                     }
@@ -127,12 +121,10 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     return this;
                 })
-                .If<VariableDeclarationStatementNode>((visitor, node) =>
-                {
+                .If<VariableDeclarationStatementNode>((visitor, node) => {
                     var scope = CompilerService.GetScope();
 
-                    if (scope.VariableDeclarations.Any(variable => variable.Name == node.VariableName))
-                    {
+                    if (scope.VariableDeclarations.Any(variable => variable.Name == node.VariableName)) {
                         CompilerService.Error("This variable is already defined!");
                         return this;
                     }

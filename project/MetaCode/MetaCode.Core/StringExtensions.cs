@@ -19,5 +19,15 @@ namespace MetaCode.Core
 
             return value + Environment.NewLine + text;
         }
+
+        public static StringBuilder AppendLine(this StringBuilder that, StringBuilder value)
+        {
+            return that.AppendLine(value.ToString());
+        }
+
+        public static StringBuilder ToStringBuilder(this string value)
+        {
+            return new StringBuilder(value);
+        }
     }
 }

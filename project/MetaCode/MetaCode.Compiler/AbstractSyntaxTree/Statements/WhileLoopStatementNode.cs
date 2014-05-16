@@ -7,21 +7,21 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 {
     public class WhileLoopStatementNode : LoopStatementNodeBase
     {
-        public ExpressionNode Condition { get; set; }
+        public ExpressionNode ConditionExpression { get; set; }
 
-        public WhileLoopStatementNode(ExpressionNode condition, StatementNodeBase body, AttributeNode[] attributes)
+        public WhileLoopStatementNode(ExpressionNode conditionExpression, StatementNodeBase body, AttributeNode[] attributes)
             : base(body, attributes)
         {
-            if (condition == null)
-                throw new ArgumentNullException("condition", "The Condition is null!");
+            if (conditionExpression == null)
+                throw new ArgumentNullException("conditionExpression", "The ConditionExpression is null!");
 
-            Condition = condition;
-            AddChildren(Condition);
+            ConditionExpression = conditionExpression;
+            AddChildren(ConditionExpression);
         }
 
         public override IEnumerable<Node> Children
         {
-            get { return base.Children.Concat(new[] { Condition }); }
+            get { return base.Children.Concat(new[] { ConditionExpression }); }
         }
     }
 }

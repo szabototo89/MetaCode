@@ -5,7 +5,7 @@ namespace MetaCode.Compiler.Interpreter
 {
     public abstract class FunctionContextBase
     {
-        public string Name { get;  protected set; }
+        public string Name { get; protected set; }
 
         protected FunctionContextBase(string name)
         {

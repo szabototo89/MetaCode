@@ -32,7 +32,7 @@ namespace MetaCode.Compiler.Tests
             // GIVEN
             var underTest = new TreeSelectorCompiler();
             var selectorDefinition = @"
-                [ * > if > sequence > variable[name = c] + while[condition] > *]
+                { * > if > sequence > variable[name = c] + while[condition] > * }
             ";
 
             var source = @"
@@ -53,8 +53,7 @@ namespace MetaCode.Compiler.Tests
             var selectors = underTest.Parse(selectorDefinition);
             var tree = ParseWithAbstractTreeVisitor(Compiler, source);
 
-            foreach (var selector in selectors)
-            {
+            foreach (var selector in selectors) {
                 var result = selector.SelectNode(tree);
             }
 

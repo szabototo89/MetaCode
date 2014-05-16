@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MetaCode.Compiler.AbstractSyntaxTree;
 using MetaCode.Compiler.AbstractSyntaxTree.Statements;
+using MetaCode.Compiler.AbstractSyntaxTree.Visitors;
+using MetaCode.Compiler.Helpers;
 using MetaCode.Compiler.Services;
 using MetaCode.Core;
 
@@ -17,7 +19,7 @@ namespace MetaCode.Compiler.Interpreter
         private readonly Stack<Dictionary<string, VariableContext>> _variables;
         private readonly Stack<Dictionary<string, FunctionContextBase>> _functions;
         private readonly Stack<Dictionary<string, MacroContextBase>> _macros;
-        private readonly Stack<Dictionary<string, TypeContextBase>> _types; 
+        private readonly Stack<Dictionary<string, TypeContextBase>> _types;
 
         public InterpreterContext(CompilerService compilerService)
         {
@@ -40,8 +42,15 @@ namespace MetaCode.Compiler.Interpreter
             _functions.Clear();
             _functions.Push(new Dictionary<string, FunctionContextBase>()
             {
-                {"write", new NativeFunctionContext("write", new Action<object>(Console.Write))},
-                {"writeline", new NativeFunctionContext("writeline", new Action<object>(Console.WriteLine))}
+                {"write", new NativeFunctionContext("write", new Func<object, object>(text => {
+                    Console.Write(text);
+                    return TypeHelper.Void;
+                }))},
+                {"writeline", new NativeFunctionContext("writeline", new Func<object, object>(text =>{
+                    Console.WriteLine(text);
+                    return TypeHelper.Void;
+                }))},
+                { "object", new NativeFunctionContext("object", new Func<object>(() => new Dictionary<string, object>()))}
             });
 
             return this;
@@ -70,8 +79,7 @@ namespace MetaCode.Compiler.Interpreter
             if (string.IsNullOrWhiteSpace(name))
                 ThrowHelper.ThrowException("The 'name' is blank!");
 
-            foreach (var block in _macros.Reverse())
-            {
+            foreach (var block in _macros.Reverse()) {
                 MacroContextBase result;
 
                 if (block.TryGetValue(name, out result))
@@ -86,8 +94,7 @@ namespace MetaCode.Compiler.Interpreter
             if (string.IsNullOrWhiteSpace(name))
                 ThrowHelper.ThrowException("The 'name' is blank!");
 
-            foreach (var block in _functions.Reverse())
-            {
+            foreach (var block in _functions.Reverse()) {
                 FunctionContextBase result;
 
                 if (block.TryGetValue(name, out result))
@@ -102,8 +109,7 @@ namespace MetaCode.Compiler.Interpreter
             if (string.IsNullOrWhiteSpace(name))
                 ThrowHelper.ThrowException("The 'name' is blank!");
 
-            foreach (var block in _variables.Reverse())
-            {
+            foreach (var block in _variables.Reverse()) {
                 VariableContext result;
 
                 if (block.TryGetValue(name, out result))
@@ -113,7 +119,7 @@ namespace MetaCode.Compiler.Interpreter
             throw new Exception(string.Format("Variable ({0}) not found!", name));
         }
 
-        public InterpreterContext DeclareFunction(string name, FunctionDeclarationStatementNode function)
+        public InterpreterContext DeclareFunction(string name, FunctionDeclarationStatementNode function, CodeInterpreter codeInterpreter)
         {
             if (string.IsNullOrWhiteSpace(name))
                 ThrowHelper.ThrowException("The 'name' is blank!");
@@ -122,7 +128,7 @@ namespace MetaCode.Compiler.Interpreter
                 ThrowHelper.ThrowArgumentNullException(() => function);
 
             _functions.First()
-                      .Add(name, new FunctionContext(name, function, this));
+                      .Add(name, new FunctionContext(name, function, this, codeInterpreter));
 
             return this;
         }

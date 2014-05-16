@@ -115,9 +115,32 @@ namespace MetaCode.Compiler.Tests
         {
             // GIVEN
             var source = @"
+                var person: any = 0;    
+                person.name = 'John Doe';
+                person.age = 24;
+                writeline(person.name);
+
+                function max(a: number, b: number) : number do
+                  writeline('call function max');
+                  if (a > b)
+                    result = a; 
+                  else
+                    result = b;
+                  end;
+                end;
+
+                function min(a: number, b: number) : number do
+                  writeline('call function min');
+                  if (a < b)
+                    result = a; 
+                  else
+                    result = b;
+                  end;
+                end;
+
                 var j : number = 0;
                 foreach (var i : number in [1,2,3,4,5,6]) do
-                  j = 3 * i;
+                  j = max(3 * i, min(4 * i, 5 * i));
                   writeline(j + '. Hello World!');
                 end;
             ";

@@ -73,7 +73,7 @@ primaryExpression   :   Attributes=attribute* Constant=constant
                     |   Attributes=attribute* '(' InnerExpression=expression ')'
                     ;       
 
-functionStatement   :   attribute* FUNCTION FunctionName=ID ('(' Parameter=formalParameter (',' Parameter=formalParameter)* ')')? (':' ReturnType=typeName)? DO BodyStatements=statements END
+functionStatement   :   attribute* FUNCTION FunctionName=ID ('(' Parameter=formalParameter (',' Parameter=formalParameter)* ')')? (':' ReturnType=typeName) DO BodyStatements=statements END
                     ;
 
 macroStatement      :   attribute* (Type=IMPLICIT | Type=EXPLICIT) MACRO MacroName=ID '(' macroFormalParameter (',' macroFormalParameter)* ')' DO BodyStatements=statements END

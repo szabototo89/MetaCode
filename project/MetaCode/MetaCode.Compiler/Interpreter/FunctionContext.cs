@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using MetaCode.Compiler.AbstractSyntaxTree;
 using MetaCode.Compiler.AbstractSyntaxTree.Statements;
+using MetaCode.Compiler.AbstractSyntaxTree.Visitors;
 using MetaCode.Core;
 
 namespace MetaCode.Compiler.Interpreter
@@ -9,8 +11,9 @@ namespace MetaCode.Compiler.Interpreter
     {
         public FunctionDeclarationStatementNode Function { get; protected set; }
         public InterpreterContext InterpreterContext { get; protected set; }
+        public CodeInterpreter CodeInterpreter { get; protected set; }
 
-        public FunctionContext(string name, FunctionDeclarationStatementNode function, InterpreterContext interpreterContext)
+        public FunctionContext(string name, FunctionDeclarationStatementNode function, InterpreterContext interpreterContext, CodeInterpreter codeInterpreter)
             : base(name)
         {
             if (function == null)
@@ -19,8 +22,12 @@ namespace MetaCode.Compiler.Interpreter
             if (interpreterContext == null)
                 ThrowHelper.ThrowArgumentNullException(() => interpreterContext);
 
+            if (codeInterpreter == null)
+                ThrowHelper.ThrowArgumentNullException(() => codeInterpreter);
+
             Function = function;
             InterpreterContext = interpreterContext;
+            CodeInterpreter = codeInterpreter;
         }
 
         public override object Invoke(object[] parameters)
@@ -34,11 +41,15 @@ namespace MetaCode.Compiler.Interpreter
                 scope.DeclareVariable(parameter.Name, parameters[index])
             );
 
-            //InterpreterContext.
+            scope.DeclareVariable("result");
+
+            CodeInterpreter.VisitChild(Function.FunctionBody);
+
+            var result = scope.GetValueOfVariable("result");
 
             InterpreterContext.PopBlock();
 
-            throw new NotImplementedException();
+            return result;
         }
     }
 }

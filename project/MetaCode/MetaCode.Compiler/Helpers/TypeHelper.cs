@@ -86,10 +86,12 @@ namespace MetaCode.Compiler.Helpers
 
         public static Type FindType(string typeName)
         {
-            if (string.IsNullOrWhiteSpace(typeName))
+            if (String.IsNullOrWhiteSpace(typeName))
                 ThrowHelper.ThrowException("The typeName is blank!");
 
             return Type.GetType(typeName, false);
         }
+
+        public static readonly object Void = new object();
     }
 }
