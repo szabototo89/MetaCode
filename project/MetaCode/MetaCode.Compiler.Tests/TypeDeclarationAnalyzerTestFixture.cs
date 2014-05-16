@@ -77,6 +77,7 @@ namespace MetaCode.Compiler.Tests
                 var i : number = 0;
                 var n : number = 100;
                 var sum : number = 0;
+
                 while (i < n) do
                   sum := sum + 2 * i;
                   i := i + 1;
