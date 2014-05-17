@@ -12,7 +12,8 @@
       <MenuItem Header="File">
         <MenuItem Header="New"
                   InputGestureText="Ctrl+N"
-                  Click="NewFileCommand" />
+                  Click="NewFileCommand">
+        </MenuItem>
         <MenuItem Header="Open"
                   InputGestureText="Ctrl+O"
                   Click="OpenFileCommand" />
@@ -23,14 +24,14 @@
                   InputGestureText="Ctrl+Shift+S"
                   Click="SaveGeneratedFileCommand" />
         <Separator />
-        <MenuItem Header="Close" />
+        <MenuItem Header="Close" Click="CloseWindowCommand" />
       </MenuItem>
     </Menu>
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="*" />
         <RowDefinition Height="3" />
-        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" MaxHeight="200" />
       </Grid.RowDefinitions>
       <Grid Grid.Row="0">
         <Grid.Resources>

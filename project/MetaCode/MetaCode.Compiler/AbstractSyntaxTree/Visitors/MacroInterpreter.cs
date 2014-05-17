@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Antlr4.Runtime.Misc;
 using MetaCode.Compiler.AbstractSyntaxTree.Constants;
 using MetaCode.Compiler.AbstractSyntaxTree.Expressions;
 using MetaCode.Compiler.AbstractSyntaxTree.Operators;
@@ -95,9 +97,42 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                 return result;
             }));
 
-            InterpreterContext.DeclareNativeMacroFunction("replace", args => {
-                return args.First();
-            });
+            InterpreterContext.DeclareNativeFunction("appendTo", new Func<object, object, object>((that, treeDestination) => {
+                return GetParameterByType<IEnumerable<Node>>(that, "Invalid first argument of appendTo()", nodes => {
+                    return GetParameterByType<IEnumerable<Node>>(treeDestination, "Invalid second argument of appendTo()", destinations => {
+                        IEnumerable<Node> result = Enumerable.Empty<Node>();
+
+                        foreach (var destination in destinations) {
+                            destination.AddChildren(nodes);
+                        }
+                        return null;
+                    });
+                });
+            }));
+
+            InterpreterContext.DeclareNativeFunction("parent", new Func<object, object>(arg => {
+                return GetParameterByType<IEnumerable<Node>>(arg, "Invalid argument of parent()", nodes => {
+                    var result = nodes.Select(node => node.Parent);
+                    return result;
+                }) ?? GetParameterByType<Node>(arg, node => node.Parent);
+            }));
+        }
+
+        private object GetParameterByType<TResult>(object that, Func<TResult, object> func)
+            where TResult : class
+        {
+            return GetParameterByType<TResult>(that, string.Empty, func);
+        }
+
+        private object GetParameterByType<TResult>(object that, string errorMessage, Func<TResult, object> func)
+            where TResult : class
+        {
+            var result = (that as TResult);
+            if (result == null && !string.IsNullOrWhiteSpace(errorMessage)) {
+                CompilerService.Error(errorMessage);
+                return null;
+            }
+            return func(result);
         }
 
         private void Initialize()

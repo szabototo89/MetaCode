@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MetaCode.CodeVisualizer.ViewModels;
 using Microsoft.Win32;
+using Path = System.IO.Path;
 
 namespace MetaCode.CodeVisualizer
 {
@@ -59,19 +60,27 @@ namespace MetaCode.CodeVisualizer
 
         private void SaveGeneratedFileCommand(object sender, RoutedEventArgs e)
         {
-            SaveCodeToFileCommand(ViewModel.GeneratedSourceCode);
+            SaveCodeToFileCommand(ViewModel.GeneratedSourceCode, true);
         }
 
-        private void SaveCodeToFileCommand(string sourceCode)
+        private void SaveCodeToFileCommand(string sourceCode, bool isGenerated = false)
         {
             var dialog = new SaveFileDialog() { Filter = "MetaCode files (*.mc)|*.mc|All files (*.*)|*.*", CheckFileExists = false };
 
             if (dialog.ShowDialog(this) == true) {
                 var file = dialog.FileName;
-                using (var text = File.CreateText(file)) {
+                var fileName = file;
+                if (isGenerated)
+                    fileName = Path.GetFileNameWithoutExtension(file) + "-generated.mc";
+                using (var text = File.CreateText(fileName)) {
                     text.WriteLine(sourceCode);
                 }
             }
+        }
+
+        private void CloseWindowCommand(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

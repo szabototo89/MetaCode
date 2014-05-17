@@ -3,6 +3,7 @@ implicit macro DebugMacro(tree: { * > * }) do
 	foreach (var child : any in convertToString(tree)) do
 		debug(i + '. child');
 		debug(child);
+		i =  i + 1;
 	end;
 end;
 

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MetaCode.Compiler.AbstractSyntaxTree;
+using MetaCode.Compiler.AbstractSyntaxTree.Statements;
 
 namespace MetaCode.Compiler.Selectors
 {
@@ -10,7 +11,7 @@ namespace MetaCode.Compiler.Selectors
     {
         protected override bool FilterNode(Node node)
         {
-            return true;
+            return !(node is MacroDeclarationStatementNode);
         }
     }
 }
