@@ -105,6 +105,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                         .ReduceIndentation()
                         .AppendLine("end;");
                 })
+                .If<MacroDeclarationStatementNode>((visitor, node) => _codeBuilder)
                 .If<AttributeDeclarationStatementNode>((visitor, node) => {
                     return _codeBuilder.Append("attribute ")
                         .Do(() => visitor.VisitChild(node.Identifier))

@@ -141,8 +141,12 @@ namespace MetaCode.Compiler.Interpreter
             if (function == null)
                 ThrowHelper.ThrowArgumentNullException(() => function);
 
-            _functions.First()
-                      .Add(name, new NativeFunctionContext(name, function));
+
+            var functionScope = _functions.First();
+            if (functionScope.ContainsKey(name))
+                functionScope[name] = new NativeFunctionContext(name, function);
+            else
+                functionScope.Add(name, new NativeFunctionContext(name, function));
 
             return this;
         }

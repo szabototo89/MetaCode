@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+
+<SyntaxDefinition name = "MetaCode" extensions = ".mc">
+
+    <Properties>
+        <Property name="LineComment" value="//" />
+    </Properties>
+
+    <Digits name = "Digits" bold = "false" italic = "false" color = "DarkBlue"/>
+
+    <RuleSets>
+        <RuleSet ignorecase="false">
+            <Delimiters>&amp;&lt;&gt;~!%^*()-+=|\#/{}[]:;"' ,   .?</Delimiters>
+
+            <!-- ... -->
+
+            <Span name = "LineComment" rule = "CommentMarkerSet" bold="false" italic="false" color="Green" stopateol = "true">
+                <Begin>#</Begin>
+            </Span>
+    
+            <Span name = "BlockComment" rule = "CommentMarkerSet" bold = "false" italic = "false" color = "Green" stopateol = "false">
+                <Begin>/*</Begin>
+                <End>*/</End>
+            </Span>
+
+            <MarkPrevious bold = "true" italic = "false" color = "MidnightBlue">(</MarkPrevious>
+
+            <KeyWords name = "Punctuation" bold = "false" italic = "false" color = "DarkGreen">
+                <Key word = "?" />
+                <Key word = "," />
+                <Key word = "." />
+                <Key word = ";" />
+                <Key word = "(" />
+                <Key word = ")" />
+                <Key word = "[" />
+                <Key word = "]" />
+                <Key word = "{" />
+                <Key word = "}" />
+                <Key word = "+" />
+                <Key word = "-" />
+                <Key word = "/" />
+                <Key word = "%" />
+                <Key word = "*" />
+                <Key word = "&lt;" />
+                <Key word = "&gt;" />
+                <Key word = "^" />
+                <Key word = "=" />
+                <Key word = "~" />
+                <Key word = "!" />
+                <Key word = "|" />
+                <Key word = "&amp;" />
+            </KeyWords>
+
+            <KeyWords name = "AccessKeywords" bold="true" italic="false" color="Black">
+                <Key word = "do" />
+                <Key word = "end" />
+                <Key word = "if" />
+                <Key word = "foreach" />
+                <Key word = "while" />
+                <Key word = "in" />
+                <Key word = "var" />
+                <Key word = "function" />
+                <Key word = "macro" />
+            </KeyWords>
+
+            <!-- ... -->
+        </RuleSet>
+
+        <RuleSet name = "CommentMarkerSet" ignorecase = "false">
+            <Delimiters>&lt;&gt;~!@%^*()-+=|\#/{}[]:;"' ,   .?</Delimiters>
+            <KeyWords name = "ErrorWords" bold="true" italic="false" color="Red">
+                <Key word = "TODO" />
+                <Key word = "FIXME" />
+            </KeyWords>
+            <KeyWords name = "WarningWords" bold="true" italic="false" color="#EEE0E000">
+                <Key word = "HACK" />
+                <Key word = "UNDONE" />
+            </KeyWords>
+        </RuleSet>
+    </RuleSets>
+</SyntaxDefinition>

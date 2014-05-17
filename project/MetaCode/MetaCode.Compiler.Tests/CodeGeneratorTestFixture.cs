@@ -75,7 +75,7 @@ namespace MetaCode.Compiler.Tests
         {
             // GIVEN
             var source = @"
-                implicit macro helloMacro(tree: { * > foreach[body] }) do
+                implicit macro debugMacro(tree: { * > foreach[body][loop-variable =  str] > * }) do
                     writeline('Actual parameters of helloMacro');
                     writeline('-------------------');
                     var i : number = 1;
@@ -102,6 +102,7 @@ namespace MetaCode.Compiler.Tests
                     else
                       skip;
                     end;
+                    skip;
                 end;
 
                 foreach (var i : number in [1,2,3,4]) do
