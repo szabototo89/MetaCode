@@ -25,12 +25,13 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
     {
         public CompilerService CompilerService { get; set; }
 
-        private readonly InterpreterContext _interpreterContext;
+        public InterpreterContext InterpreterContext { get; protected set; }
+        private readonly CodeInterpreter _codeInterpreter;
         private readonly Stack<object> _expressionStack;
 
         private bool _isInInterpreterMode;
 
-        private CompilationUnit _root;
+        public CompilationUnit Root { get; protected set; }
 
         public MacroInterpreter(CompilerService compilerService)
         {
@@ -41,7 +42,8 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
             CompilerService = compilerService;
             _expressionStack = new Stack<object>();
-            _interpreterContext = new InterpreterContext(compilerService);
+            _codeInterpreter = new CodeInterpreter(compilerService);
+            InterpreterContext = _codeInterpreter.InterpreterContext;
 
             Initialize();
             InitializeNativeFunctions();
@@ -49,12 +51,24 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
         private void InitializeNativeFunctions()
         {
-            _interpreterContext.DeclareNativeFunction("toSyntaxTree", new Func<object, object>(value => {
+            InterpreterContext.DeclareNativeFunction("convertToString", new Func<object, object>(value => {
+                var codeGenerator = new CodeGenerator();
+
+                if (!(value is IEnumerable<Node>)) {
+                    CompilerService.Error("Invalid use of convertToString. The actual parameter is not AST!");
+                    return Enumerable.Empty<Node>();
+                }
+
+                var result = (value as IEnumerable<Node>).Select(codeGenerator.Visit);
+                return result;
+            }));
+
+            InterpreterContext.DeclareNativeFunction("toSyntaxTree", new Func<object, object>(value => {
                 var compiler = new MetaCodeCompiler();
                 return compiler.ParseWithVisitor<Node, AbstractTreeVisitor>(value.ToString(), () => new AbstractTreeVisitor(CompilerService.Instance));
             }));
 
-            _interpreterContext.DeclareNativeFunction("find", new Func<object, object, object>((tree, filter) => {
+            InterpreterContext.DeclareNativeFunction("find", new Func<object, object, object>((tree, filter) => {
                 if (!(tree is Node) && !(tree is string))
                     throw new Exception("The first parameter must be a node or string!");
 
@@ -81,16 +95,16 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                 return result;
             }));
 
-            _interpreterContext.DeclareNativeMacroFunction("replace", args => {
+            InterpreterContext.DeclareNativeMacroFunction("replace", args => {
                 return args.First();
             });
         }
 
         private void Initialize()
         {
-            this.
+            /*this.
                 DefaultVisitor((visitor, node) => {
-                    node.Is<CompilationUnit>(unit => _root = unit);
+                    node.Is<CompilationUnit>(unit => Root = unit);
 
                     foreach (var child in node.Children)
                         visitor.VisitChild(child);
@@ -106,9 +120,9 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                         var value = new List<Node>();
 
                         foreach (var selector in selectors)
-                            value.AddRange(selector.SelectNode(_root));
+                            value.AddRange(selector.SelectNode(Root));
 
-                        _interpreterContext.DeclareVariable(parameter.Name, value);
+                        InterpreterContext.DeclareVariable(parameter.Name, value);
                     }
 
                     foreach (var child in node.Children)
@@ -234,7 +248,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     var variable = node.LeftValue.Members.First().Name;
                     visitor.VisitChild(node.RightValue);
 
-                    _interpreterContext.SetValueOfVariable(variable, _expressionStack.Pop());
+                    InterpreterContext.SetValueOfVariable(variable, _expressionStack.Pop());
 
                     return this;
                 })
@@ -273,7 +287,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                         return this;
 
                     var name = node.Name;
-                    var value = _interpreterContext.GetValueOfVariable(name);
+                    var value = InterpreterContext.GetValueOfVariable(name);
                     _expressionStack.Push(value);
 
                     return this;
@@ -286,7 +300,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     visitor.VisitChild(node.InitialValue);
                     var value = _expressionStack.Pop();
 
-                    _interpreterContext.DeclareVariable(name, value);
+                    InterpreterContext.DeclareVariable(name, value);
 
                     return this;
                 })
@@ -296,18 +310,18 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     var variable = node.LoopVariable.Name;
 
-                    _interpreterContext.PushBlock();
-                    _interpreterContext.DeclareVariable(variable, null);
+                    InterpreterContext.PushBlock();
+                    InterpreterContext.DeclareVariable(variable, null);
 
                     visitor.VisitChild(node.Expression);
                     var array = _expressionStack.Pop() as IEnumerable;
 
                     foreach (var value in array) {
-                        _interpreterContext.SetValueOfVariable(variable, value);
+                        InterpreterContext.SetValueOfVariable(variable, value);
                         visitor.VisitChild(node.Body);
                     }
 
-                    _interpreterContext.PopBlock();
+                    InterpreterContext.PopBlock();
 
                     return this;
                 })
@@ -316,7 +330,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                         return this;
 
                     var name = node.FunctionName.Name;
-                    var result = _interpreterContext.InvokeMacroFunction(name, node.ActualParameters);
+                    var result = InterpreterContext.InvokeMacroFunction(name, node.ActualParameters);
                     _expressionStack.Push(result);
 
                     return this;
@@ -334,7 +348,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     for (int i = 0; i < node.ActualParameters.Count(); i++)
                         parameters.Add(_expressionStack.Pop());
 
-                    var result = _interpreterContext.InvokeFunction(name, parameters.ToArray().Reverse());
+                    var result = InterpreterContext.InvokeFunction(name, parameters.ToArray().Reverse());
                     _expressionStack.Push(result);
 
                     return this;
@@ -359,12 +373,12 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     if (!_isInInterpreterMode)
                         return this;
 
-                    _interpreterContext.PushBlock();
+                    InterpreterContext.PushBlock();
 
                     foreach (var child in node.Children)
                         visitor.VisitChild(child);
 
-                    _interpreterContext.PopBlock();
+                    InterpreterContext.PopBlock();
 
                     return this;
                 })
@@ -383,6 +397,36 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                         visitor.VisitChild(node.TrueStatementNode);
                     else
                         visitor.VisitChild(node.FalseStatementNode);
+
+                    return this;
+                });*/
+
+            this
+                .DefaultVisitor((visitor, node) => {
+                    node.Is<CompilationUnit>(unit => Root = unit);
+
+                    foreach (var child in node.Children)
+                        visitor.VisitChild(child);
+                    return this;
+                })
+                .If<MacroDeclarationStatementNode>((visitor, node) => {
+                    var treeSelector = new TreeSelectorCompiler();
+
+                    var scope = _codeInterpreter.InterpreterContext.PushBlock();
+
+                    foreach (var parameter in node.FormalParameters) {
+                        var selectors = treeSelector.Parse(parameter.Selector);
+                        var value = new List<Node>();
+
+                        foreach (var selector in selectors)
+                            value.AddRange(selector.SelectNode(Root));
+
+                        scope.DeclareVariable(parameter.Name, value);
+                    }
+
+                    _codeInterpreter.VisitChild(node.Body);
+
+                    _codeInterpreter.InterpreterContext.PopBlock();
 
                     return this;
                 });

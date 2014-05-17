@@ -90,6 +90,28 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                         .Do(() => visitor.VisitChild(node.InitialValue))
                         .Append(";");
                 })
+                .If<ObjectDeclarationStatementNode>((visitor, node) => {
+                    return _codeBuilder.Append("object ")
+                        .Do(() => visitor.VisitChild(node.Identifier))
+                        .AppendLine()
+                        .RaiseIndentation()
+                        .Do(() => {
+                            foreach (var child in node.Parameters) {
+                                _codeBuilder.ApplyIndentation();
+                                visitor.VisitChild(child);
+                                _codeBuilder.AppendLine(";");
+                            }
+                        })
+                        .ReduceIndentation()
+                        .AppendLine("end;");
+                })
+                .If<AttributeDeclarationStatementNode>((visitor, node) => {
+                    return _codeBuilder.Append("attribute ")
+                        .Do(() => visitor.VisitChild(node.Identifier))
+                        .Append("(")
+                        .Do(() => JoinByComma(node.Parameters, visitor))
+                        .AppendLine(");");
+                })
                 .If<FormalParameterNode>((visitor, node) => {
                     return _codeBuilder.Append(node.Name)
                         .Append(": ")
@@ -187,6 +209,13 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     return _codeBuilder;
                 })
                 ;
+        }
+
+        public string Visit(Node node)
+        {
+            var result = VisitChild(node).ToString();
+            _codeBuilder.Clear();
+            return result;
         }
 
         private void JoinByComma<TNode>(IEnumerable<TNode> collection, TreeVisitorBase<CodeBuilder> visitor)

@@ -22,7 +22,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
     {
         public CompilerService CompilerService { get; set; }
 
-        private readonly InterpreterContext _interpreterContext;
+        public InterpreterContext InterpreterContext { get; protected set; }
         private readonly Stack<object> _expressionStack;
 
         private CompilationUnit _root;
@@ -34,7 +34,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
             CompilerService = compilerService;
             _expressionStack = new Stack<object>();
-            _interpreterContext = new InterpreterContext(compilerService);
+            InterpreterContext = new InterpreterContext(compilerService);
 
             Initialize();
             InitializeNativeFunctions();
@@ -42,7 +42,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
         private void InitializeNativeFunctions()
         {
-            _interpreterContext.DeclareNativeFunction("toString", new Func<object, string>(value => value.ToString()));
+            InterpreterContext.DeclareNativeFunction("toString", new Func<object, string>(value => value.ToString()));
         }
 
         private void Initialize()
@@ -56,7 +56,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     return this;
                 })
                 .If<FunctionDeclarationStatementNode>((visitor, node) => {
-                    _interpreterContext.DeclareFunction(node.FunctionName, node, this);
+                    InterpreterContext.DeclareFunction(node.FunctionName, node, this);
                     return this;
                 })
                 .If<UnaryExpressionNode>((visitor, node) => {
@@ -164,19 +164,19 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     var variable = node.LeftValue.Members.First().Name;
 
                     if (node.LeftValue.Members.Length == 1) {
-                        _interpreterContext.SetValueOfVariable(variable, _expressionStack.Pop());
+                        InterpreterContext.SetValueOfVariable(variable, _expressionStack.Pop());
                     }
                     else {
                         var members = string.Join(".",
                             node.LeftValue.Members.Skip(1)
                                 .Select(member => member.Name));
                         var value =
-                            _interpreterContext.GetValueOfVariable(
+                            InterpreterContext.GetValueOfVariable(
                                 variable);
                         if (!(value is Dictionary<string, object>))
                             value = new Dictionary<string, object>();
                         value.As<Dictionary<string, object>>()[members] = _expressionStack.Pop();
-                        _interpreterContext.SetValueOfVariable(variable, value);
+                        InterpreterContext.SetValueOfVariable(variable, value);
                     }
 
                     return this;
@@ -207,7 +207,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                 })
                 .If<IdentifierExpressionNode>((visitor, node) => {
                     var name = node.Name;
-                    var value = _interpreterContext.GetValueOfVariable(name);
+                    var value = InterpreterContext.GetValueOfVariable(name);
                     _expressionStack.Push(value);
 
                     return this;
@@ -217,37 +217,37 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     visitor.VisitChild(node.InitialValue);
                     var value = _expressionStack.Pop();
 
-                    _interpreterContext.DeclareVariable(name, value);
+                    InterpreterContext.DeclareVariable(name, value);
 
                     return this;
                 })
                 .If<AttributeDeclarationStatementNode>((visitor, node) => {
                     var name = node.AttributeName;
 
-                    //_interpreterContext.DeclareAttribute(name, node);
+                    //InterpreterContext.DeclareAttribute(name, node);
 
                     return this;
                 })
                 .If<ForeachLoopStatementNode>((visitor, node) => {
                     var variable = node.LoopVariable.Name;
 
-                    _interpreterContext.PushBlock();
-                    _interpreterContext.DeclareVariable(variable, null);
+                    InterpreterContext.PushBlock();
+                    InterpreterContext.DeclareVariable(variable, null);
 
                     visitor.VisitChild(node.Expression);
                     var array = _expressionStack.Pop() as IEnumerable;
 
                     foreach (var value in array) {
-                        _interpreterContext.SetValueOfVariable(variable, value);
+                        InterpreterContext.SetValueOfVariable(variable, value);
                         visitor.VisitChild(node.Body);
                     }
 
-                    _interpreterContext.PopBlock();
+                    InterpreterContext.PopBlock();
 
                     return this;
                 })
                 .If<MemberExpressionNode>((visitor, node) => {
-                    var variable = _interpreterContext.GetValueOfVariable(node.Members.First().Name).As<Dictionary<string, object>>();
+                    var variable = InterpreterContext.GetValueOfVariable(node.Members.First().Name).As<Dictionary<string, object>>();
                     if (variable == null)
                         ThrowHelper.ThrowException("Wrong type of " + node.Members.First().Name);
 
@@ -258,7 +258,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                 })
                 .If<MacroCallExpressionNode>((visitor, node) => {
                     var name = node.FunctionName.Name;
-                    var result = _interpreterContext.InvokeMacroFunction(name, node.ActualParameters);
+                    var result = InterpreterContext.InvokeMacroFunction(name, node.ActualParameters);
                     _expressionStack.Push(result);
 
                     return this;
@@ -276,7 +276,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     for (int i = 0; i < node.ActualParameters.Count(); i++)
                         parameters.Add(_expressionStack.Pop());
 
-                    var result = _interpreterContext.InvokeFunction(name, parameters.ToArray().Reverse());
+                    var result = InterpreterContext.InvokeFunction(name, parameters.ToArray().Reverse());
 
                     if (result != TypeHelper.Void)
                         _expressionStack.Push(result);
@@ -297,12 +297,12 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     return this;
                 })
                 .If<BlockStatementNode>((visitor, node) => {
-                    _interpreterContext.PushBlock();
+                    InterpreterContext.PushBlock();
 
                     foreach (var child in node.Children)
                         visitor.VisitChild(child);
 
-                    _interpreterContext.PopBlock();
+                    InterpreterContext.PopBlock();
 
                     return this;
                 })
