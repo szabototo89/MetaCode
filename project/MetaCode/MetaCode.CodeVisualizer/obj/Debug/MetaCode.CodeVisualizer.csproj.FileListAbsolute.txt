@@ -37,3 +37,16 @@ E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\bin
 E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\obj\Debug\GeneratedInternalTypeHelper.g.cs
 E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\obj\Debug\MetaCode.CodeVisualizer_MarkupCompile.lref
 E:\Development\Projects\C#\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\obj\Debug\MetaCode.CodeVisualizer.Resources.resources
+E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\obj\Debug\MetaCode.CodeVisualizer_MarkupCompile.lref
+E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\bin\Debug\Antlr4.Runtime.v4.5.dll
+E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\bin\Debug\CommonLib.dll
+E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\bin\Debug\CommonLib.WPF.dll
+E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\bin\Debug\ICSharpCode.AvalonEdit.dll
+E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\bin\Debug\MetaCode.Compiler.dll
+E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\bin\Debug\MetaCode.Core.dll
+E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\bin\Debug\MetaCode.Compiler.pdb
+E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\bin\Debug\MetaCode.Core.pdb
+E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\bin\Debug\Antlr4.Runtime.v4.5.xml
+E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\bin\Debug\ICSharpCode.AvalonEdit.xml
+E:\Development\Projects\MetaCode\project\MetaCode\MetaCode.CodeVisualizer\obj\Debug\MetaCode.CodeVisualizer.Resources.resources

@@ -53,10 +53,12 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
         private void InitializeNativeFunctions()
         {
-            InterpreterContext.DeclareNativeFunction("convertToString", new Func<object, object>(value => {
+            InterpreterContext.DeclareNativeFunction("convertToString", new Func<object, object>(value =>
+            {
                 var codeGenerator = new CodeGenerator();
 
-                if (!(value is IEnumerable<Node>)) {
+                if (!(value is IEnumerable<Node>))
+                {
                     CompilerService.Error("Invalid use of convertToString. The actual parameter is not AST!");
                     return Enumerable.Empty<Node>();
                 }
@@ -65,13 +67,28 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                 return result;
             }));
 
-            InterpreterContext.DeclareNativeFunction("toSyntaxTree", new Func<object, object>(value => {
-                var compiler = new MetaCodeCompiler();
-                return compiler.ParseWithVisitor<Node, AbstractTreeVisitor>(value.ToString(), () => new AbstractTreeVisitor(CompilerService.Instance));
+            InterpreterContext.DeclareNativeFunction("functionCall", new Func<object, object[], object>((functionName, args) =>
+            {
+                return GetParameterByType<string>(functionName, name =>
+                {
+                    var func = string.Format("{0}({1})",
+                        name, string.Join(", ", args)
+                    );
+
+                    return GetAbstractSyntaxTree(func);
+                });
             }));
 
-            InterpreterContext.DeclareNativeFunction("find", new Func<object, object, object>((tree, filter) => {
-                if (!(tree is Node) && !(tree is string))
+            InterpreterContext.DeclareNativeFunction("str", new Func<object, object>(value =>
+            {
+                return GetParameterByType<string>(value, str => string.Format("\"{0}\"", str));
+            }));
+
+            InterpreterContext.DeclareNativeFunction("ast", new Func<object, object>(GetAbstractSyntaxTree));
+
+            InterpreterContext.DeclareNativeFunction("find", new Func<object, object, object>((tree, filter) =>
+            {
+                if (!(tree is IEnumerable<Node>) && !(tree is string))
                     throw new Exception("The first parameter must be a node or string!");
 
                 if (!filter.Is<string>())
@@ -81,10 +98,13 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                 var selectors = treeSelectorCompiler.Parse(filter.ToString());
                 var result = new List<Node>();
 
-                foreach (var selector in selectors) {
-                    if (tree is Node)
-                        result.AddRange(selector.SelectNode(tree.As<Node>()));
-                    else {
+                foreach (var selector in selectors)
+                {
+                    if (tree is IEnumerable<Node>)
+                        foreach (var node in tree.As<IEnumerable<Node>>())
+                            result.AddRange(selector.SelectNode(node));
+                    else
+                    {
                         var compiler = new MetaCodeCompiler();
                         var node = compiler.ParseWithVisitor<Node, AbstractTreeVisitor>(
                                                tree.ToString(),
@@ -97,25 +117,91 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                 return result;
             }));
 
-            InterpreterContext.DeclareNativeFunction("appendTo", new Func<object, object, object>((that, treeDestination) => {
-                return GetParameterByType<IEnumerable<Node>>(that, "Invalid first argument of appendTo()", nodes => {
-                    return GetParameterByType<IEnumerable<Node>>(treeDestination, "Invalid second argument of appendTo()", destinations => {
-                        IEnumerable<Node> result = Enumerable.Empty<Node>();
-
-                        foreach (var destination in destinations) {
-                            destination.AddChildren(nodes);
+            InterpreterContext.DeclareNativeFunction("appendTo", new Func<object, object, object>((that, treeDestination) =>
+            {
+                return GetParameterByType<IEnumerable<StatementNodeBase>>(that.As<IEnumerable>().OfType<StatementNodeBase>(), "Invalid first argument of appendTo()", nodes =>
+                {
+                    return GetParameterByType<IEnumerable<StatementNodeBase>>(treeDestination.As<IEnumerable>().OfType<StatementNodeBase>(), "Invalid second argument of appendTo()", destinations =>
+                    {
+                        foreach (var destination in destinations)
+                        {
+                            if (destination is BlockStatementNode)
+                                destination.As<BlockStatementNode>().AppendStatement(nodes.ToArray());
+                            else
+                            {
+                                destination.AddChildren(new BlockStatementNode(nodes, Enumerable.Empty<AttributeNode>()));
+                            }
                         }
                         return null;
                     });
                 });
             }));
 
-            InterpreterContext.DeclareNativeFunction("parent", new Func<object, object>(arg => {
-                return GetParameterByType<IEnumerable<Node>>(arg, "Invalid argument of parent()", nodes => {
+            InterpreterContext.DeclareNativeFunction("prependTo", new Func<object, object, object>((that, treeDestination) =>
+            {
+                return GetParameterByType<IEnumerable<StatementNodeBase>>(that.As<IEnumerable>().OfType<StatementNodeBase>(), "Invalid first argument of prependTo()", nodes =>
+                {
+                    return GetParameterByType<IEnumerable<StatementNodeBase>>(treeDestination.As<IEnumerable>().OfType<StatementNodeBase>(), "Invalid second argument of appendTo()", destinations =>
+                    {
+                        foreach (var destination in destinations)
+                        {
+                            if (destination is BlockStatementNode)
+                                destination.As<BlockStatementNode>().PrependStatement(nodes.ToArray());
+                            else
+                            {
+                                destination.AddChildren(new BlockStatementNode(nodes, Enumerable.Empty<AttributeNode>()));
+                            }
+                        }
+                        return null;
+                    });
+                });
+            }));
+
+            InterpreterContext.DeclareNativeFunction("detach", new Func<object, object>(that =>
+            {
+                var detachNode = new Action<Node>(node =>
+                {
+                    if (node is BlockStatementNode)
+                        node.As<BlockStatementNode>().ClearChildren();
+                    else
+                        node.Parent.DetachChild(node);
+                });
+
+                return GetParameterByType<IEnumerable<Node>>(that, nodes =>
+                {
+                    foreach (var node in nodes)
+                        detachNode(node);
+
+                    return null;
+                }) ?? GetParameterByType<Node>(that, "Invalid first argument of detach()", node =>
+                {
+                    detachNode(node);
+                    return null;
+                });
+            }));
+
+            InterpreterContext.DeclareNativeFunction("parent", new Func<object, object>(arg =>
+            {
+                return GetParameterByType<IEnumerable<Node>>(arg, "Invalid argument of parent()", nodes =>
+                {
                     var result = nodes.Select(node => node.Parent);
                     return result;
-                }) ?? GetParameterByType<Node>(arg, node => node.Parent);
+                }) ?? GetParameterByType<Node>(arg, node => new[] { node.Parent });
             }));
+        }
+
+        private object GetAbstractSyntaxTree(object value)
+        {
+            var compiler = new MetaCodeCompiler();
+            var result =
+                compiler.ParseWithVisitor<Node, AbstractTreeVisitor>(value.ToString(),
+                    () => new AbstractTreeVisitor(CompilerService.Instance)) as CompilationUnit;
+            if (result == null)
+            {
+                CompilerService.Error("An error occured in ast() method!");
+                return null;
+            }
+            return result.Children;
         }
 
         private object GetParameterByType<TResult>(object that, Func<TResult, object> func)
@@ -128,7 +214,8 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
             where TResult : class
         {
             var result = (that as TResult);
-            if (result == null && !string.IsNullOrWhiteSpace(errorMessage)) {
+            if (result == null && !string.IsNullOrWhiteSpace(errorMessage))
+            {
                 CompilerService.Error(errorMessage);
                 return null;
             }
@@ -137,6 +224,39 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
         private void Initialize()
         {
+            this
+                .DefaultVisitor((visitor, node) =>
+                {
+                    node.Is<CompilationUnit>(unit => Root = unit);
+
+                    foreach (var child in node.Children)
+                        visitor.VisitChild(child);
+                    return this;
+                })
+                .If<MacroDeclarationStatementNode>((visitor, node) =>
+                {
+                    var treeSelector = new TreeSelectorCompiler();
+
+                    var scope = _codeInterpreter.InterpreterContext.PushBlock();
+
+                    foreach (var parameter in node.FormalParameters)
+                    {
+                        var selectors = treeSelector.Parse(parameter.Selector);
+                        var value = new List<Node>();
+
+                        foreach (var selector in selectors)
+                            value.AddRange(selector.SelectNode(Root));
+
+                        scope.DeclareVariable(parameter.Name, value);
+                    }
+
+                    _codeInterpreter.VisitChild(node.Body);
+
+                    _codeInterpreter.InterpreterContext.PopBlock();
+
+                    return this;
+                });
+
             /*this.
                 DefaultVisitor((visitor, node) => {
                     node.Is<CompilationUnit>(unit => Root = unit);
@@ -435,36 +555,6 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     return this;
                 });*/
-
-            this
-                .DefaultVisitor((visitor, node) => {
-                    node.Is<CompilationUnit>(unit => Root = unit);
-
-                    foreach (var child in node.Children)
-                        visitor.VisitChild(child);
-                    return this;
-                })
-                .If<MacroDeclarationStatementNode>((visitor, node) => {
-                    var treeSelector = new TreeSelectorCompiler();
-
-                    var scope = _codeInterpreter.InterpreterContext.PushBlock();
-
-                    foreach (var parameter in node.FormalParameters) {
-                        var selectors = treeSelector.Parse(parameter.Selector);
-                        var value = new List<Node>();
-
-                        foreach (var selector in selectors)
-                            value.AddRange(selector.SelectNode(Root));
-
-                        scope.DeclareVariable(parameter.Name, value);
-                    }
-
-                    _codeInterpreter.VisitChild(node.Body);
-
-                    _codeInterpreter.InterpreterContext.PopBlock();
-
-                    return this;
-                });
         }
     }
 }

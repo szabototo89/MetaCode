@@ -30,13 +30,28 @@ namespace MetaCode.Compiler.AbstractSyntaxTree
             if (children == null)
                 ThrowHelper.ThrowArgumentNullException(() => children);
 
-            _children = _children.Union(children).ToList();
+            _children = _children.Concat(children).Distinct().ToList();
 
             foreach (var child in children)
                 child.SetParent(this);
 
             return this;
         }
+
+        internal Node InsertChildren<TNode>(int position, IEnumerable<TNode> children)
+            where TNode : Node
+        {
+            if (children == null)
+                ThrowHelper.ThrowArgumentNullException(() => children);
+
+            _children.InsertRange(position, children);
+
+            foreach (var child in children)
+                child.SetParent(this);
+
+            return this;
+        }
+
 
         internal Node AddChildren(params Node[] children)
         {
@@ -58,5 +73,14 @@ namespace MetaCode.Compiler.AbstractSyntaxTree
 
         #endregion
 
+        public virtual Node DetachChild(Node node)
+        {
+            if (node == null) throw new ArgumentNullException("node");
+
+            _children.Remove(node);
+            node.SetParent(null);
+
+            return this;
+        }
     }
 }

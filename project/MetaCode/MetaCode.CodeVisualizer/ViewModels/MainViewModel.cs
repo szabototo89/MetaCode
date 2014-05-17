@@ -61,7 +61,8 @@ namespace MetaCode.CodeVisualizer.ViewModels
         private void InitializeFunctions()
         {
             var context = MacroInterpreter.InterpreterContext;
-            context.DeclareNativeFunction("debug", new Func<object, object>(value => {
+            context.DeclareNativeFunction("debug", new Func<object, object>(value =>
+            {
                 WriteLineToOutput(value.ToString());
                 return null;
             }));
@@ -101,7 +102,8 @@ namespace MetaCode.CodeVisualizer.ViewModels
         {
             get
             {
-                if (_clearOutputCommand == null) {
+                if (_clearOutputCommand == null)
+                {
                     _clearOutputCommand = new ActionCommand(ClearOutput);
                 }
                 return _clearOutputCommand;
@@ -112,11 +114,20 @@ namespace MetaCode.CodeVisualizer.ViewModels
         {
             get
             {
-                if (_compileCommand == null) {
-                    _compileCommand = new ActionCommand(() => {
-                        var node = ParseWithAbstractTreeVisitor(_compiler, OriginalSourceCode);
-                        MacroInterpreter.VisitChild(node as CompilationUnit);
-                        GeneratedSourceCode = CodeGenerator.Visit(MacroInterpreter.Root);
+                if (_compileCommand == null)
+                {
+                    _compileCommand = new ActionCommand(() =>
+                    {
+                        try
+                        {
+                            var node = ParseWithAbstractTreeVisitor(_compiler, OriginalSourceCode);
+                            MacroInterpreter.VisitChild(node as CompilationUnit);
+                            GeneratedSourceCode = CodeGenerator.Visit(MacroInterpreter.Root);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
                     });
                 }
                 return _compileCommand;
