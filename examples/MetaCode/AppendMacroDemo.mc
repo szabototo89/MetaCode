@@ -1,3 +1,12 @@
+implicit macro CreateFunction(tree : { * }) do
+	var func: any = func(
+		'max', [ parameter('a', 'number'), parameter('b', 'number') ],
+		ast('if (a > b) return a; else return b; end;')
+	);
+	
+	prependTo(func, tree);
+end;
+
 // A LogBranchesMacro kiválasztja a globális hatókörben lévő
 // elágazosok igaz ágát választjuk ki
 implicit macro LogBranchesMacro(tree: { * > if[true-statement] }) do
@@ -26,6 +35,7 @@ implicit macro DetachBranchesInWhileBody(tree : { * > while[body] }) do
 	);
 end;
 
+
 if (true)
 	if (2 >= 0)
 		debug('Hello World');	
@@ -43,6 +53,10 @@ while (true) do
 		skip;
 	end;
 end;
+
+
+
+
 
 
 

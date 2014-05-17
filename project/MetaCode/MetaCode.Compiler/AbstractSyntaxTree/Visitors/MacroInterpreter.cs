@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime.Misc;
 using MetaCode.Compiler.AbstractSyntaxTree.Constants;
 using MetaCode.Compiler.AbstractSyntaxTree.Expressions;
+using MetaCode.Compiler.AbstractSyntaxTree.Factories;
 using MetaCode.Compiler.AbstractSyntaxTree.Operators;
 using MetaCode.Compiler.AbstractSyntaxTree.Operators.Logical;
 using MetaCode.Compiler.AbstractSyntaxTree.Operators.Numerics;
@@ -86,6 +88,62 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
             InterpreterContext.DeclareNativeFunction("ast", new Func<object, object>(GetAbstractSyntaxTree));
 
+            InterpreterContext.DeclareNativeFunction("parameter", new Func<object, object, object>((_name, _type) =>
+            {
+                return GetParameterByType<string>(_name, name =>
+                {
+                    return GetParameterByType<string>(_type, type =>
+                    {
+                        return new FormalParameterNode(name, new TypeNameNode(type));
+                    });
+                });
+            }));
+
+            InterpreterContext.DeclareNativeFunction("func", new Func<object, object, object, object>((_name, _params, _body) =>
+            {
+                return GetParameterByType<string>(_name, "Invalid first argument of function()", name =>
+                {
+                    return GetParameterByType<IEnumerable<FormalParameterNode>>(_params.As<IEnumerable>().OfType<FormalParameterNode>(), "Invalid second argument function()", parameters =>
+                    {
+                        return GetParameterByType<IEnumerable<StatementNodeBase>>((_body.As<IEnumerable>().OfType<StatementNodeBase>()), "Invalid third argument function()",
+                            body =>
+                            {
+                                var factory = new StatementFactory(CompilerService);
+                                return new[] { factory.Function(name, new TypeNameNode("any"), parameters.ToArray(), factory.Block(body.ToArray()), new AttributeNode[0]) };
+                            });
+                    });
+                });
+            }));
+
+            InterpreterContext.DeclareNativeFunction("sequence", new Func<object, object>(
+                (_commands) =>
+                {
+                    return GetParameterByType<IEnumerable>(_commands, commands =>
+                    {
+                        return new[] {new BlockStatementNode(commands.OfType<StatementNodeBase>(),
+                            Enumerable.Empty<AttributeNode>()) };
+                    });
+                }));
+
+            InterpreterContext.DeclareNativeFunction("ifThenElse", new Func<object, object, object, object>(
+                (_condition, _trueStatement, _falseStatement) =>
+                {
+                    return GetParameterByType<IEnumerable>(_condition, condition =>
+                    {
+                        return GetParameterByType<IEnumerable>(_trueStatement, trueStatement =>
+                        {
+                            return GetParameterByType<IEnumerable>(_falseStatement, falseStatement =>
+                            {
+                                var expr = condition.OfType<ExpressionNode>().First();
+                                var trueStmt = trueStatement.OfType<BlockStatementNode>().First();
+                                var falseStmt = falseStatement.OfType<BlockStatementNode>().First();
+
+                                return new[] { new IfStatementNode(expr, trueStmt, falseStmt, Enumerable.Empty<AttributeNode>()) };
+                            });
+                        });
+                    });
+                }));
+
             InterpreterContext.DeclareNativeFunction("find", new Func<object, object, object>((tree, filter) =>
             {
                 if (!(tree is IEnumerable<Node>) && !(tree is string))
@@ -121,18 +179,20 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
             {
                 return GetParameterByType<IEnumerable<StatementNodeBase>>(that.As<IEnumerable>().OfType<StatementNodeBase>(), "Invalid first argument of appendTo()", nodes =>
                 {
-                    return GetParameterByType<IEnumerable<StatementNodeBase>>(treeDestination.As<IEnumerable>().OfType<StatementNodeBase>(), "Invalid second argument of appendTo()", destinations =>
+                    return GetParameterByType<IEnumerable>(treeDestination.As<IEnumerable>(), "Invalid second argument of appendTo()", destinations =>
                     {
                         foreach (var destination in destinations)
                         {
                             if (destination is BlockStatementNode)
+                            {
                                 destination.As<BlockStatementNode>().AppendStatement(nodes.ToArray());
+                            }
                             else
                             {
-                                destination.AddChildren(new BlockStatementNode(nodes, Enumerable.Empty<AttributeNode>()));
+                                (destination as Node).AddChildren(nodes);
                             }
                         }
-                        return null;
+                        return TypeHelper.Void;
                     });
                 });
             }));
@@ -141,7 +201,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
             {
                 return GetParameterByType<IEnumerable<StatementNodeBase>>(that.As<IEnumerable>().OfType<StatementNodeBase>(), "Invalid first argument of prependTo()", nodes =>
                 {
-                    return GetParameterByType<IEnumerable<StatementNodeBase>>(treeDestination.As<IEnumerable>().OfType<StatementNodeBase>(), "Invalid second argument of appendTo()", destinations =>
+                    return GetParameterByType<IEnumerable>(treeDestination.As<IEnumerable>(), "Invalid second argument of prepend()", destinations =>
                     {
                         foreach (var destination in destinations)
                         {
@@ -149,7 +209,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                                 destination.As<BlockStatementNode>().PrependStatement(nodes.ToArray());
                             else
                             {
-                                destination.AddChildren(new BlockStatementNode(nodes, Enumerable.Empty<AttributeNode>()));
+                                (destination as Node).InsertChildren(0, nodes);
                             }
                         }
                         return null;

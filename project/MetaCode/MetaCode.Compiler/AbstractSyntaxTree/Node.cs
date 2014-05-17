@@ -44,7 +44,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree
             if (children == null)
                 ThrowHelper.ThrowArgumentNullException(() => children);
 
-            _children.InsertRange(position, children);
+            _children = children.Concat(_children).Distinct().ToList();
 
             foreach (var child in children)
                 child.SetParent(this);
