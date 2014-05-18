@@ -1,7 +1,7 @@
 implicit macro CreateFunction(tree : { * }) do
 	var func: any = func(
 		'max', [ parameter('a', 'number'), parameter('b', 'number') ],
-		ast('if (a > b) return a; else return b; end;')
+		ast('if (a > b) result = a; else result = b; end;')
 	);
 	
 	prependTo(func, tree);
@@ -53,6 +53,7 @@ while (true) do
 		skip;
 	end;
 end;
+
 
 
 

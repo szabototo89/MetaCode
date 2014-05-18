@@ -44,8 +44,7 @@ namespace MetaCode.Compiler.Visitors.TreeSelector
         {
             var parent = context.Parent.Accept(this);
 
-            if (context.Operator != null)
-            {
+            if (context.Operator != null) {
                 var op = context.Operator.Text;
                 Func<NodeSelectorOperator> selectorOperator = null;
                 if (!_Operators.TryGetValue(op, out selectorOperator))

@@ -13,7 +13,7 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 {
-    public class SemanticParserTreeVisitor : TreeVisitorBase<SemanticParserTreeVisitor>
+    public class SemanticParser : TreeVisitorBase<SemanticParser>
     {
         public CompilerService CompilerService { get; protected set; }
 
@@ -21,7 +21,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
         public ExpressionTypeAnalyzer ExpressionTypeAnalyzer { get; protected set; }
 
-        public SemanticParserTreeVisitor(CompilerService compilerService)
+        public SemanticParser(CompilerService compilerService)
         {
             if (compilerService == null)
                 ThrowHelper.ThrowArgumentNullException(() => compilerService);

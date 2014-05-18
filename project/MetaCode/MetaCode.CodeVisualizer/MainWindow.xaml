@@ -90,6 +90,9 @@
               </TextBox.ContextMenu>
             </TextBox>
           </TabItem>
+          <TabItem Header="Messages">
+            <ListBox ItemsSource="{Binding Messages}" />
+          </TabItem>
         </TabControl>
         <Button Grid.Column="1"
                 Command="{Binding CompileCommand}"

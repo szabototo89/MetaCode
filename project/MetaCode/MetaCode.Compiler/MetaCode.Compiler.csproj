@@ -113,7 +113,7 @@
     <Compile Include="AbstractSyntaxTree\Visitors\CodeInterpreter.cs" />
     <Compile Include="AbstractSyntaxTree\Visitors\ExpressionTypeAnalyzer.cs" />
     <Compile Include="AbstractSyntaxTree\Visitors\MacroInterpreter.cs" />
-    <Compile Include="AbstractSyntaxTree\Visitors\SemanticParserTreeVisitor.cs" />
+    <Compile Include="AbstractSyntaxTree\Visitors\SemanticParser.cs" />
     <Compile Include="AbstractSyntaxTree\Visitors\TreeVisitorBase.cs" />
     <Compile Include="AbstractSyntaxTree\Visitors\DeclarationAnalyzer.cs" />
     <Compile Include="Commons\Declarations\AttributeDeclaration.cs" />

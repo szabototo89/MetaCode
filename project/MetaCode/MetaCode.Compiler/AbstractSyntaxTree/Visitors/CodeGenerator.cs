@@ -78,7 +78,9 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                                                                         .Do(() => visitor.VisitChild(node.Expression)))
                 .If<BinaryExpressionNode>((visitor, node) => {
                     return visitor.VisitChild(node.Left)
-                        .AppendFormat(" {0} ", node.Operator.Operator)
+                        .Append(" ")
+                        .Append(node.Operator.Operator)
+                        .Append(" ")
                         .Do(() => visitor.VisitChild(node.Right));
                 })
                 .If<VariableDeclarationStatementNode>((visitor, node) => {
@@ -142,7 +144,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                 .If<SkipStatementNode>((_, node) => _codeBuilder.Append("skip;").AppendLine())
                 .If<AssignmentExpressionNode>((visitor, node) => visitor.VisitChild(node.LeftValue)
                                                                     .Append(" = ")
-                                                                    .Append(visitor.VisitChild(node.RightValue)))
+                                                                    .Do(() => visitor.VisitChild(node.RightValue)))
                 .If<WhileLoopStatementNode>((visitor, node) => {
                     return _codeBuilder.Append("while")
                         .Append(" (")

@@ -43,7 +43,7 @@ namespace MetaCode.Compiler.Tests
             ";
 
             var compilerService = new CompilerService();
-            var analyzer = new SemanticParserTreeVisitor(compilerService);
+            var analyzer = new SemanticParser(compilerService);
 
             // WHEN
             var node = ParseWithAbstractTreeVisitor(Compiler, source);

@@ -55,6 +55,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                         visitor.VisitChild(child);
                     return this;
                 })
+                .If<MacroDeclarationStatementNode>((visitor, node) => this)
                 .If<FunctionDeclarationStatementNode>((visitor, node) => {
                     InterpreterContext.DeclareFunction(node.FunctionName, node, this);
                     return this;

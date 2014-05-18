@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,10 +26,13 @@ namespace MetaCode.CodeVisualizer.ViewModels
 
         public CodeInterpreter CodeInterpreter { get; set; }
 
+        public SemanticParser SemanticParser { get; set; }
+
         private MetaCodeCompiler _compiler;
         private ActionCommand _compileCommand;
         private string _output;
         private ActionCommand _clearOutputCommand;
+        private ObservableCollection<string> _messages;
 
         private Node ParseWithAbstractTreeVisitor(MetaCodeCompiler compiler, string source)
         {
@@ -55,14 +59,17 @@ namespace MetaCode.CodeVisualizer.ViewModels
             CodeInterpreter = new CodeInterpreter(CompilerService);
             CodeGenerator = new CodeGenerator();
 
+            SemanticParser = new SemanticParser(CompilerService);
+
+            Messages = new ObservableCollection<string>();
+
             InitializeFunctions();
         }
 
         private void InitializeFunctions()
         {
             var context = MacroInterpreter.InterpreterContext;
-            context.DeclareNativeFunction("debug", new Func<object, object>(value =>
-            {
+            context.DeclareNativeFunction("debug", new Func<object, object>(value => {
                 WriteLineToOutput(value.ToString());
                 return null;
             }));
@@ -102,11 +109,20 @@ namespace MetaCode.CodeVisualizer.ViewModels
         {
             get
             {
-                if (_clearOutputCommand == null)
-                {
+                if (_clearOutputCommand == null) {
                     _clearOutputCommand = new ActionCommand(ClearOutput);
                 }
                 return _clearOutputCommand;
+            }
+        }
+
+        public ObservableCollection<string> Messages
+        {
+            get { return _messages; }
+            set
+            {
+                _messages = value;
+                OnPropertyChanged(() => Messages);
             }
         }
 
@@ -114,19 +130,32 @@ namespace MetaCode.CodeVisualizer.ViewModels
         {
             get
             {
-                if (_compileCommand == null)
-                {
-                    _compileCommand = new ActionCommand(() =>
-                    {
-                        try
-                        {
+                if (_compileCommand == null) {
+                    _compileCommand = new ActionCommand(() => {
+                        try {
+                            Messages.Clear();
+                            CompilerService.Errors.Clear();
                             var node = ParseWithAbstractTreeVisitor(_compiler, OriginalSourceCode);
+                            Messages.Add("[INFO] Macro interpretation has started ...");
                             MacroInterpreter.VisitChild(node as CompilationUnit);
+                            Messages.Add("[INFO] Code generation has started ...");
                             GeneratedSourceCode = CodeGenerator.Visit(MacroInterpreter.Root);
+
+                            if (!CompilerService.Errors.Any()) {
+                                Messages.Add("[INFO] Semantic parsing has started ...");
+                                CompilerService = new CompilerService();
+                                SemanticParser = new SemanticParser(CompilerService);
+                                SemanticParser.Visit(MacroInterpreter.Root);
+                                if (!CompilerService.Errors.Any())
+                                    CodeInterpreter.VisitChild(MacroInterpreter.Root);
+                            }
                         }
-                        catch (Exception e)
-                        {
+                        catch (Exception e) {
                             Console.WriteLine(e);
+                            Messages.Add("[APPLICATION] " + e.Message);
+                        }
+                        finally {
+                            CompilerService.Errors.ForEach(error => Messages.Add("[COMPILER] " + error));
                         }
                     });
                 }
