@@ -20,6 +20,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
     public class ExpressionTypeAnalyzer : TreeVisitorBase<Type>
     {
         private Scope _currentScope;
+        private readonly CodeGenerator _codeGenerator;
 
         public CompilerService CompilerService { get; set; }
 
@@ -30,6 +31,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
             CompilerService = compilerService;
             _currentScope = compilerService.GetGlobalScope();
+            _codeGenerator = new CodeGenerator();
 
             Initialize();
         }
@@ -37,25 +39,30 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
         private void Initialize()
         {
             this
+                .If<MacroDeclarationStatementNode>((visitor, node) => null)
                 .If<ConstantExpressionNode>((visitor, node) => node.Type)
-                .If<UnaryExpressionNode>((visitor, node) => {
+                .If<UnaryExpressionNode>((visitor, node) =>
+                {
                     var op = node.Operator;
 
-                    if (op is NegationOperatorNode) {
+                    if (op is NegationOperatorNode)
+                    {
                         if (!visitor.VisitChild(node.Expression).IsLogical())
-                            CompilerService.Error("Expression must be logical type!");
+                            CompilerService.Error(string.Format("Expression must be logical type: {0}!", GenerateCode(node)));
 
                         return typeof(Boolean);
                     }
-                    CompilerService.Error("Not supported unary operator!");
+                    CompilerService.Error(string.Format("Not supported unary operator: {0}!", GenerateCode(node)));
                     return typeof(Object);
                 })
-                .If<BinaryExpressionNode>((visitor, node) => {
+                .If<BinaryExpressionNode>((visitor, node) =>
+                {
                     var op = node.Operator;
                     var left = visitor.VisitChild(node.Left);
                     var right = visitor.VisitChild(node.Right);
 
-                    if (op is NumericBinaryOperatorNode) {
+                    if (op is NumericBinaryOperatorNode)
+                    {
                         if (!left.IsNumeric())
                             CompilerService.Error("Left expression must be numeric type!");
                         if (!right.IsNumeric())
@@ -63,7 +70,8 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                         return typeof(Double);
                     }
-                    if (op is RelationalBinaryOperatorNode) {
+                    if (op is RelationalBinaryOperatorNode)
+                    {
                         if (!left.IsNumeric())
                             CompilerService.Error("Left expression must be numeric type!");
                         if (!right.IsNumeric())
@@ -71,7 +79,8 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                         return typeof(Boolean);
                     }
-                    if (op is LogicalBinaryOperatorNode) {
+                    if (op is LogicalBinaryOperatorNode)
+                    {
                         if (!left.IsLogical())
                             CompilerService.Error("Left expression must be logical type!");
                         if (!right.IsLogical())
@@ -80,10 +89,11 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                         return typeof(Boolean);
                     }
 
-                    CompilerService.Error("Not supported binary operator!");
+                    CompilerService.Error(string.Format("Not supported binary operator: {0}", GenerateCode(node)));
                     return typeof(Object);
                 })
-                .If<IdentifierExpressionNode>((visitor, node) => {
+                .If<IdentifierExpressionNode>((visitor, node) =>
+                {
                     var variableName = node.Name;
                     var variable = _currentScope.FindVariable(variableName);
                     if (variable != null)
@@ -92,7 +102,8 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     CompilerService.Error(string.Format("Unrecognized variable: '{0}'", variableName));
                     return typeof(object);
                 })
-                .If<MemberExpressionNode>((visitor, node) => {
+                .If<MemberExpressionNode>((visitor, node) =>
+                {
                     var members = node.Members;
                     var firstMember = members.First();
 
@@ -106,56 +117,65 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     return null;
                     // TODO: Implement objects
                 })
-                .If<AssignmentExpressionNode>((visitor, node) => {
+                .If<AssignmentExpressionNode>((visitor, node) =>
+                {
                     var left = visitor.VisitChild(node.LeftValue);
                     var right = visitor.VisitChild(node.RightValue);
 
-                    if (left != right) {
-                        CompilerService.Error("Wrong type of assignment");
-                    }
+                    var assignment = GenerateCode(node);
+
+                    if (!left.IsAssignableFrom(right))
+                        CompilerService.Error(string.Format("Wrong type of assignment: {0}", assignment));
 
                     return left;
                 })
-                .If<FunctionCallExpressionNode>((visitor, node) => {
+                .If<FunctionCallExpressionNode>((visitor, node) =>
+                {
                     var functionName = node.FunctionName.Name;
                     var function = _currentScope.FindFunction(functionName);
 
-                    if (function == null) {
-                        CompilerService.Error("Invalid function call!");
+                    string INVALID_FUNCTION_CALL_MESSAGE = string.Format("Invalid function call: {0}!", GenerateCode(node));
+                    if (function == null)
+                    {
+                        CompilerService.Error(INVALID_FUNCTION_CALL_MESSAGE);
                         return null;
                     }
 
-                    if (node.ActualParameters.Count() != function.FormalParameters.Length) {
-                        CompilerService.Error("Invalid function call!");
+                    if (node.ActualParameters.Count() != function.FormalParameters.Length)
+                    {
+                        CompilerService.Error(INVALID_FUNCTION_CALL_MESSAGE);
                         return null;
                     }
 
-                    node.ActualParameters.Select((parameter, index) => {
+                    node.ActualParameters.Foreach((parameter, index) =>
+                    {
                         var type = visitor.VisitChild(parameter);
-                        if (type != function.FormalParameters[index].Type)
+                        if (!function.FormalParameters[index].Type.IsAssignableFrom(type))
                             CompilerService.Error("Invalid function parameter type!");
-
-                        return parameter;
                     });
 
                     return function.ReturnType;
                 })
-                .If<ReturnStatementNode>((visitor, node) => {
+                .If<ReturnStatementNode>((visitor, node) =>
+                {
                     var expressionType = visitor.VisitChild(node.ReturnExpression);
                     var functionScope = CompilerService.GetFunctionScope(_currentScope);
-                    if (functionScope == null) {
+                    if (functionScope == null)
+                    {
                         CompilerService.Error("Invalid use of return statement!");
                         return null;
                     }
 
-                    if (expressionType != functionScope.Function.ReturnType) {
+                    if (expressionType != functionScope.Function.ReturnType)
+                    {
                         CompilerService.Error("Invalid expression type of return statement!");
                         return null;
                     }
 
                     return expressionType;
                 })
-                .If<BlockStatementNode>((visitor, node) => {
+                .If<BlockStatementNode>((visitor, node) =>
+                {
                     _currentScope = CompilerService.GetScopeByNode(node) ?? _currentScope;
 
                     foreach (var child in node.Children)
@@ -164,6 +184,11 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     return null;
                 });
 
+        }
+
+        private string GenerateCode(Node node)
+        {
+            return _codeGenerator.Visit(node);
         }
     }
 }

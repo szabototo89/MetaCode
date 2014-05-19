@@ -42,17 +42,22 @@ if (true)
 	end;
 end;
 
-while (true) do
+var i : number = 1;
+
+while (i < 4) do
 	if (true)
 		if (false)
 			skip;
 		end;
 	end;
-	max(10, 13);
+	debug(max(10, 13));
 	if (false)
 		skip;
 	end;
+	i = i + 1;
 end;
+
+
 
 
 

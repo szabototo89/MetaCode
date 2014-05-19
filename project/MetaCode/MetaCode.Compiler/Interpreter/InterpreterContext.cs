@@ -171,7 +171,7 @@ namespace MetaCode.Compiler.Interpreter
                 ThrowHelper.ThrowException("The 'name' is blank!");
 
             var function = GetFunction(name);
-            return function.Invoke(args.ToArray());
+            return function.Invoke(args.ToArray()) ?? TypeHelper.Void;
         }
 
         public object InvokeMacroFunction(string name, IEnumerable<Node> args)

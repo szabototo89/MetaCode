@@ -90,7 +90,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                         .Do(() => visitor.VisitChild(node.VariableType))
                         .Append(" = ")
                         .Do(() => visitor.VisitChild(node.InitialValue))
-                        .Append(";");
+                        .AppendLine(";");
                 })
                 .If<ObjectDeclarationStatementNode>((visitor, node) => {
                     return _codeBuilder.Append("object ")

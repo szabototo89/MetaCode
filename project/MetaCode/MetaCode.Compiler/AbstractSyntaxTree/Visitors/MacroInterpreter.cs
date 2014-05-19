@@ -25,6 +25,7 @@ using MetaCode.Core;
 
 namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 {
+    // TODO: Add attribute declaration to MacroInterpreter 
     public class MacroInterpreter : TreeVisitorBase<MacroInterpreter>
     {
         public CompilerService CompilerService { get; set; }

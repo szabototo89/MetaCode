@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,13 @@ namespace MetaCode.Compiler.Services
             _scopes = new Dictionary<Node, Scope>();
 
             _globalScope = _currentScope = Scope.CreateGlobalScope();
+
+            InitializeNativeFunctions();
+        }
+
+        private void InitializeNativeFunctions()
+        {
+            _globalScope.DeclareFunction("debug", typeof(void), new[] { new FormalParameter("text", typeof(object)) });
         }
 
         public CompilerService Warning(string message)
@@ -89,7 +97,12 @@ namespace MetaCode.Compiler.Services
             if (scope == null)
                 ThrowHelper.ThrowArgumentNullException(() => scope);
 
-            _scopes.Add(node, scope);
+            if (!_scopes.ContainsKey(node))
+                _scopes.Add(node, scope);
+            else
+            {
+
+            }
 
             return scope;
         }
@@ -171,5 +184,10 @@ namespace MetaCode.Compiler.Services
         }
 
         public TextSpan CurrentSpan { get; set; }
+
+        public bool HasError
+        {
+            get { return Errors.Any(); }
+        }
     }
 }

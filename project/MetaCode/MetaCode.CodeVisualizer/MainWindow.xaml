@@ -31,7 +31,7 @@
       <Grid.RowDefinitions>
         <RowDefinition Height="*" />
         <RowDefinition Height="3" />
-        <RowDefinition Height="Auto" MaxHeight="200" />
+        <RowDefinition Height="Auto" MaxHeight="200" MinHeight="100" />
       </Grid.RowDefinitions>
       <Grid Grid.Row="0">
         <Grid.Resources>
@@ -90,13 +90,15 @@
               </TextBox.ContextMenu>
             </TextBox>
           </TabItem>
-          <TabItem Header="Messages">
-            <ListBox ItemsSource="{Binding Messages}" />
+          <TabItem Header="Messages" >
+            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="200">
+              <ListBox ItemsSource="{Binding Messages}" MaxHeight="180" />
+            </ScrollViewer>
           </TabItem>
         </TabControl>
         <Button Grid.Column="1"
                 Command="{Binding CompileCommand}"
-                Content="Compile" />
+                Content="Compile and Run" />
       </Grid>
     </Grid>
   </DockPanel>
