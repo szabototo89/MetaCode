@@ -112,9 +112,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     var variable = CompilerService.FindVariable(firstMember.Name);
 
-
-
-                    return null;
+                    return typeof(object);
                     // TODO: Implement objects
                 })
                 .If<AssignmentExpressionNode>((visitor, node) =>

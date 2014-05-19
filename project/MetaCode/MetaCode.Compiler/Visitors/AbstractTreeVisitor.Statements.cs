@@ -184,9 +184,9 @@ namespace MetaCode.Compiler.Visitors
                                     .Select(param => param.Accept(this) as MacroFormalParameterNode)
                                     .ToArray();
 
-            var type = context.Type.Text == "implicit" ? MacroType.Implicit : MacroType.Explicit;
+            //var type = context.Type.Text == "implicit" ? MacroType.Implicit : MacroType.Explicit;
 
-            return StatementFactory.Macro(identifier, parameters, body, type);
+            return StatementFactory.Macro(identifier, parameters, body, MacroType.Implicit);
         }
 
         public override Node VisitInit(MetaCodeParser.InitContext context)

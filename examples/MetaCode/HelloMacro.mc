@@ -1,4 +1,4 @@
-implicit macro DebugMacro(tree: { * > * }) do
+macro DebugMacro(tree: { * > * }) do
 	var i : number = 1;
 	foreach (var child : any in convertToString(tree)) do
 		debug(i + '. child');
@@ -12,3 +12,4 @@ skip;
 if (true)
 	skip;
 end;
+

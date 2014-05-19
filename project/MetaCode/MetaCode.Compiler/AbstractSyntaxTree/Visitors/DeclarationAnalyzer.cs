@@ -1,7 +1,10 @@
 ﻿using System;
+using System.CodeDom.Compiler;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using MetaCode.Compiler.AbstractSyntaxTree.Statements;
@@ -14,6 +17,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 {
     public class DeclarationAnalyzer : TreeVisitorBase<DeclarationAnalyzer>
     {
+        private CodeGenerator _codeGenerator;
         public CompilerService CompilerService { get; set; }
         public ExpressionTypeAnalyzer ExpressionTypeAnalyzer { get; set; }
 
@@ -27,6 +31,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
             CompilerService = compilerService;
 
             ExpressionTypeAnalyzer = new ExpressionTypeAnalyzer(compilerService);
+            _codeGenerator = new CodeGenerator();
 
             InitializeStandardTypes();
             Initialize();
@@ -40,7 +45,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
             StandardTypes.Add("any", typeof(Object));
             StandardTypes.Add("string", typeof(String));
             StandardTypes.Add("boolean", typeof(Boolean));
-            StandardTypes.Add("array", typeof(Array));
+            StandardTypes.Add("array", typeof(IEnumerable));
         }
 
         private Type FindType(string name)
@@ -139,17 +144,17 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     if (scope.VariableDeclarations.Any(variable => variable.Name == node.VariableName))
                     {
-                        CompilerService.Error("This variable is already defined!");
+                        CompilerService.Error("This variable has already been defined!");
                         return this;
                     }
 
                     var type = FindType(node.VariableType.Type);
-                    /*var rightExpression = ExpressionTypeAnalyzer.VisitChild(node.InitialValue);
+                    var rightExpression = ExpressionTypeAnalyzer.VisitChild(node.InitialValue);
 
-                    if (type != rightExpression) {
-                        CompilerService.Error(string.Format("Wrong type of initial value of {0}!", node.VariableName));
+                    if (type == null || !rightExpression.IsAssignableFrom(type)) {
+                        CompilerService.Error(string.Format("Wrong type of initial value of {0}: {1}!", node.VariableName, GeneratedCode(node)));
                         return this;
-                    }*/
+                    }
 
                     scope.DeclareVariable(node.Identifier.Name, type);
 
@@ -158,6 +163,13 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
                     return this;
                 });
+        }
+
+        private string GeneratedCode(Node node)
+        {
+            if (node == null) throw new ArgumentNullException("node");
+
+            return _codeGenerator.Visit(node);
         }
 
         private FormalParameter[] GetFormalParameters(IEnumerable<FormalParameterNode> parameters)

@@ -15,7 +15,7 @@
             <!-- ... -->
 
             <Span name = "LineComment" rule = "CommentMarkerSet" bold="false" italic="false" color="Green" stopateol = "true">
-                <Begin>#</Begin>
+                <Begin>//</Begin>
             </Span>
     
             <Span name = "BlockComment" rule = "CommentMarkerSet" bold = "false" italic = "false" color = "Green" stopateol = "false">
@@ -55,8 +55,10 @@
                 <Key word = "do" />
                 <Key word = "end" />
                 <Key word = "if" />
+                <Key word = "else" />
                 <Key word = "foreach" />
                 <Key word = "while" />
+                <Key word = "object" />
                 <Key word = "in" />
                 <Key word = "var" />
                 <Key word = "function" />

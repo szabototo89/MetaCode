@@ -76,7 +76,7 @@ primaryExpression   :   Attributes=attribute* Constant=constant
 functionStatement   :   attribute* FUNCTION FunctionName=ID ('(' Parameter=formalParameter (',' Parameter=formalParameter)* ')')? (':' ReturnType=typeName) DO BodyStatements=statements END
                     ;
 
-macroStatement      :   attribute* (Type=IMPLICIT | Type=EXPLICIT) MACRO MacroName=ID '(' macroFormalParameter (',' macroFormalParameter)* ')' DO BodyStatements=statements END
+macroStatement      :   attribute* MACRO MacroName=ID '(' macroFormalParameter (',' macroFormalParameter)* ')' DO BodyStatements=statements END
                     ;
 
 foreachStatement    :   attribute* FOREACH '(' Var=VAR Id=ID (':' VariableType=typeName) IN ArrayExpression=expression ')' Body=statement

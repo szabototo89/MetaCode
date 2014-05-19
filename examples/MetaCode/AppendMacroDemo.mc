@@ -1,4 +1,4 @@
-implicit macro CreateFunction(tree : { * }) do
+macro CreateFunction(tree : { * }) do
 	var func: any = func(
 		'max', [ parameter('a', 'number'), parameter('b', 'number') ],
 		ast('if (a > b) result = a; else result = b; end;')
@@ -9,7 +9,7 @@ end;
 
 // A LogBranchesMacro kiválasztja a globális hatókörben lévő
 // elágazosok igaz ágát választjuk ki
-implicit macro LogBranchesMacro(tree: { * > if[true-statement] }) do
+macro LogBranchesMacro(tree: { * > if[true-statement] }) do
 	// hozzácsatoljuk a debug függvényhívást a szekvencia végéhez
 	appendTo(
 		functionCall('debug', [str('Elágazás vége ...')]), tree
@@ -25,13 +25,17 @@ implicit macro LogBranchesMacro(tree: { * > if[true-statement] }) do
 end;  
 
 // A DetachBranchesInWhileBody makróval lekérdezzük a while ciklus törzsét
-implicit macro DetachBranchesInWhileBody(tree : { * > while[body] }) do
+macro DetachBranchesInWhileBody(tree : { * > while[body] }) do
 	// töröljük a benne lévő elágazásokat
 	detach(find(tree, '{ * > if }'));
 	
+	prependTo(
+		functionCall('debug', [str('Ciklus törzsének kezdete ...')]), tree
+	);
+	
 	// és hozzácsatolunk egy függvényhívást
 	appendTo(
-		functionCall('debug', [str('Ciklus törzse')]), tree
+		functionCall('debug', [str('Ciklus törzsének vége ...')]), tree
 	);
 end;
 
@@ -56,6 +60,8 @@ while (i < 4) do
 	end;
 	i = i + 1;
 end;
+
+
 
 
 
