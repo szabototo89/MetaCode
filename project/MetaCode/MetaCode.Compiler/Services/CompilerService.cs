@@ -43,6 +43,7 @@ namespace MetaCode.Compiler.Services
         private void InitializeNativeFunctions()
         {
             _globalScope.DeclareFunction("debug", typeof(void), new[] { new FormalParameter("text", typeof(object)) });
+            _globalScope.DeclareFunction("new", typeof(ObjectType), new[] { new FormalParameter("type", typeof(string)) });
         }
 
         public CompilerService Warning(string message)

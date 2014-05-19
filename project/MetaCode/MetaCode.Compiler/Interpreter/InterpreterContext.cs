@@ -49,8 +49,7 @@ namespace MetaCode.Compiler.Interpreter
                 {"writeline", new NativeFunctionContext("writeline", new Func<object, object>(text =>{
                     Console.WriteLine(text);
                     return TypeHelper.Void;
-                }))},
-                { "object", new NativeFunctionContext("object", new Func<object>(() => new Dictionary<string, object>()))}
+                }))}
             });
 
             return this;

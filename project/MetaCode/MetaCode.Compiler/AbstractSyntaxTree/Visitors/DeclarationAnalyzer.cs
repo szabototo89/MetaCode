@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using MetaCode.Compiler.AbstractSyntaxTree.Statements;
 using MetaCode.Compiler.Commons;
 using MetaCode.Compiler.Helpers;
+using MetaCode.Compiler.Interpreter;
 using MetaCode.Compiler.Services;
 using MetaCode.Core;
 
@@ -53,6 +54,9 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
             Type result;
             if (StandardTypes.TryGetValue(name, out result))
                 return result;
+
+            if (CompilerService.GetScope().FindType(name) != null)
+                return typeof (ObjectType);
 
             return null;
         }
@@ -115,6 +119,8 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     var formalParameters = GetFormalParameters(node.Parameters);
                     scope.DeclareObjectType(node.ObjectName, formalParameters);
 
+                    scope.DeclareVariable(node.ObjectName, typeof (string));
+
                     foreach (var child in node.Children)
                         visitor.VisitChild(child);
 
@@ -152,7 +158,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                     var rightExpression = ExpressionTypeAnalyzer.VisitChild(node.InitialValue);
 
                     if (type == null || !rightExpression.IsAssignableFrom(type)) {
-                        CompilerService.Error(string.Format("Wrong type of initial value of {0}: {1}!", node.VariableName, GeneratedCode(node)));
+                        CompilerService.Error(string.Format("Wrong type of initial value of {0}: {1}!", node.VariableName, GeneratedCode(node).Trim(Environment.NewLine.ToCharArray())));
                         return this;
                     }
 

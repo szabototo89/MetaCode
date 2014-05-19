@@ -10,7 +10,7 @@ namespace MetaCode.Core
     {
         public string Type { get; set; }
 
-        private readonly Dictionary<string, object> _members;
+        protected readonly Dictionary<string, object> _members;
 
         public ObjectType()
         {

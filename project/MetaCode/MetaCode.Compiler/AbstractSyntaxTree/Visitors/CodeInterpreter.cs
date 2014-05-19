@@ -43,6 +43,8 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
         private void InitializeNativeFunctions()
         {
             InterpreterContext.DeclareNativeFunction("toString", new Func<object, string>(value => value.ToString()));
+            InterpreterContext.DeclareNativeFunction("toString", new Func<object, string>(value => value.ToString()));
+            InterpreterContext.DeclareNativeFunction("new", new Func<object, object>(value => new ObjectType() { Type = value.ToString() }));
         }
 
         private void Initialize()
@@ -58,6 +60,11 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                 .If<MacroDeclarationStatementNode>((visitor, node) => this)
                 .If<FunctionDeclarationStatementNode>((visitor, node) => {
                     InterpreterContext.DeclareFunction(node.FunctionName, node, this);
+                    return this;
+                })
+                .If<ObjectDeclarationStatementNode>((visitor, node) =>
+                {
+                    InterpreterContext.DeclareVariable(node.ObjectName, node.ObjectName);
                     return this;
                 })
                 .If<UnaryExpressionNode>((visitor, node) => {
