@@ -29,6 +29,7 @@ namespace MetaCode.Compiler.Visitors.TreeSelector
                 { "while", () => new WhileSelector() },
                 { "sequence", () => new SequenceSelector() },
                 { "variable", () => new VariableDeclarationSelector() },
+                { "type", () => new ObjectSelector() },
                 { "function", () => new FunctionDeclarationSelector() },
                 { "function-call", () => new FunctionCallSelector() },
             };

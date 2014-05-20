@@ -17,7 +17,7 @@ namespace MetaCode.Compiler.Selectors
             {
                 var result = filter();
                 var attributeNode = node as AttributeNode;
-                filter = () => result && attributeNode.Name == attribute.Value;
+                filter = () => result && attributeNode.Name == "@" + attribute.Value;
             });
 
             return filter();

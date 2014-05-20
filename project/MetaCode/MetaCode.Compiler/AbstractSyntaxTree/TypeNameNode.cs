@@ -7,7 +7,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree
 {
     public class TypeNameNode : Node, ISupportAttributes
     {
-        public string Type { get; protected set; }
+        public string Type { get; set; }
         public List<AttributeNode> Attributes { get; protected set; }
 
         public TypeNameNode(string type)

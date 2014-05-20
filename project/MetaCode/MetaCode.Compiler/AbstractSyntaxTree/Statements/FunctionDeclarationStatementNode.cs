@@ -8,7 +8,11 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Statements
 {
     public class FunctionDeclarationStatementNode : DeclarationStatementNodeBase, ISupportAttributes
     {
-        public string FunctionName { get { return Identifier.Name; } }
+        public string FunctionName
+        {
+            get { return Identifier.Name; }
+            set { Identifier.Name = value; }
+        }
 
         public BlockStatementNode FunctionBody { get; protected set; }
 

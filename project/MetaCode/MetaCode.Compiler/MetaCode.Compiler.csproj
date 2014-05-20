@@ -179,6 +179,7 @@
     <Compile Include="Selectors\FunctionDeclarationSelector.cs" />
     <Compile Include="Selectors\NodeSelector.cs" />
     <Compile Include="Selectors\NodeSelectorAttribute.cs" />
+    <Compile Include="Selectors\ObjectSelector.cs" />
     <Compile Include="Selectors\Operators\ChooseChildrenOperator.cs" />
     <Compile Include="Selectors\Operators\ChooseNeighbourOperator.cs" />
     <Compile Include="Selectors\Operators\ChooseDirectChildOperator.cs" />
