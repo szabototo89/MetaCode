@@ -47,6 +47,7 @@ namespace MetaCode.CodeVisualizer
 
             if (dialog.ShowDialog(this) == true) {
                 var file = dialog.FileName;
+                this.Title = "MetaCode IDE - " + file;
                 using (var text = File.OpenText(file)) {
                     ViewModel.OriginalSourceCode = text.ReadToEnd();
                 }

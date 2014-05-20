@@ -37,6 +37,7 @@ namespace MetaCode.CodeVisualizer.ViewModels
         private string _output;
         private ActionCommand _clearOutputCommand;
         private ObservableCollection<string> _messages;
+        private string _windowTitle;
 
         private Node ParseWithAbstractTreeVisitor(MetaCodeCompiler compiler, string source)
         {
@@ -71,6 +72,7 @@ namespace MetaCode.CodeVisualizer.ViewModels
             SemanticParser = new SemanticParser(CompilerService);
 
             InitializeFunctions();
+            WindowTitle = "MetaCode IDE";
         }
 
         private void InitializeFunctions()
@@ -132,6 +134,16 @@ namespace MetaCode.CodeVisualizer.ViewModels
                     _clearOutputCommand = new ActionCommand(ClearOutput);
                 }
                 return _clearOutputCommand;
+            }
+        }
+
+        public string WindowTitle
+        {
+            get { return _windowTitle; }
+            set
+            {
+                _windowTitle = value;
+                OnPropertyChanged(() => WindowTitle);
             }
         }
 

@@ -1,3 +1,5 @@
+attribute @extends(name: string);
+
 // az objektumtípusok közötti öröklődést fogjuk szimulálni a makróval
 macro ExtendsMacro(trees: { * > type > attribute[name=extends] }) do
   foreach (var tree : any in trees) do
@@ -40,6 +42,9 @@ end;
 object Boss
   type: string;
 end;
+
+
+
 
 
 

@@ -10,30 +10,20 @@ macro ObjectType(person: { * > type[name=Person] }) do
 	foreach (var member : any in members(person)) do
 		// a name adattag típusát megváltoztatjuk any-ra
 		// a change függvénnyel
+		// az equals ebben az esetben egy speciláis függvény,
+		// ugyanis a name(...) egy listával tér vissza, és abban
+		// keresi a 'name' sztringliterált 
 		if (equals(name(member), 'name'))
 			// az első paraméterrel mondjuk meg, hogy mit szeretnénk megváltoztatni
 			// a másodikkal, hogy mely objektumnak akarjuk megváltoztatni
 			// a harmadikkal pedig megmondjuk, hogy milyen típusú lesz
-			change('type', type(member), 'any');
+			change('type', type(member), 'string');
 		end;
 	end;
 	debug(person);
 end;
 
 object Person 
-  name: string;
+  name: __missing__type__;
   age: number;
 end;
-
-@extends(Person)
-object Employee
-  company: string;
-end;
-
-
-
-
-
-
-
-

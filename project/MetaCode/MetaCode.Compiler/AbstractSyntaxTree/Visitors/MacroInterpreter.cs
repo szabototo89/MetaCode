@@ -43,6 +43,31 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
         public CompilationUnit Root { get; protected set; }
 
+        public Dictionary<string, Type> StandardTypes { get; set; }
+
+        private void InitializeStandardTypes()
+        {
+            StandardTypes = new Dictionary<string, Type>();
+
+            StandardTypes.Add("number", typeof(Double));
+            StandardTypes.Add("any", typeof(Object));
+            StandardTypes.Add("string", typeof(String));
+            StandardTypes.Add("boolean", typeof(Boolean));
+            StandardTypes.Add("array", typeof(IEnumerable));
+        }
+
+        private Type FindType(string name)
+        {
+            Type result;
+            if (StandardTypes.TryGetValue(name, out result))
+                return result;
+
+            if (CompilerService.GetScope().FindType(name) != null)
+                return typeof(ObjectType);
+
+            return null;
+        }
+
         public MacroInterpreter(CompilerService compilerService)
         {
             if (compilerService == null)
@@ -58,6 +83,7 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
 
             Initialize();
             InitializeNativeFunctions();
+            InitializeStandardTypes();
         }
 
         private void InitializeNativeFunctions()
@@ -464,10 +490,23 @@ namespace MetaCode.Compiler.AbstractSyntaxTree.Visitors
                             var attributes = ((ISupportAttributes)child).Attributes;
                             foreach (var attribute in attributes.Where(attr => attr != null))
                             {
-                                if (!_attributes.Any(attr => attr.AttributeName == attribute.Name))
+                                var attributeDecl =
+                                    _attributes.FirstOrDefault(attr => attr.AttributeName == attribute.Name);
+
+                                if (attributeDecl == null)
                                 {
                                     CompilerService.Error(string.Format("Unrecognized attribute: {0}!", attribute.Name));
                                     break;
+                                }
+
+                                var expressionAnalyzer = new ExpressionTypeAnalyzer(CompilerService);
+                                var expressions = attribute.Expressions.ToArray();
+                                for (var i = 0; i < expressions.Length; i++)
+                                {
+                                    var expression = expressions[i];
+                                    var type = expressionAnalyzer.VisitChild(expression);
+                                    if (!FindType(attributeDecl.Parameters[i].TypeName.Type).IsAssignableFrom(type))
+                                        CompilerService.Error(string.Format("Invalid argument of attribute: {0}", attribute.Name));
                                 }
                             }
                         }

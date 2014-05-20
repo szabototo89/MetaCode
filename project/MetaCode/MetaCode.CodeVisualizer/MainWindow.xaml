@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
         xmlns:views="clr-namespace:MetaCode.CodeVisualizer.Views"
-        Title="MetaCode"
+        Title="MetaCode IDE"
         Height="350"
         Width="525">
 
@@ -11,17 +11,12 @@
     <Menu DockPanel.Dock="Top">
       <MenuItem Header="File">
         <MenuItem Header="New"
-                  InputGestureText="Ctrl+N"
-                  Click="NewFileCommand">
-        </MenuItem>
+                  Click="NewFileCommand" />
         <MenuItem Header="Open"
-                  InputGestureText="Ctrl+O"
                   Click="OpenFileCommand" />
         <MenuItem Header="Save"
-                  InputGestureText="Ctrl+S"
                   Click="SaveFileCommand" />
         <MenuItem Header="Save generated code"
-                  InputGestureText="Ctrl+Shift+S"
                   Click="SaveGeneratedFileCommand" />
         <Separator />
         <MenuItem Header="Close" Click="CloseWindowCommand" />
